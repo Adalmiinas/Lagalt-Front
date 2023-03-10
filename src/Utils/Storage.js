@@ -9,5 +9,7 @@ export const storageRead = key => {
         return JSON.parse(data);
     }
 
-    return null;
+    else{
+        return null;
+    }
 }

@@ -19,16 +19,16 @@ const LoginForm = () => {
     } = useForm();
 
     const {user, setUser} = useUser();
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [ apiError, setApiError] = useState(null);
 
     useEffect(() => {
         if(user !== null){
-            //navigate("/project");
+            navigate("/");
         }
-    }, [user])
+    }, [user , navigate])
 
     const onSubmit =  async ({username, password}) => {
         setLoading(true);
@@ -37,7 +37,7 @@ const LoginForm = () => {
             setApiError(error);
         }
 
-        if(user !== null){
+        if(userResponse !== null){
             storageSave('logged-user', userResponse);
             setUser(userResponse);
         }
