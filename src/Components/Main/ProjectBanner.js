@@ -5,12 +5,24 @@ export const ProjectBanner = (props) => {
 
     const navigation = useNavigate();
 
+    const filteredData = props.array.filter((el) => {
+        if(props.input === null) {
+            return el;
+        }
+        else {
+            if(el.title != null) {
+                return el.title.toLowerCase().includes(props.input);
+            }
+            return "";
+        }
+    });
+
     const navigateToProject = (id) => {
         navigation(`/project/${id}`);
 
-    }
+    };
 
-    return props.array.map((project, index) => (
+    return filteredData.map((project, index) => (
         <div key = {project.id} style={{display:'flex', justifyContent:'center', padding:'10px'}}>
         <Card sx={{minWidth: "80%", backgroundColor:"blue" }} >
             <CardContent>
