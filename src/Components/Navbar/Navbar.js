@@ -5,8 +5,10 @@ import SearchForm from "./SearchForm";
 import Popup from "reactjs-popup";
 import LoginForm from "../Login/LoginForm";
 import { Container } from "@mui/system";
+import { useUser } from "../../Context/UserContext";
 
 const Navbar = () => {
+  const {user} = useUser();
   const onSearchSubmit = () => {
     fetchProjects();
   };
@@ -22,6 +24,7 @@ const Navbar = () => {
           {/* <Button type="submit" onClick={() => onSearchSubmitById(2)}>SearchById</Button> */}
           <SearchForm />
         </ButtonGroup>
+        {user === null && (
         <Popup
           trigger={<Button variant="contained">Login</Button>}
           position="top center"
@@ -41,7 +44,11 @@ const Navbar = () => {
             </div>
           )}
         </Popup>
+        )}
+        
+        {user !== null && (
         <Button variant="contained" href="/profile">Profile</Button>
+        )}
         <Button variant="contained" href="/">Main</Button>
       </Container>
     </AppBar>
