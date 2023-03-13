@@ -1,8 +1,12 @@
-const Project = () => {
+import Projects from "../Components/Project/Project";
+import GetProject from "../Components/Project/Project";
 
-    return (
-        <h1>Project</h1>
-    )
-}
+const Project = () => {
+  return (
+    <>
+      <GetProject />
+    </>
+  );
+};
 
 export default Project;

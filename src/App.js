@@ -4,6 +4,7 @@ import MainPage from "./Views/MainPage";
 import Profile from "./Views/Profile";
 import Project from "./Views/Project";
 import Navbar from "./Components/Navbar/Navbar";
+import Projects from "./Components/Project/Project";
 
 function App() {
   return (

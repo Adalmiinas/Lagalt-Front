@@ -1,6 +1,5 @@
 import {useForm } from "react-hook-form"
-import { Button, TextField } from "@mui/material";
-import { fetchProjects, onSearchSubmitById} from  "../../Service/ProjectInfos"
+import { fetchProjects, fetchProjectById} from  "../../Service/ProjectInfos"
 
 const searchWordConfig = {
     minLength: 1
@@ -14,10 +13,10 @@ const SearchForm = () => {
     } = useForm()
 
     const onSubmit = (data) => {
-        console.log(data)
-        const filteredList = onSearchSubmitById(data)
+        //console.log(data)
+        //const filteredList = fetchProjectById(data.searchedWord)
         //const filteredList = fetchProjects()
-        console.log(filteredList)
+        //console.log(filteredList)
         
         //onSearchSubmitById(data)
     }
@@ -34,14 +33,7 @@ const SearchForm = () => {
 
     return (
         <>
-            {/* <TextField onSubmit={ handleSubmit(onSubmit)}
-                    id="filled-search"
-                    label="Search projects..."
-                    type="search"
-                    variant="filled"
-                    {...register("filled search", searchWordConfig)}
-                />
-                {errorMessage } */}
+            
                 
                 <form onSubmit={ handleSubmit(onSubmit) }>
                 <fieldset>

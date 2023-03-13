@@ -1,5 +1,5 @@
 import logo from "../../Assets/logo.png";
-import { AppBar, Button, ButtonGroup } from "@mui/material";
+import { AppBar, Button, ButtonGroup, TextField } from "@mui/material";
 import { fetchProjects } from "../../Service/ProjectInfos";
 import SearchForm from "./SearchForm";
 import Popup from "reactjs-popup";
@@ -18,6 +18,14 @@ const Navbar = () => {
         <img src={logo} alt="Logo" width={50} />
 
         <ButtonGroup variant="outlined" aria-label="outlined button group">
+            <TextField
+                    id="filled-search"
+                    label="Search projects..."
+                    type="search"
+                    variant="filled"
+                    
+                />
+                
           <Button onClick={() => onSearchSubmit()}>search</Button>
           {/* <Button type="submit" onClick={() => onSearchSubmitById(2)}>SearchById</Button> */}
           <SearchForm />
@@ -43,6 +51,7 @@ const Navbar = () => {
         </Popup>
         <Button variant="contained" href="/profile">Profile</Button>
         <Button variant="contained" href="/">Main</Button>
+        <Button variant="contained" href="/project">Project</Button>
       </Container>
     </AppBar>
   );
