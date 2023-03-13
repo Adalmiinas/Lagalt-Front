@@ -1,5 +1,6 @@
 import ProfileHeader from "../Components/Profile/ProfileHeader";
 import { useUser } from "../Context/UserContext";
+import withAuth from "../Guards/WithAuth";
 const Profile = () => {
 
     const {user} = useUser();
@@ -11,4 +12,4 @@ const Profile = () => {
     )
 }
 
-export default Profile; 
+export default withAuth(Profile); 

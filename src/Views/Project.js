@@ -1,12 +1,15 @@
-import Projects from "../Components/Project/Project";
-import GetProject from "../Components/Project/Project";
+import { useParams } from "react-router";
+import ProjectPage from "../Components/Project/ProjectPage";
 
 const Project = () => {
-  return (
-    <>
-      <GetProject />
-    </>
-  );
-};
+    const {id} = useParams();
+    
+    return (
+        <>
+            <h1>project</h1>
+            <ProjectPage id={id} />
+        </>
+    )
+}
 
-export default Project;
+export default Project; 
