@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import ProjectPage from "../Components/Project/ProjectPage";
+import WaitList from "../Components/Project/WaitList";
 
 const Project = () => {
     const {id} = useParams();
@@ -7,6 +8,7 @@ const Project = () => {
     return (
         <>
             <ProjectPage id={id} />
+           
         </>
     )
 }

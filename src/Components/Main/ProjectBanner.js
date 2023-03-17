@@ -32,7 +32,7 @@ export const ProjectBanner = (props) => {
                 <Typography variant ="h5"> {project.title}</Typography>
                 <Typography> {project.description}</Typography>
                 <Typography> {project.gitRepositoryUrl}</Typography>
-                { isUserOWner(user.id, project.id) &&
+                { user != null && project.projectUsers.filter(x => x.userId === user.id && x.isOwner === true).length === 1 &&
                 <Typography>{project.projectUsers.userId} Owner</Typography> }
             </CardContent>
             <CardActions sx={{justifyContent:'center'}}>

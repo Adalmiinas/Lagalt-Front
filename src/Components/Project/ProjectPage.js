@@ -2,13 +2,13 @@ import { Box, Button, Modal, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useUser } from "../../Context/UserContext";
 import { addUserToProject, fetchProjectById } from "../../Service/ProjectInfos";
+import WaitList from "./WaitList";
 
 const ProjectPage = ({id}) => {
 
     const [project, setProject] = useState([]);
     const [motivation, setMotivation] = useState("");
     const {user} = useUser(); 
-    const owner = false;
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
@@ -16,13 +16,16 @@ const ProjectPage = ({id}) => {
 
     useEffect(() => {
         getProjectInfo(id);
+        console.log(project);
     },[id]);
 
     const getProjectInfo = async (id) => {
         const [error, fetchedProject] = await fetchProjectById(id);
+        console.log(fetchedProject.waitList.userWaitingLists);
         setProject(fetchedProject);
+
     }
-  
+    
     const applyProject = async () => {
         console.log(motivation);
         const [error, data] = await addUserToProject(project.id, user.id, motivation);
@@ -58,8 +61,10 @@ const ProjectPage = ({id}) => {
                     onChange={handleTextFieldChange}/>
                     <Button onClick={applyProject}>Send application</Button>
                 </Box>
-
             </Modal>
+            
+            <WaitList project = {project}/>
+            
         </>
     )
 }

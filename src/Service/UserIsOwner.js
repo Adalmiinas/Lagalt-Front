@@ -19,4 +19,4 @@ export const isUserOWner = async (currentUserId, projectId) => {
     }
 };
   
-//user != null && user.id === project.projectUsers[0].userId && project.projectUsers[0].isOwner === true
+//<
