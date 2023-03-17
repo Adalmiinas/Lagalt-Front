@@ -1,3 +1,4 @@
+import { async } from "q";
 import { createHeaders } from ".";
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -85,4 +86,8 @@ export const GetAllUsers = async () =>{
     catch (error){
         return [error.message, []];
     }
+}
+
+export const updateUserInfo = async () => {
+
 }

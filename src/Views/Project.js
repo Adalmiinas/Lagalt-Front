@@ -6,7 +6,6 @@ const Project = () => {
     
     return (
         <>
-            <h1>project</h1>
             <ProjectPage id={id} />
         </>
     )

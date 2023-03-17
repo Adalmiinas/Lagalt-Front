@@ -1,9 +1,12 @@
 import { Card, CardActions, CardContent, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router";
+import { useUser } from "../../Context/UserContext";
+import { isUserOWner } from "../../Service/UserIsOwner";
 
 export const ProjectBanner = (props) => {
 
     const navigation = useNavigate();
+    const {user} = useUser();
 
     const filteredData = props.array.filter((el) => {
         if(props.input === null) {
@@ -29,6 +32,8 @@ export const ProjectBanner = (props) => {
                 <Typography variant ="h5"> {project.title}</Typography>
                 <Typography> {project.description}</Typography>
                 <Typography> {project.gitRepositoryUrl}</Typography>
+                { isUserOWner(user.id, project.id) &&
+                <Typography>{project.projectUsers.userId} Owner</Typography> }
             </CardContent>
             <CardActions sx={{justifyContent:'center'}}>
                 <Button onClick={() => navigateToProject(project.id)} sx={{backgroundColor:"white"}}>View more</Button>
