@@ -11,7 +11,7 @@ export const fetchProjects = async () => {
     console.log(data);
     return [null, data];
   } catch (error) {
-     return [error.message, null];
+    return [error.message, null];
   }
 };
 
@@ -25,13 +25,15 @@ export const fetchProjectById = async (id) => {
     console.log(data);
     return [null, data];
   } catch (error) {
-     return [error.message, null];
+    return [error.message, null];
   }
 };
 
 export const getUsersProjects = async (id) => {
   try {
-    const response = await fetch(`http://localhost:5128/api/AppUser/User/${id}/Projects`);
+    const response = await fetch(
+      `http://localhost:5128/api/AppUser/User/${id}/Projects`
+    );
     if (!response.ok) {
       throw new Error("Could not complete request.");
     }
@@ -39,13 +41,15 @@ export const getUsersProjects = async (id) => {
     console.log(data);
     return [null, data];
   } catch (error) {
-     return [error.message, null];
+    return [error.message, null];
   }
-}
+};
 
 export const getAdminProjects = async (id) => {
   try {
-    const response = await fetch(`http://localhost:5128/api/AppUser/User/${id}/AdminProjects`);
+    const response = await fetch(
+      `http://localhost:5128/api/AppUser/User/${id}/AdminProjects`
+    );
     if (!response.ok) {
       throw new Error("Could not complete request.");
     }
@@ -53,31 +57,88 @@ export const getAdminProjects = async (id) => {
     console.log(data);
     return [null, data];
   } catch (error) {
-     return [error.message, null];
+    return [error.message, null];
   }
-}
+};
 
 export const addUserToProject = async (projId, userId, motivation) => {
   try {
-    const response = await fetch('http://localhost:5128/api/ProjectUser/User/WaitList',{
+    const response = await fetch(
+      "http://localhost:5128/api/ProjectUser/User/WaitList",
+      {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "X-API-Key": "http://localhost:5128/api/ProjectUser",
-          "userId": userId,
+          userId: userId,
         },
         body: JSON.stringify({
           projectId: projId,
-          motivationLetter: motivation
+          motivationLetter: motivation,
         }),
-    });
-    if(!response.ok){
-        throw new Error("Could not complete request!");
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Could not complete request!");
     }
 
-    return [null,response];
-}
-catch (error){
+    return [null, response];
+  } catch (error) {
     return [error.message, []];
-}
-}
+  }
+};
+
+export const acceptUserToProject = async (ownerId, projId, userId, pending) => {
+  try {
+    const response = await fetch(
+      "http://localhost:5128/api/ProjectUser/owner/waitlist/users",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": "http://localhost:5128/api/ProjectUser",
+          ownerId: ownerId,
+        },
+        body: JSON.stringify({
+          projectId: projId,
+          userId: userId,
+          pendingStatus: pending,
+        }),
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Could not complete request!");
+    }
+
+    return [null, response];
+  } catch (error) {
+    return [error.message, []];
+  }
+};
+
+export const deleteUserFromProject = async (projId, userId) => {
+  try {
+    const response = await fetch(
+      "http://localhost:5128/project",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": "http://localhost:5128/api/ProjectUser",
+          userId: userId,
+        },
+        body: JSON.stringify({
+          userId: userId,
+          projectId: projId
+        }),
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Could not complete request!");
+    }
+
+    return [null, response];
+  } catch (error) {
+    return [error.message, []];
+  }
+};
