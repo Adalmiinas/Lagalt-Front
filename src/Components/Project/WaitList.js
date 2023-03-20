@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardActions, CardContent, Modal, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, CardActions, CardContent, Modal, TextField, Typography, useStepContext } from "@mui/material";
 import { typography } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useUser } from "../../Context/UserContext";
@@ -8,11 +8,9 @@ const WaitList =  (props) => {
 
     const {user} = useUser();
 
-    const addUserToProject = (projectId, userId, pending) => {
-        console.log(userId);
-        console.log(pending);
-        console.log(projectId);
-        acceptUserToProject(user.id, projectId, userId, pending);
+    const addUserToProject = async (projectId, userId, pending) => {
+        const [error, response] = await acceptUserToProject(user.id, projectId, userId, pending);
+        props.loading(true);
     }
 
     return props.project.waitList.userWaitingLists.map((projectUsers) => (
@@ -28,9 +26,7 @@ const WaitList =  (props) => {
             </CardActions>
         </Card>
         </div>
-
       ));
-
 }
 
 export default WaitList;

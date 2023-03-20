@@ -10,14 +10,18 @@ const ProjectPage = ({ id }) => {
   const [motivation, setMotivation] = useState("");
   const { user } = useUser();
   const [open, setOpen] = useState(false);
+  const [load, setLoad] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
     getProjectInfo(id);
-    console.log(project);
   }, [id]);
+
+  useEffect(() => {
+    getProjectInfo(id);
+  }, [load, id]);
 
   const getProjectInfo = async (id) => {
     const [error, fetchedProject] = await fetchProjectById(id);
@@ -89,7 +93,9 @@ const ProjectPage = ({ id }) => {
             ).length === 1 && (
               <>
                 <h1>Waitlist</h1> &&
-                <WaitList project={project} />
+                
+                <WaitList project={project} loading={setLoad}/>
+            
               </>
             )}
 

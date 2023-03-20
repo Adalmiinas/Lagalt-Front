@@ -6,13 +6,16 @@ import { deleteUserFromProject } from "../../Service/ProjectInfos";
 
 const WaitList =  (props) => {
 
+    const [projects, setProjects] = useState(props.project);
+
     const deleteUser = (projectId, userId) => {
         console.log(userId);
         console.log(projectId);
+        //setProjects(projects.filter(p => p.userId !== userId))
         deleteUserFromProject(projectId, userId);
     }
 
-    return props.project.projectUsers.filter(
+    return projects.projectUsers.filter(
         (x) => x.isOwner === false ).map((user) => (
         <div key = {user.id} style={{display:'flex', justifyContent:'center', padding:'10px'}}>
         <Card sx={{minWidth: "80%", backgroundColor:"blue" }} >
