@@ -13,3 +13,7 @@ export const storageRead = key => {
         return null;
     }
 }
+
+export const storageDelete = key => {
+    sessionStorage.removeItem(key)
+}
