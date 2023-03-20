@@ -37,6 +37,10 @@ const AddProjectPage = () => {
     }
   }, [submitted, navigate]);
 
+  const handleCancelButtonOnClick = () => {
+    navigate("/profile")
+  }
+
   const checkKeyDown = (e) => {
     if (e.key === "Enter") e.preventDefault();
   };
@@ -229,6 +233,7 @@ const AddProjectPage = () => {
         <button type="submit" onKeyDown={checkKeyDown}>
           Submit form
         </button>
+        <button onClick={handleCancelButtonOnClick}>Cancel</button>
         {apiError && <p>{apiError}</p>}
       </form>
     </>
