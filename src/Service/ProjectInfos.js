@@ -43,17 +43,8 @@ export const addProject = async (id, title, description, gitRepositoryUrl, indus
         industryName: { industryName: industryName },
         tagNames,
         skillNames
-        //tagNames: [{tagName: "Test"}, {tagName: "TestMoreTest"}, {tagName: "TestAlsoQA"}],
-        //skillNames: [{ skillName: skillNames }],
       }),
-      // body: JSON.stringify({
-      //   title,
-      //   description,
-      //   gitRepositoryUrl,
-      //   industryName,
-      //   tagNames,
-      //   skillNames,
-      // }),
+      
     });
     if (!response.ok) {
       throw new Error("Could not complete request.");
