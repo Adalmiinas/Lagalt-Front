@@ -18,5 +18,3 @@ export const isUserOWner = async (currentUserId, projectId) => {
         return false;
     }
 };
-  
-//<
