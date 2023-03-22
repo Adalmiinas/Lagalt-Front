@@ -1,7 +1,6 @@
 import { Card, CardActions, CardContent, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router";
 import { useUser } from "../../Context/UserContext";
-import { isUserOWner } from "../../Service/UserIsOwner";
 
 export const ProjectBanner = (props) => {
 

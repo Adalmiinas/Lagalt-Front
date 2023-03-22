@@ -1,0 +1,17 @@
+.message-container {
+    background-color: mediumslateblue; 
+    width: 25rem;
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 1rem;
+}
+
+.message-row{
+    display: flex;
+    alignt-items: center;
+    justify-content: space-between;
+}
+
+.message-author{
+    font-style: italic;
+}
