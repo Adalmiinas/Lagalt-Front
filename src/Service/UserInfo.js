@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createHeaders } from ".";
+import { storageSave } from "../Utils/Storage";
 import UserService from "./userservice";
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -31,6 +32,7 @@ export const loginUser = async id => {
       throw new Error("Could not complete request!");
     }
     const data = await response.json();
+    storageSave("logged-user", data)
     console.log(data);
     return data;
   } catch (error) {
