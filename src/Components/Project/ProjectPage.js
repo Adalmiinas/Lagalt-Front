@@ -4,6 +4,7 @@ import { useUser } from "../../Context/UserContext";
 import { addUserToProject, fetchProjectById } from "../../Service/ProjectInfos";
 import WaitList from "./WaitList";
 import UsersList from "./UsersList";
+import { useNavigate } from "react-router-dom";
 
 const ProjectPage = ({ id }) => {
   const [project, setProject] = useState("");
@@ -14,6 +15,8 @@ const ProjectPage = ({ id }) => {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     getProjectInfo(id);
@@ -44,6 +47,10 @@ const ProjectPage = ({ id }) => {
   const handleTextFieldChange = (event) => {
     setMotivation(event.target.value);
   };
+
+  const handleUpdateProjectClick = () => {
+    navigate("/project/update-project", {state:{projectId: project.id}})
+  }
 
   return (
     <>
@@ -83,9 +90,18 @@ const ProjectPage = ({ id }) => {
                 value={motivation}
                 onChange={handleTextFieldChange}
               />
-              <Button onClick={applyProject}>Send application</Button>
+                <Button onClick={applyProject}>Send application</Button>
             </Box>
           </Modal>
+          
+          {user != null &&
+            project.projectUsers.filter(
+              (x) => x.userId === user.id && x.isOwner === true
+            ).length === 1 && (
+              <>
+                <Button onClick={handleUpdateProjectClick}>Update Project</Button>
+              </>
+            )}
 
           {user != null &&
             project.projectUsers.filter(

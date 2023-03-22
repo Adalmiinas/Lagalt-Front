@@ -5,6 +5,7 @@ import Profile from "./Views/Profile";
 import Project from "./Views/Project";
 import AddProject from "./Views/AddProject";
 import Navbar from "./Components/Navbar/Navbar";
+import UpdateProject from "./Components/Project/UpdateProject";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/profile" element={<Profile />}/>
           <Route path="/project/:id" element={<Project />}/>
           <Route path="/project/add-project" element={<AddProject />}/>
+          <Route path="/project/update-project" element={<UpdateProject />}/>
         </Routes>
       </div>
     </BrowserRouter>
