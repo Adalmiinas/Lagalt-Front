@@ -12,7 +12,7 @@ export const fetchProjects = async () => {
   }
 };
 
-export const fetchProjectById = async (id) => {
+export const fetchProjectById = async id => {
   try {
     const response = await fetch(`http://localhost:5128/api/Project/${id}`);
     if (!response.ok) {
@@ -26,7 +26,7 @@ export const fetchProjectById = async (id) => {
   }
 };
 
-export const getUsersProjects = async (id) => {
+export const getUsersProjects = async id => {
   try {
     const response = await fetch(
       `http://localhost:5128/api/AppUser/User/${id}/Projects`
@@ -42,7 +42,7 @@ export const getUsersProjects = async (id) => {
   }
 };
 
-export const getAdminProjects = async (id) => {
+export const getAdminProjects = async id => {
   try {
     const response = await fetch(
       `http://localhost:5128/api/AppUser/User/${id}/AdminProjects`
