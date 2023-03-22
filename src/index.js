@@ -2,10 +2,23 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import AppContext from "./Context/AppContext";
-
+import axios from "axios";
+import UserService from "./Service/userservice";
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const _axios = axios.create();
+_axios.interceptors.request.use(config => {
+  if (UserService.isLoggedIn()) {
+    const cb = () => {
+      config.headers.Authorization = `Bearer ${UserService.getToken()}`;
+      return Promise.resolve(config);
+    };
+
+    return UserService.updateToken(cb);
+  }
+});
+setTimeout(() => {
   root.render(
     <React.StrictMode>
       <AppContext>
@@ -13,8 +26,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
       </AppContext>
     </React.StrictMode>
   );
+}, 1000);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+UserService.initKeycloak(root);

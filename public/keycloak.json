@@ -1,0 +1,8 @@
+{
+  "realm": "Lagalt",
+  "auth-server-url": "https://lagaltkeycloak.azurewebsites.net/auth",
+  "ssl-required": "external",
+  "resource": "lagalt-client",
+  "public-client": true,
+  "confidential-port": 0
+}

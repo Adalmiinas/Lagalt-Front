@@ -1,4 +1,5 @@
 import { Chip } from "@mui/material"
+import { Stack } from "@mui/system"
 import { useState } from "react"   
 
 let newTagList = []
@@ -16,9 +17,7 @@ const TagsInput = () => {
         if(e.key !== "Enter") return
         newTagList.push({tagName:text})
         setTags([...tags, {tagName: text}])
-        setText("");    
-        
-        console.log(newTagList)   
+        setText("");      
     }
     
     const removeTag = (index) => {
@@ -30,11 +29,11 @@ const TagsInput = () => {
     return (
         <>
         <span>
-        <input onKeyDown={handleKeyDown} value={text} onChange={e => setText(e.target.value)} />
+        <TextField sx={{margin: 0.75}} label="Tags" onKeyDown={handleKeyDown} value={text} onChange={e => setText(e.target.value)}/>
             <div>
              {tags.map((item, index) => ( 
-                 <span><Chip label={item.tagName}/>
-                <span className="close" onClick={() => removeTag(index)}>x</span></span>
+                <span><Chip label={item.tagName} onDelete={() => removeTag(index)}/>
+                </span>
              ))}
              </div>
         </span>

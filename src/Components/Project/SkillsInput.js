@@ -1,8 +1,9 @@
-import { Chip } from "@mui/material"
-import { useState } from "react"   
+import { Chip, TextField } from "@mui/material"
+import { useState } from "react"
 
 let newSkillList = []
 export const returnedListSkills = () => {
+    console.log(newSkillList)
     return newSkillList
 }
 
@@ -15,8 +16,7 @@ const SkillsInput = () => {
         if(e.key !== "Enter") return
         newSkillList.push({skillName: text})
         setSkills([...skills, {skillName: text}])
-        setText("");  
-        console.log(newSkillList)     
+        setText("");    
     }
     
     const removeSkill = (index) => {
@@ -28,11 +28,11 @@ const SkillsInput = () => {
     return (
         <>
         <span>
-        <input onKeyDown={handleKeyDown} value={text} onChange={e => setText(e.target.value)} />
+        <TextField sx={{margin: .75}} label="Skills" onKeyDown={handleKeyDown} value={text} onChange={e => setText(e.target.value)}/>
             <div>
              {skills.map((item, index) => ( 
-                <span><Chip label={item.skillName}/>
-                <span className="close" onClick={() => removeSkill(index)}>x</span></span>
+                <span><Chip label={item.skillName} onDelete={() => removeSkill(index)}/>
+                </span>
              ))}
              </div>
         </span>

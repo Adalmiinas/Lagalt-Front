@@ -1,4 +1,4 @@
-import { Alert } from "@mui/material";
+import { Alert, Button, TextField } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -13,17 +13,16 @@ import {
 import SkillsInput, { returnedListSkills } from "./SkillsInput";
 import TagsInput, { returnedList } from "./TagsInput";
 
-
 const AddProjectPage = () => {
   const { user } = useUser();
   const navigate = useNavigate();
   const [apiError, setApiError] = useState(null);
   const [submitted, setSubmitted] = useState(false);
-  
-  const tags = returnedList()
-  const skills = returnedListSkills()
-  console.log("adjoadad"+tags)
-  console.log("adasdasdas"+skills)
+
+  const [projectTitle, setProjectTitle] = useState("")
+  const [projectDescription, setProjectDescription] = useState("")
+  const [projectGitUrl, setprojectGitUrl] = useState("")
+  const [projectIndustry, setProjectIndustry] = useState("")
 
   const {
     register,
@@ -45,21 +44,17 @@ const AddProjectPage = () => {
     if (e.key === "Enter") e.preventDefault();
   };
 
-  const onSubmit = async ({
-    projectTitle,
-    description,
-    gitRepositoryUrl,
-    industryName,
-    
-  }) => {
-    setSubmitted(true);
+  const handleSubmitClick = async () => {
 
+    const tags = returnedList()
+    const skills = returnedListSkills()
+ 
     const [error, userResponse] = await addProject(
       user.id,
       projectTitle,
-      description,
-      gitRepositoryUrl,
-      industryName,
+      projectDescription,
+      projectGitUrl,
+      projectIndustry,
       tags,
       skills
     );
@@ -67,9 +62,11 @@ const AddProjectPage = () => {
     if (error !== null) {
       setApiError(error);
     }
-    setSubmitted(false);
+    
+    navigate("/profile")
     projectSuccessfullyCreatedAlert();
-  };
+
+  }
 
   const projectSuccessfullyCreatedAlert = () => {
     alert("Project successfully created!");
@@ -181,61 +178,42 @@ const AddProjectPage = () => {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        onKeyDown={(e) => checkKeyDown(e)}
-      >
-        <fieldset>
-          <legend>Project form:</legend>
-          {errorMessageTitle}
-          {errorMessageDescription}
-          {errorMessageGitRepositoryUrl}
-          {errorMessageIndustryName}
-          <p>
-            <label htmlFor="projectTitle">Title:</label>
-            <input
-              type="text"
-              placeholder="Project Title"
-              {...register("projectTitle", titleConfig)}
-            />
-          </p>
-          <p>
-            <label htmlFor="description">Description:</label>
-            <input
-              type="text"
-              placeholder="Project Description"
-              {...register("description", descriptionConfig)}
-            />
-          </p>
-          <p>
-            <label htmlFor="gitRepositoryUrl">Git Repository URL:</label>
-            <input
-              type="text"
-              placeholder="Git Repository URL"
-              {...register("gitRepositoryUrl", gitRepositoryUrlConfig)}
-            />
-          </p>
-          <p>
-            <label htmlFor="industryName">Industry:</label>
-            <input
-              type="text"
-              placeholder="Industry"
-              {...register("industryName", industryNameConfig)}
-            />
-          </p>
-            Tags:
-            <TagsInput />
-         
-            Skills:
-            <SkillsInput />
-        </fieldset>
-        
-        <button type="submit" onKeyDown={checkKeyDown}>
-          Submit form
-        </button>
-        <button onClick={handleCancelButtonOnClick}>Cancel</button>
-        {apiError && <p>{apiError}</p>}
-      </form>
+      <TextField 
+        required
+        label="Title"
+        value={projectTitle}
+        onChange={e => setProjectTitle(e.target.value)}
+      />
+      <p></p>
+      <TextField 
+        required
+        label="Description"
+        value={projectDescription}
+        onChange={e => setProjectDescription(e.target.value)}
+      />
+      <p></p>
+      <TextField 
+        label="Git Repository URL"
+        value={projectGitUrl}
+        onChange={e => setprojectGitUrl(e.target.value)}
+      />
+      <p></p>
+      <TextField 
+        required
+        label="Project's Industry"
+        value={projectIndustry}
+        onChange={e => setProjectIndustry(e.target.value)}
+      />
+      <p></p>
+      <TagsInput />
+      <SkillsInput />
+      <Button variant="contained" onClick={handleSubmitClick} onKeyDown={checkKeyDown}>
+        Submit
+      </Button>
+      <Button sx={{margin: 1}} variant="contained" onClick={handleCancelButtonOnClick}>
+        Cancel
+      </Button>
+        {apiError && <p>{apiError}</p>} 
     </>
   );
 };
