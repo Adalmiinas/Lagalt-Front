@@ -4,16 +4,20 @@ import MainPage from "./Views/MainPage";
 import Profile from "./Views/Profile";
 import Project from "./Views/Project";
 import Navbar from "./Components/Navbar/Navbar";
+import UserService from "./Service/userservice";
+import { useState } from "react";
+import axios from "axios";
+
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Navbar/>
+        <Navbar />
         <Routes>
-          <Route path="/" element={<MainPage />}/>
-          <Route path="/profile" element={<Profile />}/>
-          <Route path="/project/:id" element={<Project />}/>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/project/:id" element={<Project />} />
         </Routes>
       </div>
     </BrowserRouter>
