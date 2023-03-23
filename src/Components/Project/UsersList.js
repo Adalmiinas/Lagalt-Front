@@ -1,24 +1,20 @@
-import { Box, Button, Card, CardActions, CardContent, Modal, TextField, Typography } from "@mui/material";
-import { typography } from "@mui/system";
-import { useEffect, useState } from "react";
-import { useUser } from "../../Context/UserContext";
+import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
 import { deleteUserFromProject } from "../../Service/ProjectInfos";
 
 const WaitList =  (props) => {
 
-    const [projects, setProjects] = useState(props.project);
-
     const deleteUser = (projectId, userId) => {
         console.log(userId);
         console.log(projectId);
-        //setProjects(projects.filter(p => p.userId !== userId))
         deleteUserFromProject(projectId, userId);
+        props.loading(true);
+
     }
 
-    return projects.projectUsers.filter(
+    return props.project.projectUsers.filter(
         (x) => x.isOwner === false ).map((user) => (
-        <div key = {user.id} style={{display:'flex', justifyContent:'center', padding:'10px'}}>
-        <Card sx={{minWidth: "80%", backgroundColor:"blue" }} >
+        <div key = {user.id} style={{display:'flex', justifyContent:'center', padding:'10px', maxWidth: '50%'}}>
+        <Card sx={{minWidth: "80%", backgroundColor:"blue", display: 'flex', justifyContent:'space-around'}} >
             <CardContent>
                 <Typography variant ="h5"> {user.userName}</Typography>
             </CardContent>

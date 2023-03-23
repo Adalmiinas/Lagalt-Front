@@ -1,5 +1,4 @@
-import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import MainView from "../Components/Main/MainView";
 import LoggedIn from "../Components/Renders/LoggedIn";
