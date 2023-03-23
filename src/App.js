@@ -13,6 +13,9 @@ import { storageDelete, storageSave } from "./Utils/Storage";
 import { loginUser } from "./Service/UserInfo";
 import { userId } from "./keycloak";
 import { useUser } from "./Context/UserContext";
+
+import UpdateForm from "./Components/Profile/UpdateForm";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 function App() {
   const { keycloak } = useKeycloak();
   const [load, setLoad] = useState(0);
@@ -41,7 +44,24 @@ function App() {
     data.then(x => storageSave("logged-user", x[1]));
   }
 
+
+  const theme = createTheme({
+    palette: {
+      darkViolet: {
+        main: '#312B70',
+        contrastText: '#fff'
+      },
+      darkVioletGreen: {
+        main: '#312B70',
+        contrastText: '#A8BA30'
+      },
+      violet:'#787CD1',
+      BGreen:'#A8BA30'
+    },
+  });
+  
   return (
+    <ThemeProvider theme={theme}>
     <BrowserRouter>
       <div className="App">
         <Navbar handleLoad={handleLoad} updateBar={updateBar} />
@@ -49,17 +69,17 @@ function App() {
           <Route path="/" element={<MainPage />} />
           {keycloak.authenticated && user && (
             <>
-              <Route path={"profile/:username"} element={<Profile />} />
-              <Route path="/project/:id" element={<Project />} />
-              <Route path="/project/add-project" element={<AddProject />} />
-              <Route path="/project/update-project" element={<UpdateProject />} />
+          <Route path="/profile/:username" element={<Profile />}/>
+          <Route path="/profile/update-profile" element={<UpdateForm />}/>
+          <Route path="/project/:id" element={<Project />}/>
+          <Route path="/project/add-project" element={<AddProject />}/>
+          <Route path="/project/update-project" element={<UpdateProject />}/>
             </>
           )}
-
-          {!keycloak.authenticated && <Route path="/login" element={<LoginForm handleLoad={handleLoad} />} />}
         </Routes>
       </div>
     </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

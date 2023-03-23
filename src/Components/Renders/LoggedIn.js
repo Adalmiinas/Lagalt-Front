@@ -14,6 +14,7 @@ function LoggedIn() {
   };
   return (
     <>
+
       <h1>Logged in</h1>
       <p>username {username()}</p>
       <p>name {firstName()}</p>
@@ -22,6 +23,7 @@ function LoggedIn() {
       <p>user token send this as bearer {keycloak.token}</p>
       <button onClick={() => handleLogin()}>FETCH DATA</button>
       <button onClick={() => handleRegistration()}>Register data</button>
+
     </>
   );
 }

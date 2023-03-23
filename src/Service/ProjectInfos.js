@@ -8,7 +8,7 @@ export const fetchProjects = async () => {
       throw new Error("Could not complete request.");
     }
     const data = await response.json();
-    console.log(data);
+  
     return [null, data];
   } catch (error) {
     return [error.message, null];
@@ -24,7 +24,7 @@ export const fetchProjectById = async id => {
       throw new Error("Could not complete request.");
     }
     const data = await response.json();
-    console.log(data);
+   
     return [null, data];
   } catch (error) {
     return [error.message, null];
