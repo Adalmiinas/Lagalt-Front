@@ -44,41 +44,40 @@ function App() {
     data.then(x => storageSave("logged-user", x[1]));
   }
 
-
   const theme = createTheme({
     palette: {
       darkViolet: {
-        main: '#312B70',
-        contrastText: '#fff'
+        main: "#312B70",
+        contrastText: "#fff"
       },
       darkVioletGreen: {
-        main: '#312B70',
-        contrastText: '#A8BA30'
+        main: "#312B70",
+        contrastText: "#A8BA30"
       },
-      violet:'#787CD1',
-      BGreen:'#A8BA30'
-    },
+      violet: "#787CD1",
+      BGreen: "#A8BA30"
+    }
   });
-  
+
   return (
     <ThemeProvider theme={theme}>
-    <BrowserRouter>
-      <div className="App">
-        <Navbar handleLoad={handleLoad} updateBar={updateBar} />
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          {keycloak.authenticated && user && (
-            <>
-          <Route path="/profile/:username" element={<Profile />}/>
-          <Route path="/profile/update-profile" element={<UpdateForm />}/>
-          <Route path="/project/:id" element={<Project />}/>
-          <Route path="/project/add-project" element={<AddProject />}/>
-          <Route path="/project/update-project" element={<UpdateProject />}/>
-            </>
-          )}
-        </Routes>
-      </div>
-    </BrowserRouter>
+      <BrowserRouter>
+        <div className="App">
+          <Navbar handleLoad={handleLoad} updateBar={updateBar} />
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            {keycloak.authenticated && user && (
+              <>
+                <Route path="/profile/" element={<Profile />} />
+                <Route path="/profile/update-profile" element={<UpdateForm />} />
+                <Route path="/project/:id" element={<Project />} />
+                <Route path="/project/add-project" element={<AddProject />} />
+                <Route path="/project/update-project" element={<UpdateProject />} />
+              </>
+            )}
+          </Routes>
+        </div>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

@@ -1,8 +1,6 @@
 import { createHeaders } from ".";
 import { storageSave } from "../Utils/Storage";
 
-import UserService from "./userservice";
-
 const apiUrl = process.env.REACT_APP_API_URL;
 
 // const loginUser = async (username,password) => {
