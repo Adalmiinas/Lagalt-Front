@@ -1,22 +1,18 @@
-import { Box, Button, Modal, TextField } from "@mui/material";
+import { Card, Paper } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useUser } from "../../Context/UserContext";
-import { addUserToProject, fetchProjectById } from "../../Service/ProjectInfos";
-import WaitList from "./WaitList";
+import { fetchProjectById } from "../../Service/ProjectInfos";
 import UsersList from "./UsersList";
 import { useNavigate } from "react-router-dom";
+import MessageBoard from "./MessageBoard/MessageBoard";
+import WaitlistButton from "./Owner/WaitlistButton";
+import ApplyButton from "./Apply/ApplyButton";
+import { maxWidth } from "@mui/system";
 
 const ProjectPage = ({ id }) => {
   const [project, setProject] = useState("");
-  const [motivation, setMotivation] = useState("");
   const { user } = useUser();
-  const [open, setOpen] = useState(false);
   const [load, setLoad] = useState(false);
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const navigate = useNavigate()
 
   useEffect(() => {
     getProjectInfo(id);
@@ -28,102 +24,57 @@ const ProjectPage = ({ id }) => {
 
   const getProjectInfo = async (id) => {
     const [error, fetchedProject] = await fetchProjectById(id);
-    console.log(fetchedProject.waitList.userWaitingLists);
+    console.log(error);
     setProject(fetchedProject);
   };
 
-  const applyProject = async () => {
-    console.log(motivation);
-    const [error, data] = await addUserToProject(
-      project.id,
-      user.id,
-      motivation
-    );
-    setOpen(false);
-    console.log(error);
-    console.log(data);
-  };
-
-  const handleTextFieldChange = (event) => {
-    setMotivation(event.target.value);
-  };
-
-  const handleUpdateProjectClick = () => {
-    navigate("/project/update-project", {state:{projectId: project.id}})
-  }
-
   return (
     <>
-      {" "}
       {project && (
         <div>
-          <h1>{project.title}</h1>
-          <p>{project.description}</p>
-          <p>Git url: {project.gitRepositoryUrl}</p>
-          <p>User in project: {}</p>
-          <p>Industry: {}</p>
-          <p>Tags: {}</p>
-          <Button onClick={handleOpen}>Apply for project</Button>
-          <Modal open={open} onClose={handleClose}>
-            <Box
-              sx={{
-                position: "absolute",
-                display: "flex",
-                flexDirection: "column",
-                top: "30%",
-                left: "30%",
-                width: 400,
-                bgcolor: "background.paper",
-                border: "2px solid #000",
-                p: 4,
-                boxShadow: 24,
-              }}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "right",
+              padding: "10px",
+            }}
+          >
+            <Card
+              sx={{ minWidth: "300px", backgroundColor: "mediumslateblue" }}
             >
-              <h3>
-                Write a sort motivation letter about why you want to join the
-                project
-              </h3>
-              <TextField
-                label="motivation"
-                multiline
-                minRows={6}
-                value={motivation}
-                onChange={handleTextFieldChange}
-              />
-                <Button onClick={applyProject}>Send application</Button>
-            </Box>
-          </Modal>
+              <h1>{project.title}</h1>
+              <p>{project.description}</p>
+              <p>Git url: {project.gitRepositoryUrl}</p>
+              <p>{project.industryName}</p>
+              <p>Tags</p>
+              {user != null &&
+                project.projectUsers.filter(
+                  (x) => x.userId === user.id && x.isOwner === true
+                ).length === 1 && (
+                    <ApplyButton project={project} loading={setLoad}/>
+                )}
+
+              {user != null &&
+                project.projectUsers.filter(
+                  (x) => x.userId === user.id && x.isOwner === true
+                ).length === 1 && (
+                  <>
+                    <WaitlistButton project={project} loading={setLoad} />
+                  </>
+                )}
+
+            </Card>
           
-          {user != null &&
-            project.projectUsers.filter(
-              (x) => x.userId === user.id && x.isOwner === true
-            ).length === 1 && (
-              <>
-                <Button onClick={handleUpdateProjectClick}>Update Project</Button>
-              </>
-            )}
+          </div>
 
-          {user != null &&
-            project.projectUsers.filter(
-              (x) => x.userId === user.id && x.isOwner === true
-            ).length === 1 && (
-              <>
-                <h1>Waitlist</h1> &&
+         
                 
-                <WaitList project={project} loading={setLoad}/>
-            
-              </>
-            )}
+            <Paper style = {{maxHeight: '100px', overflow: 'auto', maxWidth: '50%'}}>
+                <h2>UsersList</h2>
+                <UsersList project={project} loading={setLoad} />
+            </Paper>
 
-            {user != null &&
-            project.projectUsers.filter(
-              (x) => x.userId === user.id && x.isOwner === true
-            ).length === 1 && (
-              <>
-                <h1>UsersList</h1>
-                <UsersList project={project} />
-              </>
-            )}
+          <MessageBoard project={project} />
         </div>
       )}
     </>

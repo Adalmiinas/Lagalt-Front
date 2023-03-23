@@ -21,15 +21,6 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 
-let wordToSearch = ""
-
-export const searchedText = () => {
-  
-  console.log(wordToSearch)
-  
-  return wordToSearch
-}
-
 // const Navbar = () => {
 //   const { user} = useUser();
 
@@ -408,6 +399,7 @@ const Navbar = () => {
       {renderMobileMenu}
       {renderMenu}
     </Box>
+
   );
 }
 

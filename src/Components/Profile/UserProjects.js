@@ -11,7 +11,7 @@ const UserProjects = (props) => {
 
     useEffect(() => {
         getProjects();
-    });
+    },[]);
 
     const navigateToProject = (id) => {
         navigation(`/project/${id}`);

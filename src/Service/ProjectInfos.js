@@ -5,28 +5,28 @@ export const fetchProjects = async () => {
       throw new Error("Could not complete request.");
     }
     const data = await response.json();
-    console.log(data);
+  
     return [null, data];
   } catch (error) {
     return [error.message, null];
   }
 };
 
-export const fetchProjectById = async (id) => {
+export const fetchProjectById = async id => {
   try {
     const response = await fetch(`http://localhost:5128/api/Project/${id}`);
     if (!response.ok) {
       throw new Error("Could not complete request.");
     }
     const data = await response.json();
-    console.log(data);
+   
     return [null, data];
   } catch (error) {
     return [error.message, null];
   }
 };
 
-export const getUsersProjects = async (id) => {
+export const getUsersProjects = async id => {
   try {
     const response = await fetch(
       `http://localhost:5128/api/AppUser/User/${id}/Projects`
@@ -42,7 +42,7 @@ export const getUsersProjects = async (id) => {
   }
 };
 
-export const getAdminProjects = async (id) => {
+export const getAdminProjects = async id => {
   try {
     const response = await fetch(
       `http://localhost:5128/api/AppUser/User/${id}/AdminProjects`

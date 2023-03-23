@@ -1,6 +1,7 @@
-import { async } from "q";
+import { useEffect } from "react";
 import { createHeaders } from ".";
-
+import { storageSave } from "../Utils/Storage";
+import UserService from "./userservice";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const loginUser = async (username,password) => {
@@ -47,41 +48,36 @@ const registerUser = async (username, password) => {
     }
 }
 
+export const submitUser = async (username, password) => {
+  const [checkError, user] = await loginUser(username, password);
 
-export const submitUser = async (username,password) => {
-    const [checkError, user] = await loginUser(username,password);
-    
-    if(checkError !== null){
-        return await registerUser(username,password);
-    }
+  if (checkError !== null) {
+    return await registerUser(username, password);
+  }
 
-    if(checkError === null) {
-        return [null, user];
-    }
-}
+  if (checkError === null) {
+    return [null, user];
+  }
+};
 
-export const userById = async (userId) => {
-    try {
-        const response = await fetch(`${apiUrl}/${userId}`);
-        if(!response.ok){
-            throw new Error("Could not complete request!");
-        }
-        const data = await response.json();
-        return [null,data];
+export const userById = async userId => {
+  try {
+    const response = await fetch(`${apiUrl}/${userId}`);
+    if (!response.ok) {
+      throw new Error("Could not complete request!");
     }
-    catch (error){
-        return [error.message, []];
-    }
-}
+    const data = await response.json();
+    return [null, data];
+  } catch (error) {
+    return [error.message, []];
+  }
+};
 
-export const GetAllUsers = async () =>{
-    try {
-        const response = await fetch(`${apiUrl}`);
-        if(!response.ok){
-            throw new Error("Could not complete request!");
-        }
-        const data = await response.json();
-        return [null,data];
+export const GetAllUsers = async () => {
+  try {
+    const response = await fetch(`${apiUrl}`);
+    if (!response.ok) {
+      throw new Error("Could not complete request!");
     }
     catch (error){
         return [error.message, []];
