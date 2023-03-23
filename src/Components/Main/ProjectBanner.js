@@ -16,6 +16,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import Tags from "./Tags";
 import FactoryIcon from "@mui/icons-material/Factory";
 import Skills from "./Skills";
+import { display } from "@mui/system";
 
 export const ProjectBanner = (props) => {
   const navigation = useNavigate();
@@ -79,20 +80,22 @@ export const ProjectBanner = (props) => {
             {" "}
             {project.description}
           </Typography>
-          <div style={{ paddingBottom: "3rem" }}>
-            <Chip
-              color="darkViolet"
-              icon={<FactoryIcon fontSize="small" />}
-              label={project.industry.industryName}
-            />
-          </div>
+          <div style={{display: "flex", marginBottom: "5rem"}}>
+            <div>
+              <Chip
+                color="darkViolet"
+                icon={<FactoryIcon fontSize="small" />}
+                label={project.industry.industryName}
+              />
+            </div>
 
-          <div key={"tag" + index} style={{paddingBottom: "1rem"}}>
-            <Tags project={project} />
-          </div>
+            <div key={"tag" + index} style={{paddingLeft: "2rem"}}>
+              <Tags project={project} />
+            </div>
 
-          <div key={"skills" + index} style={{paddingBottom: "1rem"}}>
-            <Skills project={project} />
+            <div key={"skills" + index} style={{paddingLeft: "2rem"}} >
+              <Skills project={project} />
+            </div>
           </div>
 
           <Chip
@@ -125,25 +128,24 @@ export const ProjectBanner = (props) => {
               ></Typography>
             )}
         </CardContent>
-        <RenderOnAuthenticated>
-          <CardActions sx={{ justifyContent: "center" }}>
-            <Button
-              className="project-view-buttons"
-              LinkComponent={Link}
-              to={`/project/${project.id}`}
-              color="darkViolet"
-              sx={{
-                position: "absolute",
-                bottom: "0px",
-                left: "0px",
-                padding: "1rem",
-                margin: "1rem",
-              }}
-            >
-              View More
-            </Button>
-          </CardActions>
-        </RenderOnAuthenticated>
+
+        <CardActions sx={{ justifyContent: "center" }}>
+          <Button
+            className="project-view-buttons"
+            LinkComponent={Link}
+            to={`/project/${project.id}`}
+            color="darkViolet"
+            sx={{
+              position: "absolute",
+              bottom: "0px",
+              left: "0px",
+              borderRadius: "12px",
+              margin: "1rem",
+            }}
+          >
+            View More
+          </Button>
+        </CardActions>
       </Card>
     </div>
   ));
