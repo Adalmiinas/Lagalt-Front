@@ -88,6 +88,27 @@ export const GetAllUsers = async () =>{
     }
 }
 
-export const updateUserInfo = async () => {
-
+export const updateUserInfo = async (userId, newUsername, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills) => {
+    try {
+        console.log(userId, newUsername, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills)
+        const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/Update`, {
+      method: "PUT",
+      headers: {
+        "X-API-Key": "http://localhost:5128/api/Project",
+        "Content-Type": "application/json",
+        "id": userId,
+      },
+      body: JSON.stringify({
+        username: newUsername,
+        careerTitle: newCareerTitle,
+        email: newEmail,
+        portfolio: newPortfolio,
+        description: newDescription,
+        skillNames: newSkills
+      }),
+      
+    });
+    } catch (error) {
+        
+    }
 }
