@@ -1,12 +1,18 @@
-import { Box, InputAdornment, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { STORAGE_KEY_PROJECTS } from "../../Const/storageKeys";
 import { fetchProjects } from "../../Service/ProjectInfos";
 import { storageRead, storageSave } from "../../Utils/Storage";
 import { ProjectBanner } from "./ProjectBanner.js";
 import SearchIcon from "@mui/icons-material/Search";
-import Badge from "react-bootstrap/Badge";
-import { FormControl } from "react-bootstrap";
 
 const MainView = () => {
   const [projects, setProjects] = useState([]);
@@ -24,7 +30,9 @@ const MainView = () => {
     setInputText(lowerCase);
   };
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    setIndustry(e.target.value);
+  };
 
   const getProjects = async () => {
     const sessionProjects = storageRead(STORAGE_KEY_PROJECTS);
@@ -65,19 +73,25 @@ const MainView = () => {
             ),
           }}
         />
+        <Box sx={{minWidth: '100px', marginTop: "16px"}}>
+          <FormControl fullWidth>
+            <InputLabel id="industry-select"> Industry </InputLabel>
+            <Select
+              labelId="industry-select"
+              id="industry"
+              label="industry"
+              value={industry}
+              onChange={handleChange}
+            >
+              <MenuItem value={""}>Select All</MenuItem>
+              <MenuItem value={"art"}>Art</MenuItem>
+              <MenuItem value={"medical"}>Medical</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
       </div>
-{/*    
-      <Box>
-        <FormControl>
-          <InputLabel id="industry-select">Industry</InputLabel>
-          <Select labelId="industry-select" id="industry" label="industry" value={industry} onChange={handleChange}>
-            <MenuItem value={"art"}>Art</MenuItem>
-            <MenuItem value={"medical"}>Medical</MenuItem>
-          </Select>
-        </FormControl>
-        </Box> */}
 
-      <ProjectBanner array={projects} input={inputText} />
+      <ProjectBanner array={projects} input={inputText} category={industry} />
     </>
   );
 };
