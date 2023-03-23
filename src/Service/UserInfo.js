@@ -79,6 +79,7 @@ export const GetAllUsers = async () => {
     if (!response.ok) {
       throw new Error("Could not complete request!");
     }
+  }
     catch (error){
         return [error.message, []];
     }

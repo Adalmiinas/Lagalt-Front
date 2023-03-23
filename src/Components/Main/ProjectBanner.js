@@ -16,7 +16,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import Tags from "./Tags";
 import FactoryIcon from "@mui/icons-material/Factory";
 import Skills from "./Skills";
-import { display } from "@mui/system";
+import { display, fontFamily } from "@mui/system";
 
 export const ProjectBanner = (props) => {
   const navigation = useNavigate();
@@ -72,7 +72,7 @@ export const ProjectBanner = (props) => {
         }}
       >
         <CardContent>
-          <Typography variant="h3" sx={{ paddingBottom: "1rem" }}>
+          <Typography variant="h3" sx={{ paddingBottom: "1rem", fontFamily:"Roboto" }}>
             {" "}
             {project.title}
           </Typography>
