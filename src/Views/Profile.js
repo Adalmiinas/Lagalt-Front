@@ -3,7 +3,6 @@ import ProfileHeader from "../Components/Profile/ProfileHeader";
 import UserProjects from "../Components/Profile/UserProjects";
 import { useUser } from "../Context/UserContext";
 import withAuth from "../Guards/WithAuth";
-import UserService from "../Service/userservice";
 const Profile = () => {
   const { user } = useUser();
   return (

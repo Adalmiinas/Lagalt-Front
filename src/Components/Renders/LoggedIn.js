@@ -1,17 +1,27 @@
 import React from "react";
 import { loginUser, registerUser } from "../../Service/UserInfo";
-import UserService from "../../Service/userservice";
+import { useKeycloak } from "@react-keycloak/web";
+import { email, firstName, lastName, userId, username } from "../../keycloak";
 
 function LoggedIn() {
+  const { keycloak } = useKeycloak();
+
+  const handleLogin = async () => {
+    await loginUser(userId(), keycloak.token);
+  };
+  const handleRegistration = async () => {
+    await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
+  };
   return (
     <>
       <h1>Logged in</h1>
-      <p>username {UserService.getUsername()}</p>
-      <p>name {UserService.name()}</p>
-      <p>user id used for login and register, if you can get normal id from sql use it to query {UserService.getId()}</p>
-      <p>user token send this as bearer {UserService.getToken()}</p>
-      <button onClick={async () => await loginUser(UserService.getId())}>FETCH DATA</button>
-      <button onClick={async () => await registerUser(UserService.getUsername(), UserService.givenName(), UserService.familyName(), UserService.email(), UserService.getId())}>Register data</button>
+      <p>username {username()}</p>
+      <p>name {firstName()}</p>
+      <p>user id used for login and register, if you can get normal id from sql use it to query {userId()}</p>
+      <br />
+      <p>user token send this as bearer {keycloak.token}</p>
+      <button onClick={() => handleLogin()}>FETCH DATA</button>
+      <button onClick={() => handleRegistration()}>Register data</button>
     </>
   );
 }

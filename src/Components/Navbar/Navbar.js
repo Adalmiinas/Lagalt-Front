@@ -1,71 +1,48 @@
 import logo from "../../Assets/logo.png";
-import plusIcon from "../../Assets/plusicon3.png";
 import { AppBar, Button } from "@mui/material";
-import Popup from "reactjs-popup";
-import LoginForm from "../Login/LoginForm";
 import { Container } from "@mui/system";
-import { useUser } from "../../Context/UserContext";
-import { storageDelete, storageSave } from "../../Utils/Storage";
 
-import RenderOnAnonymous from "../Renders/RenderOnAnonymous";
-import RenderOnAuthenticated from "../Renders/RenderOnAuthenticated";
-import UserService from "../../Service/userservice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useKeycloak } from "@react-keycloak/web";
+import { storageRead } from "../../Utils/Storage";
+const Navbar = props => {
+  const { handleLoad } = props;
+  const history = useNavigate();
 
-const Navbar = () => {
-  const { user } = useUser();
-  const handleLogOut = async e => {
-    storageDelete("logged-user");
-    e.preventDefault();
-    await UserService.doLogout().then(UserService.clearToken());
-    // UserService.doLogout();
+  const { keycloak } = useKeycloak();
+  const userInfo = storageRead("logged-user");
+
+  const handleRedirect = () => {
+    history("/");
+    handleLoad(2);
   };
   return (
     <AppBar position="sticky">
       <Container maxWidth="1" style={{ display: "flex", justifyContent: "center" }}>
         <img src={logo} alt="Logo" width={50} />
-        <RenderOnAnonymous>
-          {user === null && (
-            <Popup trigger={<Button variant="contained">Login</Button>} position="top center" modal nested>
-              {close => (
-                <div
-                  style={{
-                    minHeight: "500px",
-                    minWidth: "500px",
-                    backgroundColor: "#ECD9BA"
-                  }}
-                >
-                  <button onClick={close}>&times;</button>
-                  <LoginForm />
-                </div>
-              )}
-            </Popup>
-          )}
-        </RenderOnAnonymous>
-        <RenderOnAuthenticated>
-          {user !== null && (
-            <Button variant="contained" LinkComponent={Link} to="/profile">
-              Profile
-            </Button>
-          )}
 
-          <Button variant="contained" color="primary" onClick={e => handleLogOut(e)}>
-            Logout
+        {keycloak.authenticated && userInfo && (
+          <Button variant="contained" LinkComponent={Link} to={`/profile/${userInfo.username}`}>
+            Profile
           </Button>
-        </RenderOnAuthenticated>
-
-        <Button variant="contained">
-          <Link to="/"> Main</Link>
-        </Button>
-
-        {user !== null && (
-          <Button variant="contained" LinkComponent={Link} to="/project/add-project">
-            <img src={plusIcon} alt="Plus Icon" width={50} />
+        )}
+        {!keycloak.authenticated && (
+          <Button variant="contained" onClick={() => handleLoad(1)}>
+            Login
+          </Button>
+        )}
+        {!keycloak.authenticated && (
+          <Button variant="contained" onClick={() => handleLoad(3)}>
+            Register
           </Button>
         )}
 
-        {user !== null && (
-          <Button variant="contained" LinkComponent={Link} to="/" onClick={handleLogOut}>
+        <Button variant="contained" LinkComponent={Link} to="/">
+          Home
+        </Button>
+
+        {keycloak.authenticated && (
+          <Button variant="contained" color="primary" onClick={() => handleRedirect()}>
             Logout
           </Button>
         )}

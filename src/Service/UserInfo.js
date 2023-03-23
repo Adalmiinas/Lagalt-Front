@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import { createHeaders } from ".";
-import UserService from "./userservice";
+import { storageSave } from "../Utils/Storage";
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
 /*
@@ -10,12 +10,8 @@ or call directly the token in the bearer
 
 check network status is the token even sent
 */
-export const loginUser = async id => {
-  let token = UserService.getToken();
+export const checkUser = async (id, token) => {
   try {
-    if (token === undefined) {
-      token = UserService.updateToken();
-    }
     //const response = await fetch(`${apiUrl}?username=${username}`);
     const response = await fetch(`${apiUrl}/Account/login`, {
       method: "POST",
@@ -32,7 +28,31 @@ export const loginUser = async id => {
     }
     const data = await response.json();
     console.log(data);
+    storageSave("logged-user", data);
     return data;
+  } catch (error) {
+    return [error.message, []];
+  }
+};
+export const loginUser = async (id, token) => {
+  try {
+    //const response = await fetch(`${apiUrl}?username=${username}`);
+    const response = await fetch(`${apiUrl}/Account/login`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer  ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        keycloakId: id
+      })
+    });
+    if (!response.ok) {
+      throw new Error("Could not complete request!");
+    }
+    const data = await response.json();
+    // storageSave("logged-user", data);
+    return [null, data];
   } catch (error) {
     return [error.message, []];
   }
@@ -45,17 +65,10 @@ or call directly the token in the bearer
 check network status is the token even sent
 */
 export const registerUser = async (username, firstName, lastName, email, id) => {
-  let token = UserService.getToken();
-  if (token === undefined) {
-    token = UserService.updateToken();
-  }
   try {
     const response = await fetch(`${apiUrl}/Account/register`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer  ${token}`,
-        "Content-Type": "application/json"
-      },
+      headers: await createHeaders(),
       body: JSON.stringify({
         keycloakId: id,
         username,
@@ -68,6 +81,8 @@ export const registerUser = async (username, firstName, lastName, email, id) => 
       throw new Error("Could not complete request!");
     }
     const data = await response.json();
+    storageSave("logged-user", data);
+
     return [null, data];
   } catch (error) {
     return [error.message, []];
@@ -88,7 +103,9 @@ export const submitUser = async (username, password) => {
 
 export const userById = async userId => {
   try {
-    const response = await fetch(`${apiUrl}/${userId}`);
+    const response = await fetch(`${apiUrl}/${userId}`, {
+      headers: await createHeaders()
+    });
     if (!response.ok) {
       throw new Error("Could not complete request!");
     }
@@ -101,7 +118,9 @@ export const userById = async userId => {
 
 export const GetAllUsers = async () => {
   try {
-    const response = await fetch(`${apiUrl}`);
+    const response = await fetch(`${apiUrl}`, {
+      headers: await createHeaders()
+    });
     if (!response.ok) {
       throw new Error("Could not complete request!");
     }

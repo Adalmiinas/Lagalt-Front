@@ -1,0 +1,6 @@
+version: 3
+services:
+  keycloak:
+    image: jboss/keycloak:latest
+    volumes: ${WEBBAPP_STORAGE_HOME}/data:/opt/jboss/keycloak/standalone/data
+    restart: always
