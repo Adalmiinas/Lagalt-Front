@@ -1,4 +1,5 @@
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import UpdateForm from "./UpdateForm";
 
@@ -16,27 +17,7 @@ const ProfileHeader = ({ user }) => {
             <Typography sx={{fontWeight:'bold'}}> Portfolio: {user.portfolio}</Typography>
             <Typography sx={{fontWeight:'bold'}}> Skills: {user.skills}</Typography>
           </CardContent>
-          <CardActions>
-          <Popup
-            trigger={<Button variant="contained">Update info</Button>}
-            position="top center"
-            modal
-            nested
-          >
-            {(close) => (
-              <div 
-                style={{
-                  minHeight: "300px",
-                  minWidth: "60%",
-                  backgroundColor: "#ECD9BA",
-                }}
-              >
-                <button style={{position: 'center'}} onClick={close}>&times;</button>
-                <UpdateForm />
-              </div>
-            )}
-          </Popup>
-          </CardActions>
+          <Button LinkComponent={Link} to="/profile/update-profile">Update profile</Button>
         </Card>
       </div>
     </>

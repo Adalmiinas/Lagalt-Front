@@ -6,6 +6,7 @@ import Project from "./Views/Project";
 import AddProject from "./Views/AddProject";
 import Navbar from "./Components/Navbar/Navbar";
 import UpdateProject from "./Components/Project/UpdateProject";
+import UpdateForm from "./Components/Profile/UpdateForm";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />}/>
           <Route path="/profile" element={<Profile />}/>
+          <Route path="/profile/update-profile" element={<UpdateForm />}/>
           <Route path="/project/:id" element={<Project />}/>
           <Route path="/project/add-project" element={<AddProject />}/>
           <Route path="/project/update-project" element={<UpdateProject />}/>
