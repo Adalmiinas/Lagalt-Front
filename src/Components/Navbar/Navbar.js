@@ -21,8 +21,8 @@ const Navbar = props => {
       <Container maxWidth="1" style={{ display: "flex", justifyContent: "center" }}>
         <img src={logo} alt="Logo" width={50} />
 
-        {keycloak.authenticated && userInfo && (
-          <Button variant="contained" LinkComponent={Link} to={`/profile/${userInfo.username}`}>
+        {keycloak.authenticated && (
+          <Button variant="contained" LinkComponent={Link} to={`/profile/${userInfo ? userInfo.username : ""}`}>
             Profile
           </Button>
         )}
