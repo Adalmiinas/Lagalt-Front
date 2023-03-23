@@ -8,14 +8,7 @@ import Welcome from "../Components/Renders/Welcome";
 import { loginUser, registerUser } from "../Service/UserInfo";
 import UserService from "../Service/userservice";
 const MainPage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(UserService.isLoggedIn());
-  if (isLoggedIn) {
-    registerUser(UserService.getUsername(), UserService.givenName(), UserService.familyName(), UserService.email(), UserService.getId()).then(x => console.log(x));
-    const data = loginUser(UserService.getId()).then(x => console.log(x));
-
-    console.log(data);
-  }
-
+ 
   return (
     <>
       <h1>Main</h1>

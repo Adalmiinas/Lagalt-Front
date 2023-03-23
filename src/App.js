@@ -17,6 +17,10 @@ function App() {
         main: '#312B70',
         contrastText: '#fff'
       },
+      darkVioletGreen: {
+        main: '#312B70',
+        contrastText: '#A8BA30'
+      },
       violet:'#787CD1',
       BGreen:'#A8BA30'
     },

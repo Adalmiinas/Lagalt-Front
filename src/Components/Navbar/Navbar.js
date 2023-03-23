@@ -1,7 +1,7 @@
 import Popup from "reactjs-popup";
 import LoginForm from "../Login/LoginForm";
 import { useUser } from "../../Context/UserContext";
-import { storageDelete, storageSave } from "../../Utils/Storage";
+import { storageDelete } from "../../Utils/Storage";
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -13,13 +13,12 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { fontFamily } from "@mui/system";
 
 // const Navbar = () => {
 //   const { user} = useUser();
@@ -164,10 +163,7 @@ const Navbar = () => {
   }
 
   const handleKeyDown = (e) => {
-    
-    wordToSearch = e
-    console.log(wordToSearch)
-    //sendSearchedText(e)
+
   }
 
   let inputHandler = (e) =>{
@@ -175,7 +171,7 @@ const Navbar = () => {
     //var lowerCase = e.toLowerCase();
     //setInputTextToSearch(lowerCase);
     //searchedText(inputText)
-    wordToSearch = inputTextToSearch
+
     console.log(inputTextToSearch)
     //searchedText(wordToSearch)
     
@@ -277,7 +273,7 @@ const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" color="darkVioletGreen">
         <Toolbar>
           {/* <IconButton
             size="large"
@@ -289,30 +285,14 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton> */}
           <Typography
-            variant="h6"
+            variant="h3"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: 'none', sm: 'block'}, fontFamily: "Roboto"  }}
           >
             LAGALT
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              //onChange={e => inputHandler(e.target.value)}
-              //onKeyDown={e => wordToSearch = e.target.value}
-              //onKeyDown={handleKeyDown}
-              //onKeyDown={handleKeyDown}
-              //onChange={e => setInputTextToSearch(e.target.value)}
-              onChange={e => {handleKeyDown(e.target.value);setInputTextToSearch(e.target.value)}}
-              
-            />
-          </Search>
+      
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {/* <IconButton 

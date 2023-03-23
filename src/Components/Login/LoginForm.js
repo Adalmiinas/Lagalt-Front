@@ -44,32 +44,32 @@ const LoginForm = () => {
     }
   }, [user, navigate]);
 
-  // const onSubmit = async ({ username, password }) => {
-  //   setLoading(true);
-  //   const [error, userResponse] = await submitUser(username, password);
-  //   if (error !== null) {
-  //     setApiError(error);
-  //   }
+  const onSubmit = async ({ username, password }) => {
+     setLoading(true);
+     const [error, userResponse] = await submitUser(username, password);
+     if (error !== null) {
+       setApiError(error);
+     }
 
-  //   if (userResponse !== null) {
-  //     storageSave("logged-user", userResponse);
-  //     setUser(userResponse);
-  //   }
-  //   setLoading(false);
-  // };
+     if (userResponse !== null) {
+     storageSave("logged-user", userResponse);
+     setUser(userResponse);
+    }
+    setLoading(false);
+  };
 
-  //onSubmit={handleSubmit(onSubmit)}
+
   return (
     <>
       <h1>Log in:</h1>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset>
-          {/* <label htmlFor="username">Username:</label>
+           <label htmlFor="username">Username:</label>
           <input type="text" placeholder="username" {...register("username", usernameConfig)} />
 
           <label htmlFor="password">Password:</label>
-          <input type="text" placeholder="password" {...register("password", usernameConfig)} /> */}
-          {/* {!isLoggedIn && ( */}
+          <input type="text" placeholder="password" {...register("password", usernameConfig)} /> 
+          {!isLoggedIn && ( 
           <div>
             {/* <RenderOnAnonymous> */}
             <Welcome />
@@ -84,14 +84,14 @@ const LoginForm = () => {
               Register
             </Button>
           </div>
-          {/* )} */}
+          )};
         </fieldset>
 
-        {/* <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading}>
           Log in
         </button>
         {loading && <p>Logging in...</p>}
-        {apiError && <p>{apiError}</p>} */}
+        {apiError && <p>{apiError}</p>}
       </form>
     </>
   );
