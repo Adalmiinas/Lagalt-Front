@@ -45,6 +45,7 @@ function App() {
       storageSave("logged-user", data[1]);
       setUser(storageRead("logged-user"));
     };
+    
     fetchdata();
   }
 
