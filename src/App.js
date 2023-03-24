@@ -47,7 +47,9 @@ function App() {
       setUser(storageRead("logged-user"));
     };
     const fetchdata = async () => {
+      await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
       const data = await loginUser(userId(), keycloak.token);
+
       storageSave("logged-user", data[1]);
       setUser(storageRead("logged-user"));
     };
