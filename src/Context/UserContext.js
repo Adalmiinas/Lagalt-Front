@@ -15,7 +15,7 @@ const UserProvider = ({children}) => {
         user,
         setUser
     }
-
+   
     return (
         <UserContext.Provider value={state}>
             {children}

@@ -3,12 +3,10 @@ import { AppBar, Button } from "@mui/material";
 import { Container } from "@mui/system";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useKeycloak } from "@react-keycloak/web";
-import { storageRead, storageSave } from "../../Utils/Storage";
 
 import Popup from "reactjs-popup";
 import LoginForm from "../Login/LoginForm";
-import { useUser } from "../../Context/UserContext";
+
 import { storageDelete } from "../../Utils/Storage";
 import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
@@ -25,92 +23,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import MoreIcon from "@mui/icons-material/MoreVert";
-
-import { fontFamily } from "@mui/system";
-import { loginDev } from "../../Service/UserInfo";
-
-// const Navbar = () => {
-//   const { user} = useUser();
-
-//   const handleLogout = () => {
-//     storageDelete("logged-user")
-//   }
-
-//   return (
-//     <AppBar position="static">
-//       <Container
-//         maxWidth="xl"
-//         style={{ display: "flex", justifyContent: "center" }}
-//       >
-//         <Typography
-//             variant="h6"
-//             noWrap
-//             component="a"
-//             href="/"
-//             sx={{
-//               mr: 2,
-//               display: { xs: 'none', md: 'flex' },
-//               fontFamily: 'monospace',
-//               fontWeight: 700,
-//               letterSpacing: '.3rem',
-//               color: 'inherit',
-//               textDecoration: 'none',
-//             }}
-//           >
-//             LAGALT
-//           </Typography>
-//           <MenuItem LinkComponent={Link} to={"/profile"}>Main</MenuItem>
-//         <img src={logo} alt="Logo" width={50} />
-//         {user === null && (
-//           <Popup
-//             trigger={<Button variant="contained">Login</Button>}
-//             position="top center"
-//             modal
-//             nested
-//           >
-//             {(close) => (
-//               <div
-//                 style={{
-//                   minHeight: "500px",
-//                   minWidth: "500px",
-//                   backgroundColor: "#ECD9BA",
-//                 }}
-//               >
-//                 <button onClick={close}>&times;</button>
-//                 <LoginForm />
-//               </div>
-//             )}
-//           </Popup>
-//         )}
-
-//         {user !== null && (
-//           <Button variant="contained" href="/profile">
-//             Profile
-//           </Button>
-//         )}
-
-//         <Button variant="contained" href="/">
-//           Main
-//         </Button>
-
-//         {user !== null && (
-//           <Button variant="contained" href="/project/add-project">
-//           <img src={plusIcon} alt="Plus Icon" width={50}/>
-//         </Button>
-//         )}
-
-//         {user !== null && (
-//           <Button variant="contained" href="/" onClick={handleLogout}>
-//             Logout
-//           </Button>
-//         )}
-
-//       </Container>
-//     </AppBar>
-//   );
-// };
-// export default Navbar
-//__________________________________________________________________
+import { useUser } from "../../Context/UserContext";
+import { useKeycloak } from "@react-keycloak/web";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -157,14 +71,12 @@ const Navbar = props => {
   const history = useNavigate();
 
   const { keycloak } = useKeycloak();
-  const userInfo = storageRead("logged-user");
-
+  const { user } = useUser();
   const handleRedirect = () => {
     history("/");
     handleLoad(2);
   };
 
-  const { user, setUser } = useUser();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -229,15 +141,7 @@ const Navbar = props => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {/* <MenuItem onClick={handleLogout} component={Link} to="/">
-        Logout
-      </MenuItem> */}
-      {!keycloak.authenticated && (
-        <MenuItem onClick={() => handleLoad(3)} component={Link} to="/">
-          Register
-        </MenuItem>
-      )}
-      {keycloak.authenticated && (
+      {keycloak.authenticated && user ? (
         <div>
           <MenuItem onClick={handleMenuClose} component={Link} to="profile/">
             Profile
@@ -249,6 +153,10 @@ const Navbar = props => {
             Logout
           </MenuItem>
         </div>
+      ) : (
+        <MenuItem onClick={() => handleLoad(3)} component={Link} to="/">
+          Register
+        </MenuItem>
       )}
     </Menu>
   );

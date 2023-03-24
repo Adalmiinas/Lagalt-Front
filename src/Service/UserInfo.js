@@ -63,7 +63,6 @@ export const loginUser = async (id, token) => {
       throw new Error("Could not complete request!");
     }
     const data = await response.json();
-    // storageSave("logged-user", data);
     return [null, data];
   } catch (error) {
     return [error.message, []];

@@ -9,7 +9,7 @@ import UpdateProject from "./Components/Project/UpdateProject";
 import { useEffect, useState } from "react";
 import LoginForm from "./Components/Login/LoginForm";
 import { useKeycloak } from "@react-keycloak/web";
-import { storageDelete, storageSave } from "./Utils/Storage";
+import { storageDelete, storageRead, storageSave } from "./Utils/Storage";
 import { loginUser } from "./Service/UserInfo";
 import { userId } from "./keycloak";
 import { useUser } from "./Context/UserContext";
@@ -40,8 +40,12 @@ function App() {
     setLoad(0);
   }, [load, keycloak]);
   if (keycloak.authenticated) {
-    const data = loginUser(userId(), keycloak.token);
-    data.then(x => storageSave("logged-user", x[1]));
+    const fetchdata = async () => {
+      const data = await loginUser(userId(), keycloak.token);
+      storageSave("logged-user", data[1]);
+      setUser(storageRead("logged-user"));
+    };
+    fetchdata();
   }
 
   const theme = createTheme({
@@ -58,7 +62,7 @@ function App() {
       BGreen: "#A8BA30"
     }
   });
- 
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
