@@ -27,6 +27,7 @@ function App() {
   };
   useEffect(() => {
     if (load === 1) {
+      setLoad(0);
       keycloak.login();
     }
     if (load === 2) {
@@ -40,6 +41,11 @@ function App() {
     setLoad(0);
   }, [load, keycloak]);
   if (keycloak.authenticated) {
+    const handleRegistration = async () => {
+      const data = await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
+      storageSave("logged-user", data[1]);
+      setUser(storageRead("logged-user"));
+    };
     const fetchdata = async () => {
       await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
       const data = await loginUser(userId(), keycloak.token);
@@ -47,8 +53,8 @@ function App() {
       storageSave("logged-user", data[1]);
       setUser(storageRead("logged-user"));
     };
-
     if (user === null) {
+      handleRegistration();
       fetchdata();
     }
   }

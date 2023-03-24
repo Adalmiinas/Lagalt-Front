@@ -1,6 +1,6 @@
 import { createHeaders } from ".";
 import { storageSave } from "../Utils/Storage";
-
+import { useUser } from "../Context/UserContext";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export const loginDev = async username => {
@@ -75,11 +75,14 @@ or call directly the token in the bearer
 
 check network status is the token even sent
 */
-export const registerUser = async (username, firstName, lastName, email, id) => {
+export const registerUser = async (username, firstName, lastName, email, id, token) => {
   try {
     const response = await fetch(`${apiUrl}/Account/register`, {
       method: "POST",
-      headers: await createHeaders(),
+      headers: {
+        Authorization: `Bearer  ${token}`,
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         keycloakId: id,
         username,
