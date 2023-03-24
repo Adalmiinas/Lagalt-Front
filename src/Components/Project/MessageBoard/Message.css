@@ -1,17 +1,22 @@
 .message-container {
-    background-color: mediumslateblue; 
-    width: 25rem;
-    padding: 1rem;
-    margin: 0.5rem;
+    background-color: #787CD1;
     border-radius: 1rem;
+    width: 85%;
+    padding: 1rem;
+    margin: 2rem;
 }
 
 .message-row{
     display: flex;
-    alignt-items: center;
+    align-items: center;
     justify-content: space-between;
 }
 
 .message-author{
     font-style: italic;
+    margin-left: 125px;
+}
+
+.message-date{
+    
 }

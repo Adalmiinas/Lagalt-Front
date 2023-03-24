@@ -29,7 +29,7 @@ const MainView = () => {
   const getProjects = async () => {
     const sessionProjects = storageRead(STORAGE_KEY_PROJECTS);
 
-    if (sessionProjects === null && sessionProjects.length !== 0 ) {
+    if (sessionProjects === null && sessionProjects?.length !== 0 ) {
       const [error, fetchedProjects] = await fetchProjects();
       if (error != null) {
         return;

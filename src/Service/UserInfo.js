@@ -137,8 +137,10 @@ export const submitUser = async (username, password) => {
 
 export const userById = async userId => {
   try {
-    const response = await fetch(`${apiUrl}/${userId}`, {
-      headers: await createHeaders()
+    const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}`, {
+      headers: {
+        "Content-Type": "application/json"
+      },
     });
     if (!response.ok) {
       throw new Error("Could not complete request!");

@@ -7,6 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body, html {
+  font-family: Roboto;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -20,4 +24,9 @@ code {
 @font-face {
   font-family: "Roboto";
   src: url("../public/RobotoCondensed-Regular.ttf");
+}
+
+@font-face {
+  font-family: "RBold";
+  src: url("../public/RobotoCondensed-Bold.ttf");
 }

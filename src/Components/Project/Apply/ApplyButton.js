@@ -19,6 +19,9 @@ const ApplyButton = (props) => {
           user.id,
           motivation
         );
+        console.log(motivation);
+        console.log(props.project.id);
+        setMotivation("");
         setOpen(false);
         console.log(error);
         console.log(data);
@@ -34,7 +37,14 @@ const ApplyButton = (props) => {
             <Button
                     onClick={handleOpen}
                     variant="contained"
-                    sx={{ margin: "1rem" }}
+                    color="darkViolet"
+                    sx={{
+                      position: "absolute",
+                      bottom: "0px",
+                      left: "0px",
+                      borderRadius: "12px",
+                      margin: "1rem",
+                    }}
                   >
                     Apply for project
                   </Button>
@@ -51,6 +61,7 @@ const ApplyButton = (props) => {
                   border: "2px solid #000",
                   p: 4,
                   boxShadow: 24,
+                  borderRadius:"12px"
                 }}
               >
                 <h3>
