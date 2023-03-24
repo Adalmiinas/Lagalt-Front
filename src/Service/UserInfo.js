@@ -40,7 +40,7 @@ export const checkUser = async (id, token) => {
     }
     const data = await response.json();
     console.log(data);
-    storageSave("logged-user", data);
+
     return data;
   } catch (error) {
     return [error.message, []];
@@ -92,7 +92,6 @@ export const registerUser = async (username, firstName, lastName, email, id) => 
       throw new Error("Could not complete request!");
     }
     const data = await response.json();
-    storageSave("logged-user", data);
 
     return [null, data];
   } catch (error) {
