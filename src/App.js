@@ -20,7 +20,7 @@ function App() {
   const { keycloak } = useKeycloak();
   const [load, setLoad] = useState(0);
   const [updateBar] = useState(false);
-  const { user } = useUser();
+  const { user, setUser } = useUser();
 
   const handleLoad = value => {
     setLoad(value);
@@ -58,12 +58,12 @@ function App() {
       BGreen: "#A8BA30"
     }
   });
-
+ 
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <div className="App">
-          <Navbar handleLoad={handleLoad} updateBar={updateBar} />
+          <Navbar handleLoad={handleLoad} />
           <Routes>
             <Route path="/" element={<MainPage />} />
             {keycloak.authenticated && user && (

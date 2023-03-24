@@ -1,5 +1,5 @@
 {
-  "realm": "keycloak",
+  "realm": "Lagalt",
   "auth-server-url": "https://lagaltkeycloak.azurewebsites.net/auth",
   "ssl-required": "external",
   "resource": "lagalt-client",

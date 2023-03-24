@@ -4,7 +4,7 @@ import { Container } from "@mui/system";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
-import { storageRead } from "../../Utils/Storage";
+import { storageRead, storageSave } from "../../Utils/Storage";
 
 import Popup from "reactjs-popup";
 import LoginForm from "../Login/LoginForm";
@@ -27,6 +27,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import MoreIcon from "@mui/icons-material/MoreVert";
 
 import { fontFamily } from "@mui/system";
+import { loginDev } from "../../Service/UserInfo";
 
 // const Navbar = () => {
 //   const { user} = useUser();
@@ -162,7 +163,8 @@ const Navbar = props => {
     history("/");
     handleLoad(2);
   };
-  const { user } = useUser();
+
+  const { user, setUser } = useUser();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -171,7 +173,6 @@ const Navbar = props => {
 
   const navigate = useNavigate();
   const [inputTextToSearch, setInputTextToSearch] = React.useState("");
-  console.log(inputTextToSearch);
 
   const [data, setData] = React.useState("");
   const parentToChild = () => {
@@ -231,6 +232,11 @@ const Navbar = props => {
       {/* <MenuItem onClick={handleLogout} component={Link} to="/">
         Logout
       </MenuItem> */}
+      {!keycloak.authenticated && (
+        <MenuItem onClick={() => handleLoad(3)} component={Link} to="/">
+          Register
+        </MenuItem>
+      )}
       {keycloak.authenticated && (
         <div>
           <MenuItem onClick={handleMenuClose} component={Link} to="profile/">
@@ -243,11 +249,6 @@ const Navbar = props => {
             Logout
           </MenuItem>
         </div>
-      )}
-      {!keycloak.authenticated && (
-        <MenuItem onClick={() => handleLoad(3)} component={Link} to="/">
-          Register
-        </MenuItem>
       )}
     </Menu>
   );
@@ -327,10 +328,22 @@ const Navbar = props => {
           </Button>
         )} */}
                 {!keycloak.authenticated && (
-                  <Button variant="contained" onClick={() => handleLoad(1)}>
-                    Login
-                  </Button>
+                  <div>
+                    <Button variant="contained" onClick={() => handleLoad(1)}>
+                      Login
+                    </Button>
+                  </div>
                 )}
+                {/* <Button
+                  variant="contained"
+                  onClick={() =>
+                    loginDev("jmike")
+                      .then(x => storageSave("logged-user", x[1]) && setUser(x[1]))
+                      .finally(console.log("logged user"))
+                  }
+                >
+                  Login Developement
+                </Button> */}
                 {/* <Popup
                     trigger={
                       <MenuItem>
