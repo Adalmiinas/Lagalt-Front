@@ -18,7 +18,9 @@ export const fetchProjects = async () => {
 export const fetchProjectById = async id => {
   try {
     const response = await fetch(`http://localhost:5128/api/Project/${id}`, {
-      headers: await createHeaders()
+      headers: {
+        "Content-Type": "application/json",
+      }
     });
     if (!response.ok) {
       throw new Error("Could not complete request.");
@@ -145,8 +147,8 @@ export const addProject = async (id, title, description, gitRepositoryUrl, indus
     const response = await fetch(`http://localhost:5128/api/Project/create`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer  ${keycloak.token}`,
-        "X-API-Key": "http://localhost:5128/api/Project",
+        //Authorization: `Bearer  ${keycloak.token}`,
+        //"X-API-Key": "http://localhost:5128/api/Project",
         "Content-Type": "application/json",
         id: id
       },
