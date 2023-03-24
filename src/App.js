@@ -10,8 +10,8 @@ import { useEffect, useState } from "react";
 import LoginForm from "./Components/Login/LoginForm";
 import { useKeycloak } from "@react-keycloak/web";
 import { storageDelete, storageRead, storageSave } from "./Utils/Storage";
-import { loginUser } from "./Service/UserInfo";
-import { userId } from "./keycloak";
+import { loginUser, registerUser } from "./Service/UserInfo";
+import { email, firstName, lastName, userId, username } from "./keycloak";
 import { useUser } from "./Context/UserContext";
 
 import UpdateForm from "./Components/Profile/UpdateForm";
@@ -27,6 +27,7 @@ function App() {
   };
   useEffect(() => {
     if (load === 1) {
+      setLoad(0);
       keycloak.login();
     }
     if (load === 2) {
@@ -40,13 +41,20 @@ function App() {
     setLoad(0);
   }, [load, keycloak]);
   if (keycloak.authenticated) {
+    const handleRegistration = async () => {
+      const data = await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
+      storageSave("logged-user", data[1]);
+      setUser(storageRead("logged-user"));
+    };
     const fetchdata = async () => {
       const data = await loginUser(userId(), keycloak.token);
       storageSave("logged-user", data[1]);
       setUser(storageRead("logged-user"));
     };
-    
-    fetchdata();
+    if (user === null) {
+      handleRegistration();
+      fetchdata();
+    }
   }
 
   const theme = createTheme({
