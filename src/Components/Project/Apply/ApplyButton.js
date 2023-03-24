@@ -47,14 +47,14 @@ const ApplyButton = (props) => {
                   top: "30%",
                   left: "30%",
                   width: 400,
-                  bgcolor: 'white',
+                  bgcolor: 'violet',
                   border: "2px solid #000",
                   p: 4,
                   boxShadow: 24,
                 }}
               >
                 <h3>
-                  Write a sort motivation letter about why you want to join the
+                  Write a short motivation letter about why you want to join the
                   project
                 </h3>
                 <TextField
@@ -64,7 +64,7 @@ const ApplyButton = (props) => {
                   value={motivation}
                   onChange={handleTextFieldChange}
                 />
-                <Button onClick={applyProject}>Send application</Button>
+                <Button color="darkViolet"  onClick={applyProject}>Send application</Button>
               </Box>
             </Modal>
             </div>

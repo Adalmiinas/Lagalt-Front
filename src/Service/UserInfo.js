@@ -40,7 +40,7 @@ export const checkUser = async (id, token) => {
     }
     const data = await response.json();
     console.log(data);
-    storageSave("logged-user", data);
+
     return data;
   } catch (error) {
     return [error.message, []];
