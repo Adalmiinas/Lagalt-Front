@@ -1,5 +1,7 @@
 import { createHeaders } from ".";
 import keycloak from "../keycloak";
+import { storageSave } from "../Utils/Storage";
+import { STORAGE_KEY_PROJECTS } from "../Const/storageKeys";
 
 export const fetchProjects = async () => {
   try {
@@ -8,7 +10,7 @@ export const fetchProjects = async () => {
       throw new Error("Could not complete request.");
     }
     const data = await response.json();
-  
+    storageSave(STORAGE_KEY_PROJECTS, data);
     return [null, data];
   } catch (error) {
     return [error.message, null];
@@ -18,7 +20,9 @@ export const fetchProjects = async () => {
 export const fetchProjectById = async id => {
   try {
     const response = await fetch(`http://localhost:5128/api/Project/${id}`, {
-      headers: await createHeaders()
+      headers: {
+        "Content-Type": "application/json",
+      }
     });
     if (!response.ok) {
       throw new Error("Could not complete request.");
@@ -34,7 +38,9 @@ export const fetchProjectById = async id => {
 export const getUsersProjects = async id => {
   try {
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${id}/Projects`, {
-      headers: await createHeaders()
+      headers: {
+        "Content-Type": "application/json",
+      }
     });
     if (!response.ok) {
       throw new Error("Could not complete request.");
@@ -50,7 +56,9 @@ export const getUsersProjects = async id => {
 export const getAdminProjects = async id => {
   try {
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${id}/AdminProjects`, {
-      headers: await createHeaders()
+      headers: {
+        "Content-Type": "application/json",
+      }
     });
     if (!response.ok) {
       throw new Error("Could not complete request.");
@@ -145,7 +153,6 @@ export const addProject = async (id, title, description, gitRepositoryUrl, indus
     const response = await fetch(`http://localhost:5128/api/Project/create`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer  ${keycloak.token}`,
         "X-API-Key": "http://localhost:5128/api/Project",
         "Content-Type": "application/json",
         id: id
@@ -164,6 +171,7 @@ export const addProject = async (id, title, description, gitRepositoryUrl, indus
     }
     const data = await response.json();
     console.log(data);
+    fetchProjects();
     return [null, data];
   } catch (error) {
     return [error.message, null];
@@ -197,6 +205,7 @@ export const updateProject = async (userId, projectId, title, description, gitUr
     }
     const data = await response.json();
     console.log(data);
+    fetchProjects();
     return [null, data];
   } catch (error) {
     return [error.message, null];

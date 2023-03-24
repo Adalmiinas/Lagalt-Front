@@ -1,10 +1,8 @@
 import { Box, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { STORAGE_KEY_PROJECTS } from "../../Const/storageKeys";
 import { fetchProjects } from "../../Service/ProjectInfos";
 import { storageRead, storageSave } from "../../Utils/Storage";
-import { searchedText } from "../Navbar/Navbar";
 import { ProjectBanner } from "./ProjectBanner.js";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -31,7 +29,7 @@ const MainView = () => {
   const getProjects = async () => {
     const sessionProjects = storageRead(STORAGE_KEY_PROJECTS);
 
-    if (sessionProjects === null) {
+    if (sessionProjects === null && sessionProjects.length !== 0 ) {
       const [error, fetchedProjects] = await fetchProjects();
       if (error != null) {
         return;
