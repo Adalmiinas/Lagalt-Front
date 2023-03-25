@@ -23,7 +23,7 @@ const MessageBoard = (props) => {
   };
   return (
     <>
-      <MessageForm projectId={props.project.id} loading={setLoad} />
+      <MessageForm  projectId={props.project.id} loading={setLoad} />
       <div
         style={{
           marginLeft: "22%",
