@@ -1,30 +1,25 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
 import { deleteUserFromProject } from "../../Service/ProjectInfos";
-
-const WaitList = (props) => {
+import { useUser } from "../../Context/UserContext";
+const WaitList = props => {
+  const { user } = useUser();
   const deleteUser = (projectId, userId) => {
     console.log(userId);
     console.log(projectId);
-    deleteUserFromProject(projectId, userId);
+    deleteUserFromProject(user?.id, projectId, userId);
     props.loading(true);
   };
 
   return props.project.projectUsers
-    .filter((x) => x.isOwner === false)
-    .map((user) => (
+    .filter(x => x.isOwner === false)
+    .map(user => (
       <div
         key={user.id}
         style={{
           display: "flex",
           justifyContent: "center",
           padding: "10px",
-          maxWidth: "90%",
+          maxWidth: "90%"
         }}
       >
         <Card
@@ -32,7 +27,7 @@ const WaitList = (props) => {
             minWidth: "100%",
             backgroundColor: "violet",
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "space-between"
           }}
         >
           <CardContent>
@@ -44,7 +39,7 @@ const WaitList = (props) => {
               variant="contained"
               color="darkViolet"
               sx={{
-                borderRadius: "12px",
+                borderRadius: "12px"
               }}
             >
               Delete
