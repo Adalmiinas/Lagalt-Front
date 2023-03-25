@@ -1,8 +1,9 @@
 import { Chip, TextField } from "@mui/material"
+import { async } from "q"
 import { useState } from "react"   
 
 let newTagList = []
-export const returnedList = () => {
+export const returnedList = async () => {
     console.log(newTagList)
     return newTagList
 }

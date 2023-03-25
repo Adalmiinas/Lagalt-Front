@@ -150,7 +150,6 @@ export const addProject = async (id, title, description, gitRepositoryUrl, indus
     const response = await fetch(`http://localhost:5128/api/Project/create`, {
       method: "POST",
       headers: {
-        "X-API-Key": "http://localhost:5128/api/Project",
         "Content-Type": "application/json",
         id: id
       },

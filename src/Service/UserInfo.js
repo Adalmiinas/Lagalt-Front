@@ -140,7 +140,7 @@ export const userById = async userId => {
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}`, {
       headers: {
         "Content-Type": "application/json"
-      },
+      }
     });
     if (!response.ok) {
       throw new Error("Could not complete request!");
@@ -167,11 +167,10 @@ export const GetAllUsers = async () => {
 
 export const updateUserInfo = async (userId, newUsername, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills) => {
   try {
-    console.log(userId, newUsername, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills);
+    console.log(newSkills);
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/Update`, {
       method: "PUT",
       headers: {
-        "X-API-Key": "http://localhost:5128/api/Project",
         "Content-Type": "application/json",
         id: userId
       },
@@ -181,8 +180,12 @@ export const updateUserInfo = async (userId, newUsername, newCareerTitle, newEma
         email: newEmail,
         portfolio: newPortfolio,
         description: newDescription,
-        skillNames: newSkills
+        skills: newSkills
       })
     });
+    if (response.ok) {
+      const data = await userById(userById);
+      return data;
+    }
   } catch (error) {}
 };
