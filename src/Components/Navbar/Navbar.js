@@ -142,14 +142,19 @@ const Navbar = (props) => {
     <>
       <AppBar position="static" color="darkVioletGreen">
         <Toolbar>
-          <Typography
-            variant="h3"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" }, fontFamily: "Roboto" }}
-          >
-            LAGALT
-          </Typography>
+          <MenuItem component={Link} to="/">
+            <Typography
+              variant="h3"
+              noWrap
+              component="div"
+              sx={{
+                display: { xs: "none", sm: "block" },
+                fontFamily: "Roboto",
+              }}
+            >
+              LAGALT
+            </Typography>
+          </MenuItem>
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>

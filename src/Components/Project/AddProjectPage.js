@@ -3,9 +3,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
-import { addProject, fetchProjects } from "../../Service/ProjectInfos";
-import { storageRead } from "../../Utils/Storage";
-import { descriptionConfig, gitRepositoryUrlConfig, industryNameConfig, titleConfig } from "./Input/InputValidations";
+import { addProject } from "../../Service/ProjectInfos";
 import SkillsInput, { returnedListSkills } from "./SkillsInput";
 import TagsInput, { returnedList } from "./TagsInput";
 
@@ -21,8 +19,6 @@ const AddProjectPage = () => {
   const [projectIndustry, setProjectIndustry] = useState("");
 
   const {
-    register,
-    handleSubmit,
     formState: { errors }
   } = useForm();
 
@@ -91,11 +87,11 @@ const AddProjectPage = () => {
     }
 
     if (errors.gitRepositoryUrl.type === "required") {
-      return <Alert severity="error">Git Repositoyry Url is required.</Alert>;
+      return <Alert severity="error">Git Repository Url is required.</Alert>;
     }
 
     if (errors.gitRepositoryUrl.type === "minLength") {
-      return <Alert severity="error">Git Repositoyry Url has to be at least 10 characters.</Alert>;
+      return <Alert severity="error">Git Repository Url has to be at least 10 characters.</Alert>;
     }
   })();
 

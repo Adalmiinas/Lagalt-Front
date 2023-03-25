@@ -1,17 +1,10 @@
-import { Password } from "@mui/icons-material";
-import { Button, linkClasses, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
 import { updateUserInfo, userById } from "../../Service/UserInfo";
 import { storageRead, storageSave } from "../../Utils/Storage";
 import SkillsInput, { emptySkillList, returnedListSkills } from "../Project/SkillsInput";
-
-const usernameConfig = {
-  required: true,
-  minLength: 4
-};
 
 const UpdateForm = () => {
   const { user, setUser } = useUser();
@@ -24,8 +17,7 @@ const UpdateForm = () => {
   const [email, setEmail] = useState(null);
   const [portfolio, setPortfolio] = useState(null);
   const [description, setDescription] = useState(null);
-  const [skills, setSkills] = useState([]);
-
+ 
   const checkKeyDown = e => {
     if (e.key === "Enter") e.preventDefault();
   };

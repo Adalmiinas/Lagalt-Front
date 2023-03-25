@@ -3,7 +3,6 @@ import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useUser } from "../../../Context/UserContext";
 import { addMessageToProject } from "../../../Service/MessageInfo";
-import { WidthFull } from "@mui/icons-material";
 
 const MessageForm = props => {
   const { user } = useUser();
@@ -12,7 +11,7 @@ const MessageForm = props => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    const [error, data] = await addMessageToProject(props.projectId, user.id, message, title);
+    await addMessageToProject(props.projectId, user.id, message, title);
     props.loading(true);
     setMessage("");
     setTitle("");

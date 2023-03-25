@@ -1,18 +1,26 @@
-import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material";
 import { deleteUserFromProject } from "../../Service/ProjectInfos";
 import { useUser } from "../../Context/UserContext";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+
 const WaitList = props => {
   const { user } = useUser();
-  const deleteUser = (projectId, userId) => {
-    console.log(userId);
-    console.log(projectId);
-    deleteUserFromProject(user?.id, projectId, userId);
+
+  const deleteUser = async (projectId, userId) => {
+    window.confirm("Are you sure you want to remove user from project ?")
+    const [error, response] = await deleteUserFromProject(user.id, projectId, userId);
     props.loading(true);
+
+    console.log(projectId,userId, user.id);
+    if(error !== null){
+      window.alert("Error, while trying to delete user.")
+    }
+    else {
+      window.alert("User deleted successfully.")
+    }
   };
 
-  return props.project.projectUsers
-    .filter(x => x.isOwner === false)
-    .map(user => (
+  return props.project.projectUsers.map(user => (
       <div
         key={user.id}
         style={{
@@ -30,9 +38,26 @@ const WaitList = props => {
             justifyContent: "space-between"
           }}
         >
-          <CardContent>
+          
+          <CardContent sx={{display:"flex"}}>
             <Typography variant="h5"> {user.userName}</Typography>
+
+            {user != null && user.isOwner === true &&
+              <Chip
+                color="darkViolet"
+                padding="1rem"
+                size="small"
+                label="Owner"
+                icon={<AdminPanelSettingsIcon />}
+                sx={{
+                  marginLeft: "5px",
+                  marginTop: "5px"
+                }}
+              />
+            }
           </CardContent>
+
+          {user.isOwner === false &&
           <CardActions sx={{ justifyContent: "center" }}>
             <Button
               onClick={() => deleteUser(props.project.id, user.userId)}
@@ -45,6 +70,7 @@ const WaitList = props => {
               Delete
             </Button>
           </CardActions>
+          }
         </Card>
       </div>
     ));

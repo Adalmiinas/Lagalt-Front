@@ -1,5 +1,3 @@
-import { createHeaders } from ".";
-import keycloak from "../keycloak";
 import { storageSave } from "../Utils/Storage";
 import { STORAGE_KEY_PROJECTS } from "../Const/storageKeys";
 
@@ -127,10 +125,10 @@ export const deleteUserFromProject = async (actingId, projId, userId) => {
       headers: {
         "Content-Type": "application/json",
         "X-API-Key": "http://localhost:5128/api/ProjectUser",
-        userId: actingId
+        userId: userId
       },
       body: JSON.stringify({
-        userId: userId,
+        userId: actingId,
         projectId: projId
       })
     });

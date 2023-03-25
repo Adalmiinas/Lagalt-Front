@@ -34,9 +34,9 @@ const WaitlistButton = (props) => {
               position: "absolute",
               display: "flex",
               flexDirection: "column",
-              top: "30%",
-              left: "30%",
-              width: 400,
+              top: "15%",
+              left: "20%",
+              width: "100%",
               bgcolor: "violet",
               border: "2px solid #000",
               p: 4,
@@ -44,6 +44,7 @@ const WaitlistButton = (props) => {
               borderRadius: "12px",
               overflow: "auto",
               maxWidth: "50%",
+              maxHeight: "60%"
             }}
           >
             <h1>Waitlist</h1>

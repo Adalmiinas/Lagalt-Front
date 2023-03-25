@@ -9,8 +9,9 @@ import { useEffect, useState } from "react";
 import { useUser } from "../../../Context/UserContext";
 import { acceptUserToProject } from "../../../Service/ProjectInfos";
 import { userById } from "../../../Service/UserInfo";
+import Skills from "../../Main/Skills";
 
-const WaitList = ({projectUsers, projectId, loading}) => {
+const WaitList = ({ projectUsers, projectId, loading }) => {
   const { user } = useUser();
 
   const [waitlistUser, setWaitlistUser] = useState([]);
@@ -27,8 +28,16 @@ const WaitList = ({projectUsers, projectId, loading}) => {
   };
 
   const addUserToProject = async (projectId, userId, pending) => {
-    await acceptUserToProject(user.id, projectId, userId, pending);
+    window.confirm("are you sure ?");
+    const [error, response] = await acceptUserToProject(user.id, projectId, userId, pending);
     loading(true);
+
+    if(error !== null){
+      window.alert("Error, while trying add user to the project.")
+    }
+    else {
+      window.alert("User added successfully.")
+    }
   };
 
   return (
@@ -44,22 +53,44 @@ const WaitList = ({projectUsers, projectId, loading}) => {
       >
         <Card
           sx={{
-            minWidth: "80%",
+            minWidth: "100%",
             backgroundColor: "violet",
             display: "flex",
             justifyContent: "space-between",
           }}
         >
-          <CardContent>
+          <CardContent sx={{ display: "flex", flexDirection: "column" }}>
             <Typography variant="h5" fontFamily={"RBold"}>
               {" "}
               {projectUsers.username}
             </Typography>
-            <Typography variant="h5" fontFamily={"RBold"}>
+
+            <Typography variant="h8">
               {" "}
-              {waitlistUser.username}
+              Career: {waitlistUser.careerTitle}
             </Typography>
-            <Typography>{projectUsers.motivationLetter}</Typography>
+
+            <Typography variant="h8"> Email: {waitlistUser.email}</Typography>
+
+            <Typography variant="h8">
+              {" "}
+              Portfolio: {waitlistUser.portfolio}
+            </Typography>
+
+            <Typography variant="h8">
+              {" "}
+              Description: {waitlistUser.description}
+            </Typography>
+
+            {waitlistUser.Skills > 0 &&
+              <div
+                key={"skills"}
+                style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
+              >
+                <Skills project={waitlistUser} />
+              </div>
+            }
+            <Typography>Motivation: {projectUsers.motivationLetter}</Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: "end" }}>
             <Button

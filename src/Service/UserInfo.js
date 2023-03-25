@@ -1,6 +1,4 @@
 import { createHeaders } from ".";
-import { storageSave } from "../Utils/Storage";
-import { useUser } from "../Context/UserContext";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export const loginDev = async username => {
