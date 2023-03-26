@@ -7,19 +7,19 @@ import AddProject from "./Views/AddProject";
 import Navbar from "./Components/Navbar/Navbar";
 import UpdateProject from "./Components/Project/UpdateProject";
 import { useEffect, useState } from "react";
-import LoginForm from "./Components/Login/LoginForm";
+
 import { useKeycloak } from "@react-keycloak/web";
 import { storageDelete, storageRead, storageSave } from "./Utils/Storage";
 import { loginUser, registerUser } from "./Service/UserInfo";
 import { email, firstName, lastName, userId, username } from "./keycloak";
 import { useUser } from "./Context/UserContext";
-
+import { debounce } from "lodash";
 import UpdateForm from "./Components/Profile/UpdateForm";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 function App() {
   const { keycloak } = useKeycloak();
   const [load, setLoad] = useState(0);
-  const [updateBar] = useState(false);
+
   const { user, setUser } = useUser();
 
   const handleLoad = value => {
@@ -27,7 +27,6 @@ function App() {
   };
   useEffect(() => {
     if (load === 1) {
-      setLoad(0);
       keycloak.login();
     }
     if (load === 2) {
@@ -43,19 +42,21 @@ function App() {
   if (keycloak.authenticated) {
     const handleRegistration = async () => {
       const data = await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
-      storageSave("logged-user", data[1]);
-      setUser(storageRead("logged-user"));
+      storageSave("logged-user", data[1].value);
     };
+
+    const debounceRegistration = debounce(handleRegistration, 500); //debounce reg
     const fetchdata = async () => {
-      await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
+      // await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
       const data = await loginUser(userId(), keycloak.token);
 
-      storageSave("logged-user", data[1]);
+      storageSave("logged-user", data[1].value);
       setUser(storageRead("logged-user"));
     };
+    const debouncedFetchData = debounce(fetchdata, 500); // debounce fetchdata
     if (user === null) {
-      handleRegistration();
-      fetchdata();
+      debounceRegistration();
+      debouncedFetchData();
     }
   }
 

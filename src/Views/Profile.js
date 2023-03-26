@@ -1,22 +1,45 @@
 import { useKeycloak } from "@react-keycloak/web";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AdminProjects from "../Components/Profile/AdminProjects";
+import HistoryView from "../Components/Profile/HistoryView";
 import ProfileHeader from "../Components/Profile/ProfileHeader";
+
+import SelectHeader, { handleAdminProjects } from "../Components/Profile/Select";
+import StartingFillerPage from "../Components/Profile/StartingFillerPage";
 import UserProjects from "../Components/Profile/UserProjects";
 import { useUser } from "../Context/UserContext";
 import withAuth from "../Guards/WithAuth";
 const Profile = () => {
   const { user } = useUser();
-  const {keycloak} = useKeycloak()
-  // useEffect( () => {
-  //    if(keycloak.)
-  // })
+  const { keycloak } = useKeycloak();
+  if (!keycloak.authenticated) {
+    keycloak
+      .updateToken(5)
+      .then(function (refreshed) {
+        if (refreshed) {
+          alert("Token was successfully refreshed");
+        } else {
+          alert("Token is still valid");
+        }
+      })
+      .catch(function () {
+        alert("Failed to refresh the token, or the session has expired");
+      });
+  }
+  const [render, setRender] = useState(0);
+  const handleProjectList = value => {
+    setRender(value);
+  };
   return (
     <>
-      <ProfileHeader user={user} keycloak={keycloak} />
-      <UserProjects id={user.id} />
-      <h1> Admin projects</h1>
-      <AdminProjects id={user.id} />
+      <SelectHeader handleProjectList={handleProjectList} />
+      <div style={{ display: "flex", alignContent: "space-evenly" }}>
+        {render === 0 && <StartingFillerPage />}
+        {render === 1 && <AdminProjects id={user.id} />}
+        {render === 2 && <UserProjects id={user.id} />}
+        {render === 3 && <HistoryView id={user.id} />}
+        <ProfileHeader user={user} keycloak={keycloak} />
+      </div>
     </>
   );
 };

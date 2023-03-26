@@ -43,11 +43,10 @@ const AddProjectPage = () => {
   };
 
   const handleSubmitClick = async () => {
-    const tags = returnedList();
-    const skills = returnedListSkills();
-    
+    const tags = await returnedList();
+    const skills = await returnedListSkills();
 
-    const [error, userResponse] = await addProject(user.id, projectTitle, projectDescription, projectGitUrl, industry, tags, skills);
+    const [error, userResponse] = await addProject(user.id, projectTitle, projectDescription, projectGitUrl, projectIndustry, tags, skills);
 
     if (error !== null) {
       setApiError(error);

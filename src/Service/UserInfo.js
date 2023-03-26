@@ -137,9 +137,10 @@ export const submitUser = async (username, password) => {
 
 export const userById = async userId => {
   try {
-    //const response = await fetch(`${apiUrl}/${userId}`, {
-    const response = await fetch(`${apiUrl}/AppUser/User/${userId}`, {
-      headers: await createHeaders()
+    const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}`, {
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
     if (!response.ok) {
       throw new Error("Could not complete request!");
@@ -171,7 +172,6 @@ export const updateUserInfo = async (userId, username, newCareerTitle, newEmail,
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/Update`, {
       method: "PUT",
       headers: {
-        "X-API-Key": "http://localhost:5128/api/Project",
         "Content-Type": "application/json",
         id: userId
       },
@@ -184,13 +184,9 @@ export const updateUserInfo = async (userId, username, newCareerTitle, newEmail,
         skills: newSkills
       })
     });
-    if (!response.ok) {
-      throw new Error("Could not complete request!");
+    if (response.ok) {
+      const data = await userById(userById);
+      return data;
     }
-    const data = await response.json();
-    
-    return [null, data];
-  } catch (error) {
-    return [error.message, null];
-  }
+  } catch (error) {}
 };

@@ -5,65 +5,52 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
 import { updateUserInfo, userById } from "../../Service/UserInfo";
+import { storageRead, storageSave } from "../../Utils/Storage";
 import { storageSave } from "../../Utils/Storage";
-import SkillsInput, { clearSkillsList, returnedListSkills } from "../Project/SkillsInput";
+import SkillsInput, { emptySkillList, clearSkillsList, returnedListSkills } from "../Project/SkillsInput";
 
 const usernameConfig = {
-    required: true,
-    minLength: 4
-}
+  required: true,
+  minLength: 4
+};
 
 const UpdateForm = () => {
+  const { user, setUser } = useUser();
+  const navigate = useNavigate();
+  const [apiError, setApiError] = useState(null);
 
-    const {user} = useUser();
-    const navigate = useNavigate()
-    const [apiError, setApiError] = useState(null);
-
+    const [usernameToUpdate, setUsernameToUpdate] = useState("")
     const [careerTitle, setCareerTitle] = useState()
     const [email, setEmail] = useState("")
     const [portfolio, setPortfolio] = useState("")
     const [description, setDescription] = useState("")
+    const [skills, setSkills] = useState([])
 
-    const checkKeyDown = (e) => {
-        if (e.key === "Enter") e.preventDefault();
-    };
+  const checkKeyDown = e => {
+    if (e.key === "Enter") e.preventDefault();
+  };
 
-    const profileSuccessfullyUpdatedAlert = () => {
-        alert("Project successfully updated!");
-    };
+  const profileSuccessfullyUpdatedAlert = () => {
+    alert("Project successfully updated!");
+  };
 
-    const handleSubmitClick = async () => {
-        
-        const skills = returnedListSkills()
-        console.log(skills)
-        const [error, userResponse] = await updateUserInfo(
-          user.id,
-          user.username,
-          careerTitle,
-          email,
-          portfolio,
-          description,
-          skills
-        );
-    
-        if (error !== null) {
-          setApiError(error);
-        }
-        getUpdatedUser()
-        clearSkillsList()
-        profileSuccessfullyUpdatedAlert();
-        navigate("/profile")
+  const handleSubmitClick = async () => {
+    const skills = await returnedListSkills();
+    emptySkillList();
+    const [error, userResponse] = await updateUserInfo(user.id, usernameToUpdate, careerTitle, email, portfolio, description, skills);
+    if (userResponse) {
+      console.log(userResponse);
     }
-
-    const getUpdatedUser = async () => {
-        const [error, fetchedUser] = await userById(user.id);
-        if(error !== null){
-            return;
-        }
-        else{
-            
-        }
+    if (error !== null) {
+      setApiError(error);
     }
+    const update = await userById(user.id);
+    console.log(update);
+    storageSave("logged-user", update[1]);
+    setUser(storageRead("logged-user"));
+    navigate("/profile");
+    profileSuccessfullyUpdatedAlert();
+  };
 
     return (
         <>

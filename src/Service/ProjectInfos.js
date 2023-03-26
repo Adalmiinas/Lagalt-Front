@@ -21,7 +21,7 @@ export const fetchProjectById = async id => {
   try {
     const response = await fetch(`http://localhost:5128/api/Project/${id}`, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       }
     });
     if (!response.ok) {
@@ -39,7 +39,7 @@ export const getUsersProjects = async id => {
   try {
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${id}/Projects`, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       }
     });
     if (!response.ok) {
@@ -57,7 +57,7 @@ export const getAdminProjects = async id => {
   try {
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${id}/AdminProjects`, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       }
     });
     if (!response.ok) {
@@ -120,14 +120,14 @@ export const acceptUserToProject = async (ownerId, projId, userId, pending) => {
   }
 };
 
-export const deleteUserFromProject = async (projId, userId) => {
+export const deleteUserFromProject = async (actingId, projId, userId) => {
   try {
     const response = await fetch("http://localhost:5128/project", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         "X-API-Key": "http://localhost:5128/api/ProjectUser",
-        userId: userId
+        userId: actingId
       },
       body: JSON.stringify({
         userId: userId,
@@ -150,7 +150,6 @@ export const addProject = async (id, title, description, gitRepositoryUrl, indus
     const response = await fetch(`http://localhost:5128/api/Project/create`, {
       method: "POST",
       headers: {
-        "X-API-Key": "http://localhost:5128/api/Project",
         "Content-Type": "application/json",
         id: id
       },

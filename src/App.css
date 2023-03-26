@@ -6,3 +6,7 @@
   border-color: #A8BA30 !important;
   border-width: 3px !important;
 }
+
+.MuiInputLabel-root {
+  color: #A8BA30 !important;
+}
