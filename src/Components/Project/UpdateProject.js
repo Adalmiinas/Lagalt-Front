@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material"
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material"
 import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import SkillsInput, { returnedListSkills } from "./SkillsInput"
@@ -9,13 +9,14 @@ import { storageRead, storageSave } from "../../Utils/Storage"
 import { fetchProjects } from "../../Service/ProjectInfos";
 import { STORAGE_KEY_PROJECTS } from "../../Const/storageKeys"
 
+
 const UpdateProject = () => {
     
     const navigate = useNavigate()
     const location = useLocation()
     const { user } = useUser();
     
-    const projectToUpdateId = location.state.projectId
+    //const projectToUpdateId = location.state.projectId
     const [apiError, setApiError] = useState(null);
 
     const [title, setTitle] = useState("")
@@ -27,8 +28,12 @@ const UpdateProject = () => {
     const handleCancelButtonOnClick = () => {
         navigate("/profile")
     }
+
+    const handleIndustryChange = e => {
+        setIndustry(e.target.value)
+      }
     
-    console.log(projectToUpdateId)
+    //console.log(projectToUpdateId)
 
     const checkKeyDown = (e) => {
         if (e.key === "Enter") e.preventDefault();
@@ -43,7 +48,7 @@ const UpdateProject = () => {
 
         if(sessionProjects !== null){
             const [error, fetchedProjects] = await fetchProjects();
-            if(error != null){
+            if(error !== null){
                 return;
             }
             else{
@@ -64,7 +69,8 @@ const UpdateProject = () => {
 
         const [error, userResponse] = await updateProject(
           user.id,
-          projectToUpdateId,
+          //projectToUpdateId,
+          1,
           title,
           description,
           projectGitUrl,
@@ -85,9 +91,8 @@ const UpdateProject = () => {
 
     return (
         <>
-        <h2>
-            Update project information
-        </h2>
+        <div style={{ alignItems: "center", flexDirection: "column", display: "flex"}}>
+        <h2 style={{ color:"#787CD1"}}>Update project information</h2>
         <TextField
             required
             label="Title"
@@ -114,20 +119,63 @@ const UpdateProject = () => {
             onChange={e => setProjectImageUrl(e.target.value)}
         />
         <p></p>
-        <TextField
+        {/* <TextField
             label="Industry"
             value={industry}
             onChange={e => setIndustry(e.target.value)}
-        />
+        /> */}
+        <Box >
+        <FormControl size='medium' sx={{minWidth:"194px"}}>
+            <InputLabel id="industry-select"> Industry </InputLabel>
+            <Select labelId="industry-select" id="industry" label="industry" value={industry} onChange={handleIndustryChange}>
+              <MenuItem value={""}>Select All</MenuItem>
+              <MenuItem value={"art"}>Art</MenuItem>
+              <MenuItem value={"medical"}>Medical</MenuItem>
+              <MenuItem value={"Web-Development"}>Web-Development</MenuItem>
+              <MenuItem value={"Industrial"}>Industrial</MenuItem>
+            </Select>
+          </FormControl>
+      </Box>
         <p></p>
         <TagsInput/>
+        <p></p>
         <SkillsInput/>
-        <Button onClick={handleSubmitClick} variant="contained" onKeyDown={checkKeyDown}>
-            Update
-        </Button>
-        <Button sx={{margin: 1}} variant="contained" onClick={handleCancelButtonOnClick}>
-            Cancel
-        </Button>
+        <p></p>
+        <div>
+        <Button sx={{
+          maxWidth: "60%",
+          justifyContent: "center",
+          borderRadius: "12px",
+          boxShadow: " 3px 3px 2px 1px rgba(0, 0, 255, .2)",
+          backgroundColor: "violet",
+          margin: 1,
+          backgroundColor: "violet",
+                    margin: 1,
+                    '&:hover': {
+                        backgroundColor: '#312B70',
+                        boxShadow: " 2px 2px 1px 1px rgba(120, 124, 209, 1)"
+                    }}}
+             variant="contained" onClick={handleSubmitClick} onKeyDown={checkKeyDown}>
+        Submit
+      </Button>
+      <Button sx={{
+          maxWidth: "60%",
+          justifyContent: "center",
+          borderRadius: "12px",
+          boxShadow: " 3px 3px 2px 1px rgba(0, 0, 255, .2)",
+          backgroundColor: "violet",
+          margin: 1,
+          backgroundColor: "violet",
+                    margin: 1,
+                    '&:hover': {
+                        backgroundColor: '#312B70',
+                        boxShadow: " 2px 2px 1px 1px rgba(120, 124, 209, 1)"
+                    }}} 
+        variant="contained" onClick={handleCancelButtonOnClick}>
+        Cancel
+      </Button>
+      </div>
+      </div>
         </>
     )
 }

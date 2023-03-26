@@ -28,7 +28,7 @@ export const fetchProjectById = async id => {
       throw new Error("Could not complete request.");
     }
     const data = await response.json();
-
+    storageSave("logged-user", data)
     return [null, data];
   } catch (error) {
     return [error.message, null];

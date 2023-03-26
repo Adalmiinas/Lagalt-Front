@@ -7,6 +7,10 @@ export const returnedListSkills = () => {
     return newSkillList
 }
 
+export const clearSkillsList = () => {
+    newSkillList = []
+}
+
 const SkillsInput = () => {
 
     const [skills, setSkills] = useState([])
@@ -31,7 +35,7 @@ const SkillsInput = () => {
         <TextField sx={{margin: .75}} label="Skills" onKeyDown={handleKeyDown} value={text} onChange={e => setText(e.target.value)}/>
             <div>
              {skills.map((item, index) => ( 
-                <span><Chip label={item.skillName} onDelete={() => removeSkill(index)}/>
+                <span><Chip label={item.skillName} onDelete={() => removeSkill(index)} sx={{ backgroundColor:"#0000ff33", color:"white", '& .MuiChip-deleteIcon': {color: "#A8BA30",}}}/>
                 </span>
              ))}
              </div>

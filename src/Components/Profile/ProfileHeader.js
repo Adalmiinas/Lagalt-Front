@@ -4,8 +4,10 @@ import Popup from "reactjs-popup";
 import UpdateForm from "./UpdateForm";
 import { useUser } from "../../Context/UserContext";
 import { useKeycloak } from "@react-keycloak/web";
+import { useEffect } from "react";
 const ProfileHeader = ({ user }) => {
   const { keycloak } = useKeycloak();
+
   return (
     <>
       {user && keycloak.authenticated ? (

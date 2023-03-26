@@ -7,6 +7,10 @@ export const returnedList = () => {
     return newTagList
 }
 
+export const clearTagsList = () => {
+    newTagList = []
+}
+
 const TagsInput = () => {
 
     const [tags, setTags] = useState([])
@@ -31,7 +35,7 @@ const TagsInput = () => {
         <TextField sx={{margin: 0.75}} label="Tags" onKeyDown={handleKeyDown} value={text} onChange={e => setText(e.target.value)}/>
             <div>
              {tags.map((item, index) => ( 
-                <span><Chip label={item.tagName} onDelete={() => removeTag(index)}/>
+                <span><Chip label={item.tagName} onDelete={() => removeTag(index)} sx={{ backgroundColor:"#0000ff33", color:"white", '& .MuiChip-deleteIcon': {color: "#A8BA30",}}}/>
                 </span>
              ))}
              </div>
