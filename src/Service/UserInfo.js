@@ -124,6 +124,7 @@ export const userById = async userId => {
       throw new Error("Could not complete request!");
     }
     const data = await response.json();
+    storageSave("logged-user", data);
     return [null, data];
   } catch (error) {
     return [error.message, []];
@@ -143,9 +144,9 @@ export const GetAllUsers = async () => {
   }
 };
 
-export const updateUserInfo = async (userId, newUsername, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills) => {
+export const updateUserInfo = async (userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills) => {
   try {
-    console.log(newSkills);
+    console.log(userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills);
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/Update`, {
       method: "PUT",
       headers: {
@@ -153,7 +154,7 @@ export const updateUserInfo = async (userId, newUsername, newCareerTitle, newEma
         id: userId
       },
       body: JSON.stringify({
-        username: newUsername,
+        username: username,
         careerTitle: newCareerTitle,
         email: newEmail,
         portfolio: newPortfolio,
