@@ -1,13 +1,11 @@
-import { Alert, Button, CardContent, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import { Box, display } from "@mui/system";
+import { Button, CardContent, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
-import { addProject, fetchProjects } from "../../Service/ProjectInfos";
-import { storageRead } from "../../Utils/Storage";
-import { descriptionConfig, gitRepositoryUrlConfig, industryNameConfig, titleConfig } from "./Input/InputValidations";
-import SkillsInput, { clearSkillsList, emptySkillList, returnedListSkills } from "./SkillsInput";
+import { addProject } from "../../Service/ProjectInfos";
+import SkillsInput, { emptySkillList, returnedListSkills } from "./SkillsInput";
 import TagsInput, { clearTagsList, returnedList } from "./TagsInput";
 
 const AddProjectPage = () => {
@@ -19,7 +17,6 @@ const AddProjectPage = () => {
   const [projectTitle, setProjectTitle] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [projectGitUrl, setprojectGitUrl] = useState("");
-  //const [projectIndustry, setProjectIndustry] = useState("");
   const [industry, setIndustry] = useState("");
 
   const {
@@ -62,91 +59,7 @@ const AddProjectPage = () => {
 
   const projectSuccessfullyCreatedAlert = () => {
     alert("Project successfully created!");
-  };
-
-  const errorMessageTitle = (() => {
-    if (!errors.projectTitle) {
-      return null;
-    }
-
-    if (errors.projectTitle.type === "required") {
-      return <Alert severity="error">Title is required.</Alert>;
-    }
-
-    if (errors.projectTitle.type === "minLength") {
-      return <Alert severity="error">Title has to be at least 5 characters.</Alert>;
-    }
-  })();
-
-  const errorMessageDescription = (() => {
-    if (!errors.description) {
-      return null;
-    }
-
-    if (errors.description.type === "required") {
-      return <Alert severity="error">Description is required.</Alert>;
-    }
-
-    if (errors.description.type === "minLength") {
-      return <Alert severity="error">Description has to be at least 15 characters.</Alert>;
-    }
-  })();
-
-  const errorMessageGitRepositoryUrl = (() => {
-    if (!errors.gitRepositoryUrl) {
-      return null;
-    }
-
-    if (errors.gitRepositoryUrl.type === "required") {
-      return <Alert severity="error">Git Repository Url is required.</Alert>;
-    }
-
-    if (errors.gitRepositoryUrl.type === "minLength") {
-      return <Alert severity="error">Git Repository Url has to be at least 10 characters.</Alert>;
-    }
-  })();
-
-  const errorMessageIndustryName = (() => {
-    if (!errors.industryName) {
-      return null;
-    }
-
-    if (errors.industryName.type === "required") {
-      return <Alert severity="error">Industry name is required.</Alert>;
-    }
-
-    if (errors.industryName.type === "minLength") {
-      return <Alert severity="error">Industry name has to be at least 5 characters.</Alert>;
-    }
-  })();
-
-  const errorMessageTagNames = (() => {
-    if (!errors.tagNames) {
-      return null;
-    }
-
-    if (errors.tagNames.type === "required") {
-      return <Alert severity="error">Tags is required.</Alert>;
-    }
-
-    if (errors.tagNames.type === "minLength") {
-      return <Alert severity="error">Tag has to be at least 2 characters.</Alert>;
-    }
-  })();
-
-  const errorMessageSkillsNames = (() => {
-    if (!errors.skillNames) {
-      return null;
-    }
-
-    if (errors.skillNames.type === "required") {
-      return <Alert severity="error">Skills is required.</Alert>;
-    }
-
-    if (errors.skillNames.type === "minLength") {
-      return <Alert severity="error">Skill has to be at least one character long.</Alert>;
-    }
-  })();
+  }; 
 
   return (
     <>

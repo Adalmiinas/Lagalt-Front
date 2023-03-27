@@ -106,7 +106,7 @@ const ProjectPage = ({ id }) => {
                         <FormControl fullWidth>
                           <InputLabel id="industry-select">
                             {" "}
-                            Industry{" "}
+                            Status{" "}
                           </InputLabel>
                           <Select
                             labelId="status-select"

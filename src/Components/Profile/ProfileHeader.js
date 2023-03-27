@@ -55,7 +55,7 @@ const ProfileHeader = ({ user }) => {
                 </div>
                 <div key={"skills"} style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
                   <span>
-                    {user?.skills?.length < 1 ? (
+                    {!user?.skills.length ? (
                       "No skills yet added."
                     ) : (
                       <div key={"skills"} style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>

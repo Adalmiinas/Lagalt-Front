@@ -1,4 +1,4 @@
-import { AppBar, Button } from "@mui/material";
+import { AppBar } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { storageDelete } from "../../Utils/Storage";
 import * as React from "react";
@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -78,9 +77,6 @@ const Navbar = props => {
           <MenuItem onClick={handleMenuClose} component={Link} to="/project/add-project">
             Create project
           </MenuItem>
-          <MenuItem component={Link} to="/project/update-project">
-            Update project
-          </MenuItem>
           <MenuItem onClick={() => handleRedirect()} component={Link} to="/">
             Logout
           </MenuItem>
@@ -110,17 +106,32 @@ const Navbar = props => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem></MenuItem>
-      <MenuItem component={Link} to="/">
-        <Typography textAlign="center">MAIN</Typography>
+      <MenuItem onClick={handleMenuClose} component={Link} to="/">
+        Main
       </MenuItem>
+      {!keycloak.authenticated && (
+        <MenuItem onClick={() => handleLoad(1)}>
+          <Typography textAlign="center">Login</Typography>
+        </MenuItem>
+      )}
 
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      {keycloak.authenticated && user ? (
+        <div>
+          <MenuItem onClick={handleMenuClose} component={Link} to="profile/">
+            Profile
+          </MenuItem>
+          <MenuItem onClick={handleMenuClose} component={Link} to="/project/add-project">
+            Create project
+          </MenuItem>
+          <MenuItem onClick={() => handleRedirect()} component={Link} to="/">
+            Logout
+          </MenuItem>
+        </div>
+      ) : (
+        <MenuItem onClick={() => handleLoad(3)} component={Link} to="/">
+          Register
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -171,6 +182,4 @@ const Navbar = props => {
   );
 };
 
-//{/* <Button variant="contained" onClick={() => handleLoad(1)}> */}
-//{/* </Button> */}
 export default Navbar;
