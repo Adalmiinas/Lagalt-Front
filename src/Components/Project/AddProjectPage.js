@@ -23,8 +23,6 @@ const AddProjectPage = () => {
   const [industry, setIndustry] = useState("");
 
   const {
-    register,
-    handleSubmit,
     formState: { errors }
   } = useForm();
 
@@ -100,11 +98,11 @@ const AddProjectPage = () => {
     }
 
     if (errors.gitRepositoryUrl.type === "required") {
-      return <Alert severity="error">Git Repositoyry Url is required.</Alert>;
+      return <Alert severity="error">Git Repository Url is required.</Alert>;
     }
 
     if (errors.gitRepositoryUrl.type === "minLength") {
-      return <Alert severity="error">Git Repositoyry Url has to be at least 10 characters.</Alert>;
+      return <Alert severity="error">Git Repository Url has to be at least 10 characters.</Alert>;
     }
   })();
 

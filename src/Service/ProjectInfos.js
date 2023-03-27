@@ -1,5 +1,3 @@
-import { createHeaders } from ".";
-import keycloak from "../keycloak";
 import { storageSave } from "../Utils/Storage";
 import { STORAGE_KEY_PROJECTS } from "../Const/storageKeys";
 
@@ -120,17 +118,17 @@ export const acceptUserToProject = async (ownerId, projId, userId, pending) => {
   }
 };
 
-export const deleteUserFromProject = async (actingId, projId, userId) => {
+export const deleteUserFromProject = async (userId, projId, actingId ) => {
   try {
     const response = await fetch("http://localhost:5128/project", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         "X-API-Key": "http://localhost:5128/api/ProjectUser",
-        userId: actingId
+        userId: userId
       },
       body: JSON.stringify({
-        userId: userId,
+        userId: actingId,
         projectId: projId
       })
     });
@@ -205,3 +203,30 @@ export const updateProject = async (userId, projectId, title, description, gitUr
     return [error.message, null];
   }
 };
+
+
+export const updateProjectStatus = async (userId, projectId, newStatus) => {
+  try {
+    const response = await fetch(`http://localhost:5128/api/Project/patch`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        id:userId,
+      },
+      body: JSON.stringify({
+        id: projectId,
+        status: newStatus,
+       
+      })
+    });
+    if (!response.ok) {
+      throw new Error("Could not complete request.");
+    }
+
+    fetchProjects();
+    return [null, response];
+  } catch (error) {
+    return [error.message, null];
+  }
+};
+

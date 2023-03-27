@@ -1,14 +1,15 @@
 import { useKeycloak } from "@react-keycloak/web";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AdminProjects from "../Components/Profile/AdminProjects";
 import HistoryView from "../Components/Profile/HistoryView";
 import ProfileHeader from "../Components/Profile/ProfileHeader";
 
-import SelectHeader, { handleAdminProjects } from "../Components/Profile/Select";
+import SelectHeader from "../Components/Profile/Select";
 import StartingFillerPage from "../Components/Profile/StartingFillerPage";
 import UserProjects from "../Components/Profile/UserProjects";
 import { useUser } from "../Context/UserContext";
 import withAuth from "../Guards/WithAuth";
+
 const Profile = () => {
   const { user } = useUser();
   const { keycloak } = useKeycloak();
@@ -33,7 +34,7 @@ const Profile = () => {
   return (
     <>
       <SelectHeader handleProjectList={handleProjectList} />
-      <div style={{ display: "flex", alignContent: "space-evenly" }}>
+      <div style={{ display: "flex", alignContent: "space-around" }}>
         {render === 0 && <StartingFillerPage />}
         {render === 1 && <AdminProjects id={user.id} />}
         {render === 2 && <UserProjects id={user.id} />}

@@ -13,18 +13,23 @@ const ApplyButton = (props) => {
     const handleClose = () => setOpen(false);
 
     const applyProject = async () => {
-        console.log(motivation);
+      window.confirm("Are you sure you want to join the project? Your information will be shared with the owner.")
         const [error, data] = await addUserToProject(
           props.project.id,
           user.id,
           motivation
         );
-        console.log(motivation);
-        console.log(props.project.id);
+      
         setMotivation("");
         setOpen(false);
-        console.log(error);
-        console.log(data);
+       
+        
+    if(error !== null){
+      window.alert("Error, while trying to apply to project.")
+    }
+    else {
+      window.alert("Successful application! Wait for the owners acceptance.")
+    }
       };
     
       const handleTextFieldChange = (event) => {

@@ -1,21 +1,18 @@
-import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+} from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { getAdminProjects } from "../../Service/ProjectInfos";
 
-const AdminProjects = props => {
-  const navigation = useNavigate();
-
+const AdminProjects = (props) => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     getProjects();
   }, []);
-
-  const navigateToProject = id => {
-    navigation(`/project/${id}`);
-  };
 
   const getProjects = async () => {
     const [error, userProject] = await getAdminProjects(props.id);
@@ -28,20 +25,39 @@ const AdminProjects = props => {
   };
 
   return projects.map(({ project }, index) => (
-    <div key={project.id} style={{ display: "flex", justifyContent: "center", textAlign: "center", padding: "10px", marginRight: "10%", width: "70%" }}>
+    <div
+      key={project.id}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        textAlign: "center",
+        padding: "10px",
+        marginRight: "10%",
+        width: "100%",
+      }}
+    >
       <div
         className="message-container"
         style={{
-          boxShadow: " 12px 12px 2px 1px rgba(0, 0, 255, .2)"
+          boxShadow: " 12px 12px 2px 1px rgba(0, 0, 255, .2)",
         }}
       >
         <Card className="message-row">
           <h2 style={{ marginLeft: "10px" }} className="message-title">
-            Title: {project.title}
+            {project.title}
           </h2>
-          <p className="message-author">Description: {project.description}</p>
+          <p className="message-author">{project.description}</p>
           <CardActions sx={{ justifyContent: "center" }}>
-            <Button LinkComponent={Link} to={`/project/${project.id}`} sx={{ backgroundColor: "white" }}>
+            <Button
+              LinkComponent={Link}
+              to={`/project/${project.id}`}
+              variant="contained"
+              color="darkViolet"
+              sx={{
+                borderRadius: "12px",
+                margin: "10px",
+              }}
+            >
               View more
             </Button>
           </CardActions>

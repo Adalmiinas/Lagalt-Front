@@ -1,5 +1,4 @@
 import { Card } from "@mui/material";
-import React, { useEffect } from "react";
 
 function StartingFillerPage() {
   return (

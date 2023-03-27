@@ -9,7 +9,6 @@ import { storageRead, storageSave } from "../../Utils/Storage"
 import { fetchProjects } from "../../Service/ProjectInfos";
 import { STORAGE_KEY_PROJECTS } from "../../Const/storageKeys"
 
-
 const UpdateProject = () => {
     
     const navigate = useNavigate()
@@ -17,6 +16,7 @@ const UpdateProject = () => {
     const { user } = useUser();
     
     //const projectToUpdateId = location.state.projectId
+    
     const [apiError, setApiError] = useState(null);
 
     const [title, setTitle] = useState(null)
