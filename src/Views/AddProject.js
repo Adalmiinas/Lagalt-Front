@@ -4,7 +4,6 @@ const AddProject = () => {
 
     return (
         <>
-            <h1>Create Project</h1>
             <AddProjectPage />
         </>
     )
