@@ -1,4 +1,4 @@
-import { AppBar, Button } from "@mui/material";
+import { AppBar } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { storageDelete } from "../../Utils/Storage";
 import * as React from "react";
@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -198,7 +197,6 @@ const Navbar = (props) => {
     </>
   );
 };
-export default Navbar
-//{/* <Button variant="contained" onClick={() => handleLoad(1)}> */}
-//{/* </Button> */}
+
+export default Navbar;
 

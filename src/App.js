@@ -52,7 +52,7 @@ function App() {
       // await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
       const data = await loginUser(userId(), keycloak.token);
       console.log(data)
-      await storageSave("logged-user", data[1]);
+      await storageSave("logged-user", data[1].value);
       setUser(storageRead("logged-user"));
     };
     const debouncedFetchData = debounce(fetchdata, 500); // debounce fetchdata
