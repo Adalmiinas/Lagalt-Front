@@ -124,8 +124,7 @@ export const userById = async userId => {
       throw new Error("Could not complete request!");
     }
     const data = await response.json();
-    storageSave("logged-user", data);
-    return data;
+    return [null, data];
   } catch (error) {
     return [error.message, []];
   }
@@ -184,9 +183,14 @@ export const updateUserStatus = async (userId, status) => {
       throw new Error("Could not complete request!");
     } else {
       const [error, data] = await userById(userId);
+
       return [null, data];
     }
   } catch (error) {
     return [error.message, []];
   }
 };
+// const data = await response.json();
+// console.log(data);
+
+// return data;

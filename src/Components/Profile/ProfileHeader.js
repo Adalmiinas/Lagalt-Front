@@ -1,25 +1,17 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  FormControlLabel,
-  Switch,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CardContent, Chip, FormControlLabel, Switch, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
 import { Work } from "@mui/icons-material";
 import Skills from "../Main/Skills";
 import { useState } from "react";
 import { updateUserInfo, updateUserStatus } from "../../Service/UserInfo";
-import { storageSave } from "../../Utils/Storage";
-
+import { storageRead, storageSave } from "../../Utils/Storage";
+import { useUser } from "../../Context/UserContext";
 const ProfileHeader = ({ user }) => {
   const { keycloak } = useKeycloak();
   const [hidden, setHidden] = useState(user.isPrivate);
-
-  const handleHidden = async (event) => {
+  const { setUser } = useUser();
+  const handleHidden = async event => {
     console.log(event.target.checked);
     setHidden(event.target.checked);
     const [error, data] = await updateUserStatus(user.id, event.target.checked);
@@ -27,7 +19,6 @@ const ProfileHeader = ({ user }) => {
       storageSave("logged-user", data);
     }
     console.log(error);
-    
   };
 
   return (
@@ -38,7 +29,7 @@ const ProfileHeader = ({ user }) => {
             style={{
               display: "flex",
               justifyContent: "right",
-              padding: "2rem",
+              padding: "2rem"
             }}
           >
             <Card
@@ -50,79 +41,33 @@ const ProfileHeader = ({ user }) => {
                 borderRadius: "12px",
                 boxShadow: " 12px 12px 2px 1px rgba(0, 0, 255, .2)",
                 backgroundColor: "violet",
-                padding: "1rem",
+                padding: "1rem"
               }}
             >
               <CardContent>
-                <h1 style={{ textTransform: "uppercase", fontFamily: "RBold" }}>
-                  Hello {user?.username}
-                </h1>
-                {user?.gitRepositoryUrl?.length !== 0 && (
-                  <p>{user?.gitRepositoryUrl}</p>
-                )}
+                <h1 style={{ textTransform: "uppercase", fontFamily: "RBold" }}>Hello {user?.username}</h1>
+                {user?.gitRepositoryUrl?.length !== 0 && <p>{user?.gitRepositoryUrl}</p>}
 
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={hidden}
-                      onChange={handleHidden}
-                      color="secondary"
-                    />
-                  }
-                  label="hidden mode"
-                />
+                <FormControlLabel control={<Switch checked={hidden} onChange={handleHidden} color="secondary" />} label="hidden mode" />
 
                 <div>
-                  <Chip
-                    color="darkViolet"
-                    icon={<Work fontSize="small" />}
-                    label={
-                      user.careerTitle == null
-                        ? "Add career!"
-                        : user.careerTitle
-                    }
-                  />
+                  <Chip color="darkViolet" icon={<Work fontSize="small" />} label={user.careerTitle == null ? "Add career!" : user.careerTitle} />
                 </div>
-                <div
-                  key={"skills"}
-                  style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
-                >
+                <div key={"skills"} style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
                   <span>
-                    {user?.skills.length < 1 ? (
+                    {user?.skills?.length < 1 ? (
                       "No skills yet added."
                     ) : (
-                      <div
-                        key={"skills"}
-                        style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
-                      >
+                      <div key={"skills"} style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
                         <Skills project={user} />
                       </div>
                     )}
                   </span>
                 </div>
-                <Typography sx={{ fontWeight: "bold" }}>
-                  {" "}
-                  Career:{" "}
-                  {user?.careerTitle == null
-                    ? "Add career to stand Out!"
-                    : user?.careerTitle}
-                </Typography>
-                <Typography sx={{ fontWeight: "bold" }}>
-                  {" "}
-                  Description:{" "}
-                  {user?.description == null
-                    ? "No Description added"
-                    : user?.description}
-                </Typography>
-                <Typography sx={{ fontWeight: "bold" }}>
-                  {" "}
-                  Email: {user?.email}
-                </Typography>
-                <Typography sx={{ fontWeight: "bold" }}>
-                  {" "}
-                  Portfolio:{" "}
-                  {user?.portfolio == null ? "Add Portfolio" : user.portfolio}
-                </Typography>
+                <Typography sx={{ fontWeight: "bold" }}> Career: {user?.careerTitle == null ? "Add career to stand Out!" : user?.careerTitle}</Typography>
+                <Typography sx={{ fontWeight: "bold" }}> Description: {user?.description == null ? "No Description added" : user?.description}</Typography>
+                <Typography sx={{ fontWeight: "bold" }}> Email: {user?.email}</Typography>
+                <Typography sx={{ fontWeight: "bold" }}> Portfolio: {user?.portfolio == null ? "Add Portfolio" : user.portfolio}</Typography>
               </CardContent>
               <Button
                 LinkComponent={Link}
@@ -131,7 +76,7 @@ const ProfileHeader = ({ user }) => {
                 color="darkViolet"
                 sx={{
                   borderRadius: "12px",
-                  margin: "1rem",
+                  margin: "1rem"
                 }}
               >
                 Update profile
