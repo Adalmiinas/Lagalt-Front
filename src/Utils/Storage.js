@@ -1,4 +1,4 @@
-export const storageSave = (key,value) => {
+export const storageSave = async (key,value) => {
     sessionStorage.setItem(key,JSON.stringify(value));
 }
 

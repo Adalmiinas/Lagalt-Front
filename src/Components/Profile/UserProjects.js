@@ -28,11 +28,12 @@ const UserProjects = props => {
   };
 
   return projects.map(({ project }, index) => (
-    <div key={project.id} style={{ display: "flex", justifyContent: "center", textAlign: "center", padding: "10px", marginRight: "10%", width: "70%" }}>
+    <div key={project.id} style={{ display: "flex", justifyContent: "center", textAlign: "center", padding: "2px", marginRight: "10%", width: "70%" }}>
       <div
         className="message-container"
         style={{
-          boxShadow: " 12px 12px 2px 1px rgba(0, 0, 255, .2)"
+          boxShadow: " 12px 12px 2px 1px rgba(0, 0, 255, .2)",
+
         }}
       >
         <Card className="message-row">

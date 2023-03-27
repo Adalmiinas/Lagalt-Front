@@ -10,7 +10,7 @@ const ProfileHeader = ({ user }) => {
   return (
     <>
       {user && keycloak.authenticated && (
-        <div style={{ display: "flex", justifyContent: "right", padding: "10px" }}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "right", padding: "10px" }}>
           <div
             style={{
               display: "flex",

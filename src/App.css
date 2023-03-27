@@ -1,12 +1,11 @@
 .App {
 }
 
-
 .MuiOutlinedInput-notchedOutline {
-  border-color: #A8BA30 !important;
+  border-color: #a8ba30 !important;
   border-width: 3px !important;
 }
 
 .MuiInputLabel-root {
-  color: #A8BA30 !important;
+  color: #a8ba30 !important;
 }

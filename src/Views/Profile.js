@@ -9,6 +9,8 @@ import StartingFillerPage from "../Components/Profile/StartingFillerPage";
 import UserProjects from "../Components/Profile/UserProjects";
 import { useUser } from "../Context/UserContext";
 import withAuth from "../Guards/WithAuth";
+import "../../src/index.css";
+
 const Profile = () => {
   const { user } = useUser();
   const { keycloak } = useKeycloak();
@@ -33,12 +35,14 @@ const Profile = () => {
   return (
     <>
       <SelectHeader handleProjectList={handleProjectList} />
-      <div style={{ display: "flex", alignContent: "space-evenly" }}>
-        {render === 0 && <StartingFillerPage />}
-        {render === 1 && <AdminProjects id={user.id} />}
-        {render === 2 && <UserProjects id={user.id} />}
-        {render === 3 && <HistoryView id={user.id} />}
-        <ProfileHeader user={user} keycloak={keycloak} />
+      <div className="container">
+        <ProfileHeader className="profile" style={{}} user={user} keycloak={keycloak} />
+        <div className="project">
+          {render === 0 && <StartingFillerPage />}
+          {render === 1 && <AdminProjects id={user.id} />}
+          {render === 2 && <UserProjects id={user.id} />}
+          {render === 3 && <HistoryView id={user.id} />}
+        </div>
       </div>
     </>
   );
