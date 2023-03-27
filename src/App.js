@@ -48,12 +48,13 @@ function App() {
 
     const debounceRegistration = debounce(handleRegistration, 500); //debounce reg
     const fetchdata = async () => {
-      
       // await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
       const data = await loginUser(userId(), keycloak.token);
-      console.log(data)
+      console.log(data);
       await storageSave("logged-user", data[1]);
       setUser(storageRead("logged-user"));
+
+      console.log(user);
     };
     const debouncedFetchData = debounce(fetchdata, 500); // debounce fetchdata
     if (user === null) {

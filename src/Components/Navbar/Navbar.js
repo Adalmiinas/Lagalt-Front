@@ -15,7 +15,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { useUser } from "../../Context/UserContext";
 import { useKeycloak } from "@react-keycloak/web";
 
-const Navbar = (props) => {
+const Navbar = props => {
   const { handleLoad } = props;
   const history = useNavigate();
 
@@ -36,7 +36,7 @@ const Navbar = (props) => {
     storageDelete("logged-user");
   };
 
-  const handleProfileMenuOpen = (event) => {
+  const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -49,7 +49,7 @@ const Navbar = (props) => {
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event) => {
+  const handleMobileMenuOpen = event => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
@@ -59,13 +59,13 @@ const Navbar = (props) => {
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: "top",
-        horizontal: "right",
+        horizontal: "right"
       }}
       id={menuId}
       keepMounted
       transformOrigin={{
         vertical: "top",
-        horizontal: "right",
+        horizontal: "right"
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
@@ -99,33 +99,24 @@ const Navbar = (props) => {
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: "top",
-        horizontal: "right",
+        horizontal: "right"
       }}
       id={mobileMenuId}
       keepMounted
       transformOrigin={{
         vertical: "top",
-        horizontal: "right",
+        horizontal: "right"
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        
-        
-      </MenuItem>
+      <MenuItem></MenuItem>
       <MenuItem component={Link} to="/">
-          <Typography textAlign="center">MAIN</Typography>
+        <Typography textAlign="center">MAIN</Typography>
       </MenuItem>
 
       <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
+        <IconButton size="large" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit">
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
@@ -144,7 +135,7 @@ const Navbar = (props) => {
               component="div"
               sx={{
                 display: { xs: "none", sm: "block" },
-                fontFamily: "Roboto",
+                fontFamily: "Roboto"
               }}
             >
               LAGALT
@@ -154,36 +145,21 @@ const Navbar = (props) => {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {!keycloak.authenticated && (
-                  <MenuItem onClick={() => handleLoad(1)}>
-                    <Typography textAlign="center">LOGIN</Typography>
-                  </MenuItem>
+              <MenuItem onClick={() => handleLoad(1)}>
+                <Typography textAlign="center">LOGIN</Typography>
+              </MenuItem>
             )}
 
             <MenuItem component={Link} to="/">
               <Typography textAlign="center">MAIN</Typography>
             </MenuItem>
 
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
+            <IconButton size="large" edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen} color="inherit">
               <AccountCircle />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
+            <IconButton size="large" aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true" onClick={handleMobileMenuOpen} color="inherit">
               <MoreIcon />
             </IconButton>
           </Box>
@@ -197,4 +173,4 @@ const Navbar = (props) => {
 
 //{/* <Button variant="contained" onClick={() => handleLoad(1)}> */}
 //{/* </Button> */}
-
+export default Navbar;

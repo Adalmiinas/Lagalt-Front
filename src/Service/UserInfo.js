@@ -125,7 +125,7 @@ export const userById = async userId => {
     }
     const data = await response.json();
     storageSave("logged-user", data);
-    return [null, data];
+    return data;
   } catch (error) {
     return [error.message, []];
   }
@@ -171,7 +171,6 @@ export const updateUserInfo = async (userId, username, newCareerTitle, newEmail,
 
 export const updateUserStatus = async (userId, status) => {
   try {
-    
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}`, {
       method: "PATCH",
       headers: {
@@ -183,12 +182,10 @@ export const updateUserStatus = async (userId, status) => {
     });
     if (!response.ok) {
       throw new Error("Could not complete request!");
-    }
-    else {
+    } else {
       const [error, data] = await userById(userId);
       return [null, data];
     }
-
   } catch (error) {
     return [error.message, []];
   }
