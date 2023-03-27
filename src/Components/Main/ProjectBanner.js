@@ -13,9 +13,11 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import Tags from "./Tags";
 import FactoryIcon from "@mui/icons-material/Factory";
 import Skills from "./Skills";
+import { useKeycloak } from "@react-keycloak/web";
 
 export const ProjectBanner = (props) => {
   const { user } = useUser();
+  const { keycloak } = useKeycloak();
   let tags = "";
   let skills = "";
 
@@ -25,7 +27,7 @@ export const ProjectBanner = (props) => {
         return el;
       }
     }
-    return "";
+    return el;
   });
 
   const categorizedData = ongoingProjects.filter((el) => {
@@ -127,6 +129,7 @@ export const ProjectBanner = (props) => {
             )}
         </CardContent>
 
+        {keycloak.authenticated && (
         <CardActions sx={{ justifyContent: "center" }}>
           <Button
             className="project-view-buttons"
@@ -144,6 +147,8 @@ export const ProjectBanner = (props) => {
             View More
           </Button>
         </CardActions>
+        )}
+
       </Card>
     </div>
   ));

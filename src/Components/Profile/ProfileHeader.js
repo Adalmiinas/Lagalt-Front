@@ -88,7 +88,7 @@ const ProfileHeader = ({ user }) => {
                   style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
                 >
                   <span>
-                    {user?.skills.length < 1 ? (
+                    {!user?.skills.length ? (
                       "No skills yet added."
                     ) : (
                       <div
