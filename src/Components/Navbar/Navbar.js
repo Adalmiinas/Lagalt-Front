@@ -13,6 +13,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useUser } from "../../Context/UserContext";
 import { useKeycloak } from "@react-keycloak/web";
+import { BorderStyle } from "@mui/icons-material";
 
 const Navbar = props => {
   const { handleLoad } = props;
@@ -166,7 +167,7 @@ const Navbar = props => {
             </MenuItem>
 
             <IconButton size="large" edge="end" aria-label={"account of current user"} aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen} color="inherit">
-              {!user?.photoUrl ? <AccountCircle /> : <img src={user?.photoUrl} alt="user avatar" style={{ verticalAlign: "middle", width: "50px", height: "50px", borderRadius: "50%" }} />}
+              {!user?.photoUrl ? <AccountCircle /> : <img src={user?.photoUrl} alt="user avatar" style={{ verticalAlign: "middle", width: "50px", height: "50px", borderRadius: "50%", border: "3px solid black" }} />}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
