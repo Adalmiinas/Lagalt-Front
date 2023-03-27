@@ -121,11 +121,6 @@ const UpdateProject = () => {
             onChange={e => setProjectImageUrl(e.target.value)}
         />
         <p></p>
-        {/* <TextField
-            label="Industry"
-            value={industry}
-            onChange={e => setIndustry(e.target.value)}
-        /> */}
         <Box >
         <FormControl size='medium' sx={{minWidth:"194px"}}>
             <InputLabel id="industry-select"> Industry </InputLabel>

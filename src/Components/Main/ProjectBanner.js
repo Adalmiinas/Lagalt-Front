@@ -25,7 +25,7 @@ export const ProjectBanner = (props) => {
         return el;
       }
     }
-    return "";
+    return el;
   });
 
   const categorizedData = ongoingProjects.filter((el) => {
