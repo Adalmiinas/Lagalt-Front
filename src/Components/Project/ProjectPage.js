@@ -1,7 +1,16 @@
-import { Card, Chip } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  Chip,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useUser } from "../../Context/UserContext";
-import { fetchProjectById } from "../../Service/ProjectInfos";
+import { fetchProjectById, updateProjectStatus } from "../../Service/ProjectInfos";
 import UsersList from "./UsersList";
 import MessageBoard from "./MessageBoard/MessageBoard";
 import WaitlistButton from "./Owner/WaitlistButton";
@@ -9,11 +18,13 @@ import ApplyButton from "./Apply/ApplyButton";
 import FactoryIcon from "@mui/icons-material/Factory";
 import Tags from "../Main/Tags";
 import Skills from "../Main/Skills";
+import { Link } from "react-router-dom";
 
 const ProjectPage = ({ id }) => {
   const [project, setProject] = useState("");
   const { user } = useUser();
   const [load, setLoad] = useState(false);
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     getProjectInfo(id);
@@ -23,6 +34,16 @@ const ProjectPage = ({ id }) => {
     setLoad(false);
     getProjectInfo(id);
   }, [load, id]);
+
+  const handleChange = async (e) => {
+    setStatus(e.target.value);
+    console.log(project);
+    const [error, data] = await updateProjectStatus(user.id, project.id, e.target.value);
+    console.log(error);
+    console.log(data);
+    setLoad(true);
+
+  };
 
   const getProjectInfo = async (id) => {
     const [error, fetchedProject] = await fetchProjectById(id);
@@ -39,7 +60,16 @@ const ProjectPage = ({ id }) => {
               style={{ maxHeight: "50%", overflow: "auto", minWidth: "40%" }}
             >
               <h2>Participants</h2>
-              <UsersList project={project} loading={setLoad} />
+              {project.projectUsers?.map((projectUser, i) => {
+                return (
+                  <UsersList
+                    key={i}
+                    project={project}
+                    projectUser={projectUser}
+                    loading={setLoad}
+                  />
+                );
+              })}
             </div>
 
             <div
@@ -51,7 +81,7 @@ const ProjectPage = ({ id }) => {
             >
               <Card
                 sx={{
-                  minWidth: "50%",
+                  minWidth: "90%",
                   maxWidth: "90%",
                   justifyContent: "center",
                   position: "relative",
@@ -65,10 +95,39 @@ const ProjectPage = ({ id }) => {
                 <h1 style={{ textTransform: "uppercase", fontFamily: "RBold" }}>
                   {project.title}
                 </h1>
+
+                <p>{project.status}</p>
+                {user != null &&
+                  project.projectUsers.filter(
+                    (x) => x.userId === user.id && x.isOwner === true
+                  ).length === 1 && (
+                    <>
+                      <Box sx={{ minWidth: "100px", marginTop: "16px" }}>
+                        <FormControl fullWidth>
+                          <InputLabel id="industry-select">
+                            {" "}
+                            Industry{" "}
+                          </InputLabel>
+                          <Select
+                            labelId="status-select"
+                            id="status"
+                            label="status"
+                            value={status}
+                            onChange={handleChange}
+                          >
+                            <MenuItem value={"Ongoing"}>Ongoing</MenuItem>
+                            <MenuItem value={"Stalled"}>Stalled</MenuItem>
+                            <MenuItem value={"Competed"}>Completed</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Box>
+                    </>
+                  )}
                 <p>{project.description}</p>
                 {project.gitRepositoryUrl?.length !== 0 && (
                   <p>{project.gitRepositoryUrl}</p>
                 )}
+                <p>Members in the project: {project.projectUsers?.length}</p>
 
                 <div>
                   <Chip
@@ -103,7 +162,23 @@ const ProjectPage = ({ id }) => {
                     (x) => x.userId === user.id && x.isOwner === true
                   ).length === 1 && (
                     <>
-                      <WaitlistButton project={project} loading={setLoad} />
+                      <div
+                        style={{ display: "inline", flexDirection: "column" }}
+                      >
+                        <WaitlistButton project={project} loading={setLoad} />
+                        <Button
+                          variant="contained"
+                          color="darkViolet"
+                          sx={{
+                            borderRadius: "12px",
+                            marginBottom: "1rem",
+                          }}
+                          component={Link}
+                          to={`/project/update-project/${project.id}`}
+                        >
+                          Update
+                        </Button>
+                      </div>
                     </>
                   )}
               </Card>

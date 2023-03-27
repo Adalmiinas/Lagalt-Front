@@ -9,13 +9,13 @@ import { storageRead, storageSave } from "../../Utils/Storage"
 import { fetchProjects } from "../../Service/ProjectInfos";
 import { STORAGE_KEY_PROJECTS } from "../../Const/storageKeys"
 
-const UpdateProject = () => {
+const UpdateProject = ({id}) => {
     
     const navigate = useNavigate()
     const location = useLocation()
     const { user } = useUser();
     
-    const projectToUpdateId = location.state.projectId
+    const projectToUpdateId = id;
     const [apiError, setApiError] = useState(null);
 
     const [title, setTitle] = useState("")

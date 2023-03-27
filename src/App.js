@@ -16,6 +16,7 @@ import { useUser } from "./Context/UserContext";
 import { debounce } from "lodash";
 import UpdateForm from "./Components/Profile/UpdateForm";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import UpdateProjectPage from "./Views/UpdateProjectPage";
 function App() {
   const { keycloak } = useKeycloak();
   const [load, setLoad] = useState(0);
@@ -88,7 +89,7 @@ function App() {
                 <Route path="/profile/update-profile" element={<UpdateForm />} />
                 <Route path="/project/:id" element={<Project />} />
                 <Route path="/project/add-project" element={<AddProject />} />
-                <Route path="/project/update-project" element={<UpdateProject />} />
+                <Route path="/project/update-project/:id" element={<UpdateProjectPage />} />
               </>
             )}
           </Routes>

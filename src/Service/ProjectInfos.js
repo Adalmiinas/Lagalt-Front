@@ -118,7 +118,7 @@ export const acceptUserToProject = async (ownerId, projId, userId, pending) => {
   }
 };
 
-export const deleteUserFromProject = async (actingId, projId, userId) => {
+export const deleteUserFromProject = async (userId, projId, actingId ) => {
   try {
     const response = await fetch("http://localhost:5128/project", {
       method: "DELETE",
@@ -204,3 +204,30 @@ export const updateProject = async (userId, projectId, title, description, gitUr
     return [error.message, null];
   }
 };
+
+
+export const updateProjectStatus = async (userId, projectId, newStatus) => {
+  try {
+    const response = await fetch(`http://localhost:5128/api/Project/patch`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        id:userId,
+      },
+      body: JSON.stringify({
+        id: projectId,
+        status: newStatus,
+       
+      })
+    });
+    if (!response.ok) {
+      throw new Error("Could not complete request.");
+    }
+
+    fetchProjects();
+    return [null, response];
+  } catch (error) {
+    return [error.message, null];
+  }
+};
+

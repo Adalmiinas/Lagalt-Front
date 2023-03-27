@@ -15,12 +15,20 @@ import FactoryIcon from "@mui/icons-material/Factory";
 import Skills from "./Skills";
 
 export const ProjectBanner = (props) => {
-  
   const { user } = useUser();
   let tags = "";
   let skills = "";
 
-  const categorizedData = props.array.filter((el) => {
+  const ongoingProjects = props.array.filter((el) => {
+    if (el.status != null) {
+      if (el.status !== "Ongoing") {
+        return el;
+      }
+    }
+    return "";
+  });
+
+  const categorizedData = ongoingProjects.filter((el) => {
     if (props.category === null) {
       return el;
     } else {

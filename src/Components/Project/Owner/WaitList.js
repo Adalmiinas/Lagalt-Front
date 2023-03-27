@@ -28,7 +28,7 @@ const WaitList = ({ projectUsers, projectId, loading }) => {
   };
 
   const addUserToProject = async (projectId, userId, pending) => {
-    window.confirm("are you sure ?");
+    window.confirm("Are you sure you want to add user to project?");
     const [error, response] = await acceptUserToProject(user.id, projectId, userId, pending);
     loading(true);
 

@@ -1,4 +1,5 @@
 import { createHeaders } from ".";
+import { storageSave } from "../Utils/Storage";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export const loginDev = async username => {
@@ -100,27 +101,6 @@ export const registerUser = async (username, firstName, lastName, email, id, tok
   }
 };
 
-// const registerUser = async (username, password) => {
-//     try {
-//         const response = await fetch(`${apiUrl}/Account/register`,{
-//         //const response = await fetch(`${apiUrl}`, {
-//             method: "POST",
-//             headers: createHeaders(),
-//             body: JSON.stringify({
-//                 username,
-//                 password,
-//             }),
-//         });
-//         if(!response.ok){
-//             throw new Error("Could not complete request!");
-//         }
-//         const data = await response.json();
-//         return [null,data];
-//     }
-//     catch (error){
-//         return [error.message, []];
-//     }
-
 export const submitUser = async (username, password) => {
   const [checkError, user] = await loginUser(username, password);
 
@@ -186,4 +166,29 @@ export const updateUserInfo = async (userId, newUsername, newCareerTitle, newEma
       return data;
     }
   } catch (error) {}
+};
+
+export const updateUserStatus = async (userId, status) => {
+  try {
+    
+    const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        isPrivate: status
+      })
+    });
+    if (!response.ok) {
+      throw new Error("Could not complete request!");
+    }
+    else {
+      const [error, data] = await userById(userId);
+      return [null, data];
+    }
+
+  } catch (error) {
+    return [error.message, []];
+  }
 };

@@ -1,11 +1,34 @@
-import { Button, Card, CardContent, Chip, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  FormControlLabel,
+  Switch,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
 import { Work } from "@mui/icons-material";
 import Skills from "../Main/Skills";
+import { useState } from "react";
+import { updateUserInfo, updateUserStatus } from "../../Service/UserInfo";
+import { storageSave } from "../../Utils/Storage";
 
 const ProfileHeader = ({ user }) => {
   const { keycloak } = useKeycloak();
+  const [hidden, setHidden] = useState(user.isPrivate);
+
+  const handleHidden = async (event) => {
+    console.log(event.target.checked);
+    setHidden(event.target.checked);
+    const [error, data] = await updateUserStatus(user.id, event.target.checked);
+    if (error === null) {
+      storageSave("logged-user", data);
+    }
+    console.log(error);
+    
+  };
 
   return (
     <>
@@ -38,6 +61,17 @@ const ProfileHeader = ({ user }) => {
                   <p>{user?.gitRepositoryUrl}</p>
                 )}
 
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={hidden}
+                      onChange={handleHidden}
+                      color="secondary"
+                    />
+                  }
+                  label="hidden mode"
+                />
+
                 <div>
                   <Chip
                     color="darkViolet"
@@ -54,7 +88,6 @@ const ProfileHeader = ({ user }) => {
                   style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
                 >
                   <span>
-          
                     {user?.skills.length < 1 ? (
                       "No skills yet added."
                     ) : (
