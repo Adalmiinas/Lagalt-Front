@@ -1,7 +1,6 @@
-import { AddModerator, Favorite, LocationOn, Restore } from "@mui/icons-material";
+import { AddModerator, Favorite, Restore } from "@mui/icons-material";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
-import { async } from "q";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 
 function SelectHeader({ handleProjectList }) {
 

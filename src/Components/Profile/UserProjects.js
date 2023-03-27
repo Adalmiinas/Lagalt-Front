@@ -1,10 +1,14 @@
-import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { getUsersProjects } from "../../Service/ProjectInfos";
 
-const UserProjects = props => {
+const UserProjects = (props) => {
   const navigation = useNavigate();
 
   const [projects, setProjects] = useState([]);
@@ -12,10 +16,6 @@ const UserProjects = props => {
   useEffect(() => {
     getProjects();
   }, []);
-
-  const navigateToProject = id => {
-    navigation(`/project/${id}`);
-  };
 
   const getProjects = async () => {
     const [error, userProject] = await getUsersProjects(props.id);
@@ -36,13 +36,22 @@ const UserProjects = props => {
 
         }}
       >
-        <Card className="message-row">
+        <Card className="message-row" sx={{ borderRadius: "12px" }}>
           <h2 className="message-title" style={{ marginLeft: "10px" }}>
-            Title: {project.title}
+            {project.title}
           </h2>
-          <p className="message-author">Description: {project.description}</p>
+          <p className="message-author"> {project.description}</p>
           <CardActions sx={{ justifyContent: "center" }}>
-            <Button LinkComponent={Link} to={`/project/${project.id}`} sx={{ backgroundColor: "white" }}>
+            <Button
+              LinkComponent={Link}
+              to={`/project/${project.id}`}
+              variant="contained"
+              color="darkViolet"
+              sx={{
+                borderRadius: "12px",
+                margin: "10px",
+              }}
+            >
               View more
             </Button>
           </CardActions>

@@ -33,7 +33,7 @@ const MessageBoard = (props) => {
           justifyContent: "center"
         }}
       >
-        {messages.map((message, i) => {
+        {[...messages].reverse().map((message, i) => {
           return (
             <Message
               key={i}

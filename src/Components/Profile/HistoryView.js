@@ -1,4 +1,4 @@
-import { Button, ButtonBase, CardActions } from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -17,30 +17,54 @@ function HistoryView() {
         <div
           className="message-container"
           style={{
-            boxShadow: " 12px 12px 2px 1px rgba(0, 0, 255, .2)"
+            boxShadow: " 12px 12px 2px 1px rgba(0, 0, 255, .2)",
           }}
         >
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell>Project</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow key={1} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableRow
+                  key={1}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
                   <TableCell component="th" scope="row">
                     doompeon
-                    <Button LinkComponent={Link} to={`/project/${1}`} sx={{ backgroundColor: "white", margin: 0, float: "right" }}>
+                    <Button
+                      LinkComponent={Link}
+                      to={`/project/${1}`}
+                      variant="contained"
+                      color="darkViolet"
+                      sx={{
+                        borderRadius: "12px",
+                        float: "right",
+                      }}
+                    >
                       View more
                     </Button>
                   </TableCell>
                   {/* <TableCell align="right">{row.calories}</TableCell> */}
                 </TableRow>
-                <TableRow key={2} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableRow
+                  key={2}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
                   <TableCell component="th" scope="row">
                     Roblox
-                    <Button LinkComponent={Link} to={`/project/${2}`} sx={{ backgroundColor: "white", margin: 0, float: "right" }}>
+                    <Button
+                      LinkComponent={Link}
+                      to={`/project/${2}`}
+                      variant="contained"
+                      color="darkViolet"
+                      sx={{
+                        borderRadius: "12px",
+                        float: "right",
+                      }}
+                    >
                       View more
                     </Button>
                   </TableCell>

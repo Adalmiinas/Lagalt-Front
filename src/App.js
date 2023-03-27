@@ -16,6 +16,7 @@ import { useUser } from "./Context/UserContext";
 import { debounce } from "lodash";
 import UpdateForm from "./Components/Profile/UpdateForm";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import UpdateProjectPage from "./Views/UpdateProjectPage";
 function App() {
   const { keycloak } = useKeycloak();
   const [load, setLoad] = useState(0);
@@ -47,10 +48,11 @@ function App() {
 
     const debounceRegistration = debounce(handleRegistration, 500); //debounce reg
     const fetchdata = async () => {
+      
       // await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
       const data = await loginUser(userId(), keycloak.token);
-
-     await storageSave("logged-user", data[1].value);
+      console.log(data)
+      await storageSave("logged-user", data[1]);
       setUser(storageRead("logged-user"));
     };
     const debouncedFetchData = debounce(fetchdata, 500); // debounce fetchdata
@@ -88,7 +90,7 @@ function App() {
                 <Route path="/profile/update-profile" element={<UpdateForm />} />
                 <Route path="/project/:id" element={<Project />} />
                 <Route path="/project/add-project" element={<AddProject />} />
-                <Route path="/project/update-project" element={<UpdateProject />} />
+                <Route path="/project/update-project/:id" element={<UpdateProjectPage />} />
               </>
             )}
           </Routes>

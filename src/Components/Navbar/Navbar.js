@@ -75,8 +75,11 @@ const Navbar = (props) => {
           <MenuItem onClick={handleMenuClose} component={Link} to="profile/">
             Profile
           </MenuItem>
-          <MenuItem component={Link} to="/project/add-project">
+          <MenuItem onClick={handleMenuClose} component={Link} to="/project/add-project">
             Create project
+          </MenuItem>
+          <MenuItem component={Link} to="/project/update-project">
+            Update project
           </MenuItem>
           <MenuItem onClick={() => handleRedirect()} component={Link} to="/">
             Logout
@@ -108,21 +111,13 @@ const Navbar = (props) => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
+        
+        
       </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        ></IconButton>
-        <p>Notifications</p>
+      <MenuItem component={Link} to="/">
+          <Typography textAlign="center">MAIN</Typography>
       </MenuItem>
+
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -142,23 +137,26 @@ const Navbar = (props) => {
     <>
       <AppBar position="static" color="darkVioletGreen">
         <Toolbar>
-          <Typography
-            variant="h3"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" }, fontFamily: "Roboto" }}
-          >
-            LAGALT
-          </Typography>
+          <MenuItem component={Link} to="/">
+            <Typography
+              variant="h3"
+              noWrap
+              component="div"
+              sx={{
+                display: { xs: "none", sm: "block" },
+                fontFamily: "Roboto",
+              }}
+            >
+              LAGALT
+            </Typography>
+          </MenuItem>
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {!keycloak.authenticated && (
-              <div>
-                <Button variant="contained" onClick={() => handleLoad(1)}>
-                  Login
-                </Button>
-              </div>
+                  <MenuItem onClick={() => handleLoad(1)}>
+                    <Typography textAlign="center">LOGIN</Typography>
+                  </MenuItem>
             )}
 
             <MenuItem component={Link} to="/">
@@ -197,4 +195,6 @@ const Navbar = (props) => {
   );
 };
 
-export default Navbar;
+//{/* <Button variant="contained" onClick={() => handleLoad(1)}> */}
+//{/* </Button> */}
+
