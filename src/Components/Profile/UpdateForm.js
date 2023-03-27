@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
 import { updateUserInfo, userById } from "../../Service/UserInfo";
 import { storageRead, storageSave } from "../../Utils/Storage";
-import { storageSave } from "../../Utils/Storage";
 import SkillsInput, { emptySkillList, clearSkillsList, returnedListSkills } from "../Project/SkillsInput";
 
 const usernameConfig = {
@@ -31,12 +30,12 @@ const UpdateForm = () => {
   };
 
   const profileSuccessfullyUpdatedAlert = () => {
-    alert("Project successfully updated!");
+    alert("Profile successfully updated!");
   };
 
   const handleSubmitClick = async () => {
     const skills = await returnedListSkills();
-    emptySkillList();
+    await emptySkillList();
     const [error, userResponse] = await updateUserInfo(user.id, usernameToUpdate, careerTitle, email, portfolio, description, skills);
     if (userResponse) {
       console.log(userResponse);

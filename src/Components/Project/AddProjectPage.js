@@ -7,7 +7,7 @@ import { useUser } from "../../Context/UserContext";
 import { addProject, fetchProjects } from "../../Service/ProjectInfos";
 import { storageRead } from "../../Utils/Storage";
 import { descriptionConfig, gitRepositoryUrlConfig, industryNameConfig, titleConfig } from "./Input/InputValidations";
-import SkillsInput, { clearSkillsList, returnedListSkills } from "./SkillsInput";
+import SkillsInput, { clearSkillsList, emptySkillList, returnedListSkills } from "./SkillsInput";
 import TagsInput, { clearTagsList, returnedList } from "./TagsInput";
 
 const AddProjectPage = () => {
@@ -46,15 +46,16 @@ const AddProjectPage = () => {
     const tags = await returnedList();
     const skills = await returnedListSkills();
 
-    const [error, userResponse] = await addProject(user.id, projectTitle, projectDescription, projectGitUrl, projectIndustry, tags, skills);
+    const [error, userResponse] = await addProject(user.id, projectTitle, projectDescription, projectGitUrl, industry, tags, skills);
 
     if (error !== null) {
       setApiError(error);
     }
     navigate("/profile");
+    await emptySkillList()
+    await clearTagsList()
     projectSuccessfullyCreatedAlert();
-    clearSkillsList()
-    clearTagsList()
+    
   };
 
   const handleIndustryChange = e => {
@@ -183,8 +184,7 @@ const AddProjectPage = () => {
           justifyContent: "center",
           borderRadius: "12px",
           boxShadow: " 3px 3px 2px 1px rgba(0, 0, 255, .2)",
-          backgroundColor: "violet",
-          margin: 1,
+
           backgroundColor: "violet",
                     margin: 1,
                     '&:hover': {
@@ -201,8 +201,6 @@ const AddProjectPage = () => {
           boxShadow: " 3px 3px 2px 1px rgba(0, 0, 255, .2)",
           backgroundColor: "violet",
           margin: 1,
-          backgroundColor: "violet",
-                    margin: 1,
                     '&:hover': {
                         backgroundColor: '#312B70',
                         boxShadow: " 2px 2px 1px 1px rgba(120, 124, 209, 1)"

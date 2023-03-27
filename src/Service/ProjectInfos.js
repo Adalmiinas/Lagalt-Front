@@ -174,13 +174,12 @@ export const addProject = async (id, title, description, gitRepositoryUrl, indus
   }
 };
 
-export const updateProject = async (userId, projectId, title, description, gitUrl, projectImageUrl, industryName, tagNames, skillNames) => {
+export const updateProject = async (userId, projectId, title, description, gitUrl, projectImageUrl, industryName, newTagNames, newSkillNames) => {
   try {
-    console.log(userId, projectId, title, description, gitUrl, projectImageUrl, industryName, tagNames, skillNames);
+    console.log(userId, projectId, title, description, gitUrl, projectImageUrl, industryName, newTagNames, newSkillNames);
     const response = await fetch(`http://localhost:5128/api/Project/update`, {
       method: "PUT",
       headers: {
-        "X-API-Key": "http://localhost:5128/api/Project",
         "Content-Type": "application/json",
         id: userId
       },
@@ -191,8 +190,8 @@ export const updateProject = async (userId, projectId, title, description, gitUr
         gitRepositoryUrl: gitUrl,
         projectImage: { url: projectImageUrl },
         industryName: { industryName: industryName },
-        tagNames,
-        skillNames
+        tagNames: newTagNames,
+        skillNames: newSkillNames
       })
     });
     if (!response.ok) {

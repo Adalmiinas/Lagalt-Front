@@ -8,7 +8,7 @@ export const returnedList = async () => {
     return newTagList
 }
 
-export const clearTagsList = () => {
+export const clearTagsList = async () => {
     newTagList = []
 }
 
@@ -19,8 +19,8 @@ const TagsInput = () => {
 
     const handleKeyDown = (e) => {
         if(e.key !== "Enter") return
-        newTagList.push({tagName:text})
-        setTags([...tags, {tagName: text}])
+        newTagList.push({tagName:text.trim()})
+        setTags([...tags, {tagName: text.trim()}])
         setText("");      
     }
     
