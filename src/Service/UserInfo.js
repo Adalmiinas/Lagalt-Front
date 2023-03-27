@@ -143,7 +143,7 @@ export const GetAllUsers = async () => {
   }
 };
 
-export const updateUserInfo = async (userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills) => {
+export const updateUserInfo = async (userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills, photoUrl) => {
   try {
     console.log(userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills);
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/Update`, {
@@ -158,7 +158,8 @@ export const updateUserInfo = async (userId, username, newCareerTitle, newEmail,
         email: newEmail,
         portfolio: newPortfolio,
         description: newDescription,
-        skills: newSkills
+        skills: newSkills,
+        photoUrl: photoUrl
       })
     });
     if (response.ok) {

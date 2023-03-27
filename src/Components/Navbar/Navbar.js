@@ -162,11 +162,11 @@ const Navbar = props => {
             )}
 
             <MenuItem component={Link} to="/">
-              <Typography textAlign="center">MAIN</Typography>
+              <Typography textAlign="center">Projects</Typography>
             </MenuItem>
 
-            <IconButton size="large" edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen} color="inherit">
-              <AccountCircle />
+            <IconButton size="large" edge="end" aria-label={"account of current user"} aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen} color="inherit">
+              {!user?.photoUrl ? <AccountCircle /> : <img src={user?.photoUrl} alt="user avatar" style={{ verticalAlign: "middle", width: "50px", height: "50px", borderRadius: "50%" }} />}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>

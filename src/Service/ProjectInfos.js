@@ -26,7 +26,6 @@ export const fetchProjectById = async id => {
       throw new Error("Could not complete request.");
     }
     const data = await response.json();
-    storageSave("logged-user", data)
     return [null, data];
   } catch (error) {
     return [error.message, null];
@@ -118,7 +117,7 @@ export const acceptUserToProject = async (ownerId, projId, userId, pending) => {
   }
 };
 
-export const deleteUserFromProject = async (userId, projId, actingId ) => {
+export const deleteUserFromProject = async (userId, projId, actingId) => {
   try {
     const response = await fetch("http://localhost:5128/project", {
       method: "DELETE",
@@ -204,19 +203,17 @@ export const updateProject = async (userId, projectId, title, description, gitUr
   }
 };
 
-
 export const updateProjectStatus = async (userId, projectId, newStatus) => {
   try {
     const response = await fetch(`http://localhost:5128/api/Project/patch`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        id:userId,
+        id: userId
       },
       body: JSON.stringify({
         id: projectId,
-        status: newStatus,
-       
+        status: newStatus
       })
     });
     if (!response.ok) {
@@ -229,4 +226,3 @@ export const updateProjectStatus = async (userId, projectId, newStatus) => {
     return [error.message, null];
   }
 };
-

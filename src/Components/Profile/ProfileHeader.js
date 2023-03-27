@@ -1,7 +1,7 @@
 import { Button, Card, CardContent, Chip, FormControlLabel, Switch, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useKeycloak } from "@react-keycloak/web";
-import { Work } from "@mui/icons-material";
+import { AccountCircle, Work } from "@mui/icons-material";
 import Skills from "../Main/Skills";
 import { useState } from "react";
 import { updateUserInfo, updateUserStatus } from "../../Service/UserInfo";
@@ -45,6 +45,7 @@ const ProfileHeader = ({ user }) => {
               }}
             >
               <CardContent>
+              
                 <h1 style={{ textTransform: "uppercase", fontFamily: "RBold" }}>Hello {user?.username}</h1>
                 {user?.gitRepositoryUrl?.length !== 0 && <p>{user?.gitRepositoryUrl}</p>}
 
