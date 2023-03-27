@@ -77,9 +77,6 @@ const Navbar = (props) => {
           <MenuItem onClick={handleMenuClose} component={Link} to="/project/add-project">
             Create project
           </MenuItem>
-          <MenuItem component={Link} to="/project/update-project">
-            Update project
-          </MenuItem>
           <MenuItem onClick={() => handleRedirect()} component={Link} to="/">
             Logout
           </MenuItem>
@@ -109,26 +106,33 @@ const Navbar = (props) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        
-        
+      <MenuItem onClick={handleMenuClose} component={Link} to="/">
+            Main
       </MenuItem>
-      <MenuItem component={Link} to="/">
-          <Typography textAlign="center">MAIN</Typography>
-      </MenuItem>
-
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      {!keycloak.authenticated && (
+        <MenuItem onClick={() => handleLoad(1)}>
+            <Typography textAlign="center">Login</Typography>
+        </MenuItem>
+      )}
+      
+      {keycloak.authenticated && user ? (
+        <div>
+          
+          <MenuItem onClick={handleMenuClose} component={Link} to="profile/">
+            Profile
+          </MenuItem>
+          <MenuItem onClick={handleMenuClose} component={Link} to="/project/add-project">
+            Create project
+          </MenuItem>
+          <MenuItem onClick={() => handleRedirect()} component={Link} to="/">
+            Logout
+          </MenuItem>
+        </div>
+      ) : (
+        <MenuItem onClick={() => handleLoad(3)} component={Link} to="/">
+          Register
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -195,6 +199,4 @@ const Navbar = (props) => {
 };
 
 export default Navbar;
-//{/* <Button variant="contained" onClick={() => handleLoad(1)}> */}
-//{/* </Button> */}
 
