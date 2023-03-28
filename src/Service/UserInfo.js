@@ -1,4 +1,5 @@
 import { createHeaders } from ".";
+import { useUser } from "../Context/UserContext";
 import { storageSave } from "../Utils/Storage";
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -189,6 +190,34 @@ export const updateUserStatus = async (userId, status) => {
     }
   } catch (error) {
     return [error.message, []];
+  }
+};
+export const updateViewHistory = async (userId, projectId) => {
+  
+  try {
+    const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/viewHistory`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        id: userId
+      },
+      body: JSON.stringify({
+        id: projectId
+      })
+    });
+    if (!response.ok) {
+      throw new Error("Could not complete request!");
+    } else {
+      const [error, data] = await userById(userId);
+      console.log(data);
+      if(data){
+        storageSave("logged-user", data)
+         
+      }
+      // return [null, data];
+    }
+  } catch (error) {
+    // return [error.message, []];
   }
 };
 // const data = await response.json();

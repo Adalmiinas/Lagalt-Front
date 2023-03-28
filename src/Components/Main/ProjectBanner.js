@@ -7,9 +7,11 @@ import Tags from "./Tags";
 import FactoryIcon from "@mui/icons-material/Factory";
 import Skills from "./Skills";
 import { useKeycloak } from "@react-keycloak/web";
+import { updateViewHistory } from "../../Service/UserInfo";
+import { storageRead } from "../../Utils/Storage";
 
 export const ProjectBanner = props => {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const { keycloak } = useKeycloak();
   let tags = "";
   let skills = "";
@@ -108,6 +110,7 @@ export const ProjectBanner = props => {
         {keycloak.authenticated && (
           <CardActions sx={{ justifyContent: "center" }}>
             <Button
+              onClick={() => updateViewHistory(user.id, project.id).then(x => setUser(storageRead("logged-user")))}
               className="project-view-buttons"
               LinkComponent={Link}
               to={`/project/${project.id}`}
