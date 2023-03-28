@@ -50,13 +50,9 @@ export const ProjectBanner = props => {
       return "";
     }
   });
-  const HandleUserHistory = id => {
-    console.log(id);
-  };
   return filteredData.map((project, index) => (
     <div key={project.id} style={{ display: "flex", justifyContent: "center", padding: "10px" }}>
       <Card
-        onMouseEnter={() => HandleUserHistory(project.id)}
         key={project.id}
         sx={{
           minWidth: "60%",

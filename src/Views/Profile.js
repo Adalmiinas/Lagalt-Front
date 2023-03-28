@@ -5,7 +5,6 @@ import HistoryView from "../Components/Profile/HistoryView";
 import ProfileHeader from "../Components/Profile/ProfileHeader";
 
 import SelectHeader from "../Components/Profile/Select";
-import StartingFillerPage from "../Components/Profile/StartingFillerPage";
 import UserProjects from "../Components/Profile/UserProjects";
 import { useUser } from "../Context/UserContext";
 import withAuth from "../Guards/WithAuth";
