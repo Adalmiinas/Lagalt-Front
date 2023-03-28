@@ -50,6 +50,7 @@ export const ProjectBanner = props => {
       return "";
     }
   });
+  filteredData.reverse();
   return filteredData.map((project, index) => (
     <div key={project.id} style={{ display: "flex", justifyContent: "center", padding: "10px" }}>
       <Card
@@ -81,7 +82,7 @@ export const ProjectBanner = props => {
             </div>
 
             <div key={"skills" + index} style={{ paddingLeft: "2rem" }}>
-              <SkillsInMain project={project} user= {user} />
+              <SkillsInMain project={project} user={user} />
             </div>
           </div>
 

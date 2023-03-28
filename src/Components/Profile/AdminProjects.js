@@ -1,18 +1,20 @@
-import { Button, Card, CardActions, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Button, Card, CardActions, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { width } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAdminProjects } from "../../Service/ProjectInfos";
 
-const AdminProjects = props => {
+const AdminProjects = ({ id }) => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     getProjects();
+    console.log(id);
   }, []);
 
   const getProjects = async () => {
-    const [error, userProject] = await getAdminProjects(props.id);
+    const [error, userProject] = await getAdminProjects(id);
+
     if (error != null) {
       return "";
     } else {
@@ -42,9 +44,9 @@ const AdminProjects = props => {
                   return (
                     <TableRow key={key} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                       <TableCell component="th" scope="row">
-                        <p>{item.project.title}</p>
-                        <p>Status: {item.project.status}</p>
-                        <span>Description: {item.project.description}</span>
+                        <Typography>Title : {item.project.title}</Typography>
+                        <Typography>Status: {item.project.status}</Typography>
+
                         <Button
                           LinkComponent={Link}
                           to={`/project/${item.projectId}`}
