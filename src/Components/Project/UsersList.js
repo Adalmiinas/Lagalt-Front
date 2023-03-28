@@ -35,7 +35,7 @@ const WaitList = ({ key, project, projectUser, loading }) => {
       projectId,
       userId
     );
-    
+
     loading(true);
 
     console.log(projectId, userId, user.id);
@@ -66,35 +66,39 @@ const WaitList = ({ key, project, projectUser, loading }) => {
       >
         <CardContent sx={{ display: "flex", flexDirection: "column" }}>
           <Typography variant="h5"> {projectUser.userName}</Typography>
-          {userListUser.isPrivate === false && (
-            <div style={{display:"flex", flexDirection: "column"}}>
-              <Typography variant="h8">
-                {" "}
-                Career: {userListUser.careerTitle}
-              </Typography>
+          {(userListUser.isPrivate === false || projectUser.isOwner === true) &&
+            project.projectUsers.filter((x) => x.userId === user.id).length === 1 && (
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <Typography variant="h8">
+                    {" "}
+                    Career: {userListUser.careerTitle}
+                  </Typography>
 
-              <Typography variant="h8"> Email: {userListUser.email}</Typography>
+                  <Typography variant="h8">
+                    {" "}
+                    Email: {userListUser.email}
+                  </Typography>
 
-              <Typography variant="h8">
-                {" "}
-                Portfolio: {userListUser.portfolio}
-              </Typography>
+                  <Typography variant="h8">
+                    {" "}
+                    Portfolio: {userListUser.portfolio}
+                  </Typography>
 
-              <Typography variant="h8">
-                {" "}
-                Description: {userListUser.description}
-              </Typography>
+                  <Typography variant="h8">
+                    {" "}
+                    Description: {userListUser.description}
+                  </Typography>
 
-              {userListUser.Skills > 0 && (
-                <div
-                  key={"skills"}
-                  style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
-                >
-                  <Skills project={userListUser} />
+                  {userListUser.Skills > 0 && (
+                    <div
+                      key={"skills"}
+                      style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
+                    >
+                      <Skills project={userListUser} />
+                    </div>
+                  )}
                 </div>
               )}
-            </div>
-          )}
 
           {projectUser != null && projectUser.isOwner === true && (
             <Chip

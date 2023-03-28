@@ -4,19 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
 import { updateUserInfo, userById } from "../../Service/UserInfo";
 import { storageRead, storageSave } from "../../Utils/Storage";
-import SkillsInput, { emptySkillList, clearSkillsList, returnedListSkills } from "../Project/SkillsInput";
+import SkillsInput, { emptySkillList, returnedListSkills } from "../Project/SkillsInput";
 
 const UpdateForm = () => {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
-  const [apiError, setApiError] = useState(null);
+  const [apiError, setApiError] = useState();
 
-  const [usernameToUpdate, setUsernameToUpdate] = useState(null);
   const [careerTitle, setCareerTitle] = useState(null);
   const [email, setEmail] = useState(null);
   const [portfolio, setPortfolio] = useState(null);
   const [description, setDescription] = useState(null);
-  const [skills, setSkills] = useState([]);
   const [avatarSrc, setAvatarSrc] = useState(null);
 
   const checkKeyDown = e => {
@@ -30,7 +28,7 @@ const UpdateForm = () => {
   const handleSubmitClick = async () => {
     const skills = await returnedListSkills();
     await emptySkillList();
-    const [error, userResponse] = await updateUserInfo(user.id, usernameToUpdate, careerTitle, email, portfolio, description, skills, avatarSrc);
+    const [error, userResponse] = await updateUserInfo(user.id, careerTitle, portfolio, description, skills, avatarSrc);
     if (userResponse) {
       console.log(userResponse);
     }
@@ -49,8 +47,6 @@ const UpdateForm = () => {
       <div style={{ alignItems: "center", flexDirection: "column", display: "flex" }}>
         <h2 style={{ color: "#787CD1" }}>UPDATE ACCOUNT INFORMATION</h2>
         <TextField label="Career Title" value={careerTitle} onChange={e => setCareerTitle(e.target.value)} />
-        <p></p>
-        <TextField label="Email" value={email} onChange={e => setEmail(e.target.value)} />
         <p></p>
         <TextField label="Portfolio" value={portfolio} onChange={e => setPortfolio(e.target.value)} />
         <p></p>
