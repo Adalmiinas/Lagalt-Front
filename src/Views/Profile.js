@@ -5,7 +5,6 @@ import HistoryView from "../Components/Profile/HistoryView";
 import ProfileHeader from "../Components/Profile/ProfileHeader";
 
 import SelectHeader from "../Components/Profile/Select";
-import StartingFillerPage from "../Components/Profile/StartingFillerPage";
 import UserProjects from "../Components/Profile/UserProjects";
 import { useUser } from "../Context/UserContext";
 import withAuth from "../Guards/WithAuth";
@@ -14,17 +13,18 @@ import "../../src/index.css";
 const Profile = () => {
   const { user } = useUser();
   const { keycloak } = useKeycloak();
+
+  if (keycloak) {
+    keycloak.onReady(function () {
+      if (keycloak.authenticated) {
+        // Perform authenticated actions here
+      } else {
+        keycloak.login();
+      }
+    });
+  }
   if (!keycloak.authenticated) {
-    keycloak
-      .updateToken(5)
-      .then(function (refreshed) {
-        if (refreshed) {
-          alert("Token was successfully refreshed");
-        }
-      })
-      .catch(function () {
-        alert("Failed to refresh the token, or the session has expired");
-      });
+    keycloak.updateToken(5);
   }
   const [render, setRender] = useState(1);
   const handleProjectList = value => {

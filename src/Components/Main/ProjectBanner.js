@@ -7,9 +7,11 @@ import Tags from "./Tags";
 import FactoryIcon from "@mui/icons-material/Factory";
 import { useKeycloak } from "@react-keycloak/web";
 import SkillsInMain from "./SkillsInMain";
+import { updateViewHistory } from "../../Service/UserInfo";
+import { storageRead } from "../../Utils/Storage";
 
 export const ProjectBanner = props => {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const { keycloak } = useKeycloak();
   let tags = "";
   let skills = "";
@@ -48,13 +50,9 @@ export const ProjectBanner = props => {
       return "";
     }
   });
-  const HandleUserHistory = id => {
-    console.log(id);
-  };
   return filteredData.map((project, index) => (
     <div key={project.id} style={{ display: "flex", justifyContent: "center", padding: "10px" }}>
       <Card
-        onMouseEnter={() => HandleUserHistory(project.id)}
         key={project.id}
         sx={{
           minWidth: "60%",
@@ -108,6 +106,7 @@ export const ProjectBanner = props => {
         {keycloak.authenticated && (
           <CardActions sx={{ justifyContent: "center" }}>
             <Button
+              onClick={() => updateViewHistory(user.id, project.id).then(x => setUser(storageRead("logged-user")))}
               className="project-view-buttons"
               LinkComponent={Link}
               to={`/project/${project.id}`}

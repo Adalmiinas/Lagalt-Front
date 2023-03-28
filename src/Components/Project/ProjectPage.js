@@ -19,6 +19,8 @@ import FactoryIcon from "@mui/icons-material/Factory";
 import Tags from "../Main/Tags";
 import Skills from "../Main/Skills";
 import { Link } from "react-router-dom";
+import UpdateProjectButton from "./UpdateProjectButton";
+import AddProjectPage from "./AddProjectPage";
 
 const ProjectPage = ({ id }) => {
   const [project, setProject] = useState("");
@@ -166,18 +168,8 @@ const ProjectPage = ({ id }) => {
                         style={{ display: "inline", flexDirection: "column" }}
                       >
                         <WaitlistButton project={project} loading={setLoad} />
-                        <Button
-                          variant="contained"
-                          color="darkViolet"
-                          sx={{
-                            borderRadius: "12px",
-                            marginBottom: "1rem",
-                          }}
-                          component={Link}
-                          to={`/project/update-project/${project.id}`}
-                        >
-                          Update
-                        </Button>
+                        <UpdateProjectButton/>
+                        
                       </div>
                     </>
                   )}
