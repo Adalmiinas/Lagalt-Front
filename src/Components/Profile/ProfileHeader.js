@@ -47,12 +47,10 @@ const ProfileHeader = ({ user }) => {
               }}
             >
               <CardContent>
-              
-                <h1 style={{ textTransform: "uppercase", fontFamily: "RBold" }}>Hello {user?.username}</h1>
+                {!user?.photoUrl ? <AccountCircle /> : <img src={user?.photoUrl} alt="user avatar" style={{ verticalAlign: "middle", width: "100px", height: "100px", borderRadius: "50%", border: "3px solid black", float: "right" }} />}
+                <h1 style={{ textTransform: "uppercase", fontFamily: "RBold" }}>{user?.username}</h1>
                 {user?.gitRepositoryUrl?.length !== 0 && <p>{user?.gitRepositoryUrl}</p>}
-
                 <FormControlLabel control={<Switch checked={hidden} onChange={handleHidden} color="secondary" />} label="hidden mode" />
-
                 <div>
                   <Chip color="darkViolet" icon={<Work fontSize="small" />} label={user.careerTitle == null ? "Add career!" : user.careerTitle} />
                 </div>
@@ -67,13 +65,10 @@ const ProfileHeader = ({ user }) => {
                     )}
                   </span>
                 </div>
-                <Typography sx={{  }}> {user?.description == null ? "No Description added" : user?.description}</Typography>
-                {" "}
-                <Typography sx={{  }}> Portfolio: {user?.portfolio == null ? "Add Portfolio" : user.portfolio}</Typography>
+                <Typography sx={{}}> {user?.description == null ? "No Description added" : user?.description}</Typography> <Typography sx={{}}> Portfolio: {user?.portfolio == null ? "Add Portfolio" : user.portfolio}</Typography>
               </CardContent>
 
-              <UpdateProfileButton/>
-
+              <UpdateProfileButton />
             </Card>
           </div>
         </div>

@@ -63,7 +63,7 @@ const UpdateForm = (props) => {
                 {/* <TextField sx={{ input:{color:"whitesmoke", background:"#545ac4"} }} label="Description" value={description} onChange={e => setDescription(e.target.value)}/> */}
                 <TextField sx={{ input:{color:"whitesmoke", background:"#545ac4"} }} label="Description" multiline minRows={7} maxRows={7} style={{ minWidth: "50%" }} value={description} onChange={e => setDescription(e.target.value)} />
                 <p></p>
-                <TextField sx={{ input:{color:"whitesmoke", background:"#545ac4"} }} label="PhotoURL" value={photoUrl} onChange={e => setPhotoUrl(e.target.value)}/>
+                <TextField sx={{ input:{color:"whitesmoke", background:"#545ac4"} }} label="PhotoURL" value={avatarSrc} onChange={e => setAvatarSrc(e.target.value)}/>
                 <p></p>
                 <SkillsInput/>
                 <div>

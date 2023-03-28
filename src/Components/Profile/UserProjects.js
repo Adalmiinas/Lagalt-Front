@@ -1,10 +1,10 @@
-import { Button, Card, CardActions, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Button, Card, CardActions, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { getUsersProjects } from "../../Service/ProjectInfos";
 
-const UserProjects = props => {
+const UserProjects = ({ id }) => {
   const navigation = useNavigate();
 
   const [projects, setProjects] = useState([]);
@@ -14,7 +14,7 @@ const UserProjects = props => {
   }, []);
 
   const getProjects = async () => {
-    const [error, userProject] = await getUsersProjects(props.id);
+    const [error, userProject] = await getUsersProjects(id);
     if (error != null) {
       return "";
     } else {
@@ -36,7 +36,7 @@ const UserProjects = props => {
             <Table sx={{ minWidth: 500 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Projects you are part of</TableCell>
+                  <TableCell>Projects you are part</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -44,9 +44,10 @@ const UserProjects = props => {
                   return (
                     <TableRow key={key} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                       <TableCell component="th" scope="row">
-                        <p>{item.project.title}</p>
-                        <p>Status: {item.project.status}</p>
-                        <span>Description: {item.project.description}</span>
+                        <Typography>Title : {item.project.title}</Typography>
+                        <Typography>Status: {item.project.status}</Typography>
+              
+
                         <Button
                           LinkComponent={Link}
                           to={`/project/${item.projectId}`}
