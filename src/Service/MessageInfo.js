@@ -1,20 +1,17 @@
 export const addMessageToProject = async (projId, userId, message, title) => {
   try {
-    const response = await fetch(
-      "http://localhost:5128/api/MessageBoard/Create",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          userId: userId,
-        },
-        body: JSON.stringify({
-          title: title,
-          body: message,
-          projectId: projId,
-        }),
-      }
-    );
+    const response = await fetch("http://localhost:5128/api/MessageBoard/Create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        userId: userId
+      },
+      body: JSON.stringify({
+        title: title,
+        body: message,
+        projectId: projId
+      })
+    });
     if (!response.ok) {
       throw new Error("Could not complete request!");
     }
@@ -25,14 +22,14 @@ export const addMessageToProject = async (projId, userId, message, title) => {
   }
 };
 
-export const getAllMessagesFromProject = async (projId) => {
+export const getAllMessagesFromProject = async projId => {
   try {
     const response = await fetch("http://localhost:5128/api/MessageBoard", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        projectId: projId,
-      },
+        projectId: projId
+      }
     });
     if (!response.ok) {
       throw new Error("Could not complete request!");
@@ -50,12 +47,11 @@ export const deleteMessageFromProject = async (messageId, userId) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": "http://localhost:5128/api/ProjectUser",
-        userId: userId,
+        userId: userId
       },
       body: JSON.stringify({
         messageBoardId: messageId
-      }),
+      })
     });
     if (!response.ok) {
       throw new Error("Could not complete request!");

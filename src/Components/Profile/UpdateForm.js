@@ -14,6 +14,7 @@ const UpdateForm = () => {
   const [careerTitle, setCareerTitle] = useState(null)
   const [portfolio, setPortfolio] = useState(null)
   const [description, setDescription] = useState(null)
+  const [avatarSrc, setAvatarSrc] = useState(null);
 
   const checkKeyDown = e => {
     if (e.key === "Enter") e.preventDefault();
@@ -31,8 +32,9 @@ const UpdateForm = () => {
   const handleSubmitClick = async () => {
     const skills = await returnedListSkills();
     await emptySkillList();
-    const [error, userResponse] = await updateUserInfo(user.id, careerTitle, portfolio, description, skills);
-    
+
+    const [error, userResponse] = await updateUserInfo(user.id, careerTitle, portfolio, description, skills);    
+
     if (userResponse) {
       console.log(userResponse);
     }
@@ -97,6 +99,7 @@ const UpdateForm = () => {
           </div>
       </>
     );
+
 };
 
 export default UpdateForm;
