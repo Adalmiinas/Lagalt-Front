@@ -33,7 +33,7 @@ const TagsInput = () => {
     return (
         <>
         <span>
-        <TextField sx={{margin: 0.75}} label="Tags" onKeyDown={handleKeyDown} value={text} onChange={e => setText(e.target.value)}/>
+        <TextField sx={{margin: 0.75, input:{color:"whitesmoke", background:"#545ac4"}}} label="Tags" onKeyDown={handleKeyDown} value={text} onChange={e => setText(e.target.value)}/>
             <div>
              {tags.map((item, index) => ( 
                 <span><Chip label={item.tagName} onDelete={() => removeTag(index)} sx={{ backgroundColor:"#0000ff33", color:"white", '& .MuiChip-deleteIcon': {color: "#A8BA30",}}}/>
