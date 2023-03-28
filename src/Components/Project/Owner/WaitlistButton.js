@@ -49,7 +49,6 @@ const WaitlistButton = (props) => {
           >
             <h1>Waitlist</h1>
             {props.project.waitList.userWaitingLists.map((project, i) => {
-                console.log(project);
               return (
                 <WaitList
                   key={i}
