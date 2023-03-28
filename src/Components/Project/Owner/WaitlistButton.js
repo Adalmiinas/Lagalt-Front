@@ -12,6 +12,8 @@ const WaitlistButton = props => {
   const handleClose = () => setOpen(false);
 
   return (
+    <>
+
     <div>
       <Button
         onClick={handleOpen}
@@ -23,7 +25,7 @@ const WaitlistButton = props => {
           left: "0px",
 
           borderRadius: "12px",
-          margin: "1rem"
+         marginBottom: "1rem"
         }}
       >
         Waitlist
@@ -45,6 +47,7 @@ const WaitlistButton = props => {
             overflow: "auto",
             maxWidth: "50%",
             maxHeight: "60%"
+
           }}
         >
           <h1>Waitlist</h1>
@@ -54,6 +57,7 @@ const WaitlistButton = props => {
         </Box>
       </Modal>
     </div>
+     </>
   );
 };
 export default WaitlistButton;
