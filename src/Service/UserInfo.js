@@ -145,7 +145,7 @@ export const GetAllUsers = async () => {
 };
 
 
-export const updateUserInfo = async (userId, newCareerTitle, newPortfolio, newDescription, newSkills) => {
+export const updateUserInfo = async (userId, newCareerTitle, newPortfolio, newDescription, newSkills, photoUrl) => {
 
   try {
     console.log(userId, newCareerTitle, newPortfolio, newDescription, newSkills);

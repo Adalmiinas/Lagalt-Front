@@ -15,6 +15,7 @@ const UpdateForm = () => {
   const [portfolio, setPortfolio] = useState(null)
   const [description, setDescription] = useState(null)
   const [avatarSrc, setAvatarSrc] = useState(null);
+  const [photoUrl, setPhotoUrl] = useState(null)
 
   const checkKeyDown = e => {
     if (e.key === "Enter") e.preventDefault();
@@ -33,7 +34,7 @@ const UpdateForm = () => {
     const skills = await returnedListSkills();
     await emptySkillList();
 
-    const [error, userResponse] = await updateUserInfo(user.id, careerTitle, portfolio, description, skills);    
+    const [error, userResponse] = await updateUserInfo(user.id, careerTitle, portfolio, description, skills, photoUrl);    
 
     if (userResponse) {
       console.log(userResponse);
@@ -62,6 +63,8 @@ const UpdateForm = () => {
                 <p></p>
                 {/* <TextField sx={{ input:{color:"whitesmoke", background:"#545ac4"} }} label="Description" value={description} onChange={e => setDescription(e.target.value)}/> */}
                 <TextField sx={{ input:{color:"whitesmoke", background:"#545ac4"} }} label="Description" multiline minRows={7} maxRows={7} style={{ minWidth: "50%" }} value={description} onChange={e => setDescription(e.target.value)} />
+                <p></p>
+                <TextField sx={{ input:{color:"whitesmoke", background:"#545ac4"} }} label="PhotoURL" value={photoUrl} onChange={e => setPhotoUrl(e.target.value)}/>
                 <p></p>
                 <SkillsInput/>
                 <div>
