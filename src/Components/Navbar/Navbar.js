@@ -13,6 +13,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useUser } from "../../Context/UserContext";
 import { useKeycloak } from "@react-keycloak/web";
+import AddProjectButton from "../Project/AddProjectButton";
 
 const Navbar = (props) => {
   const { handleLoad } = props;
@@ -24,6 +25,8 @@ const Navbar = (props) => {
     history("/");
     handleLoad(2);
   };
+
+  const [showAddProjectModal, setShowAddProjectModal] = React.useState(false)
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -74,8 +77,10 @@ const Navbar = (props) => {
           <MenuItem onClick={handleMenuClose} component={Link} to="profile/">
             Profile
           </MenuItem>
-          <MenuItem onClick={handleMenuClose} component={Link} to="/project/add-project">
-            Create project
+          <MenuItem onClick={handleMenuClose}>
+          
+            <AddProjectButton/>
+            
           </MenuItem>
           <MenuItem onClick={() => handleRedirect()} component={Link} to="/">
             Logout
@@ -107,7 +112,7 @@ const Navbar = (props) => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem onClick={handleMenuClose} component={Link} to="/">
-            Main
+            PROJECTS
       </MenuItem>
       {!keycloak.authenticated && (
         <MenuItem onClick={() => handleLoad(1)}>
@@ -121,7 +126,7 @@ const Navbar = (props) => {
           <MenuItem onClick={handleMenuClose} component={Link} to="profile/">
             Profile
           </MenuItem>
-          <MenuItem onClick={handleMenuClose} component={Link} to="/project/add-project">
+          <MenuItem onClick={handleMenuClose}>
             Create project
           </MenuItem>
           <MenuItem onClick={() => handleRedirect()} component={Link} to="/">
@@ -163,7 +168,7 @@ const Navbar = (props) => {
             )}
 
             <MenuItem component={Link} to="/">
-              <Typography textAlign="center">MAIN</Typography>
+              <Typography textAlign="center">PROJECTS</Typography>
             </MenuItem>
 
             <IconButton
@@ -199,4 +204,5 @@ const Navbar = (props) => {
 };
 
 export default Navbar;
-
+// component={Link} to="/project/add-project"
+// <MenuItem onClick={() => {handleMenuClose(); setShowAddProjectModal(prev => !prev)}}>

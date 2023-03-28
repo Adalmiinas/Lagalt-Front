@@ -31,7 +31,7 @@ const SkillsInput = () => {
     return (
         <>
         <span>
-        <TextField sx={{ margin: 0.75 }} label="Skills" onKeyDown={handleKeyDown} value={text} onChange={e => setText(e.target.value)}/>
+        <TextField sx={{ margin: 0.75, input:{color:"whitesmoke", background:"#545ac4"} }} label="Skills" onKeyDown={handleKeyDown} value={text} onChange={e => setText(e.target.value)}/>
             <div>
              {skills.map((item, index) => ( 
                 <span><Chip label={item.skillName} onDelete={() => removeSkill(index)} sx={{ backgroundColor:"#0000ff33", color:"white", '& .MuiChip-deleteIcon': {color: "#A8BA30",}}}/>

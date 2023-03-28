@@ -14,6 +14,7 @@ import Skills from "../Main/Skills";
 import { useState } from "react";
 import { updateUserInfo, updateUserStatus } from "../../Service/UserInfo";
 import { storageSave } from "../../Utils/Storage";
+import UpdateProfileButton from "./UpdateProfileButton";
 
 const ProfileHeader = ({ user }) => {
   const { keycloak } = useKeycloak();
@@ -124,18 +125,7 @@ const ProfileHeader = ({ user }) => {
                   {user?.portfolio == null ? "Add Portfolio" : user.portfolio}
                 </Typography>
               </CardContent>
-              <Button
-                LinkComponent={Link}
-                to="/profile/update-profile"
-                variant="contained"
-                color="darkViolet"
-                sx={{
-                  borderRadius: "12px",
-                  margin: "1rem",
-                }}
-              >
-                Update profile
-              </Button>
+              <UpdateProfileButton/>
             </Card>
           </div>
         </div>
