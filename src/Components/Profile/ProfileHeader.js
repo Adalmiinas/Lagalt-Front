@@ -5,8 +5,10 @@ import { AccountCircle, Work } from "@mui/icons-material";
 import Skills from "../Main/Skills";
 import { useState } from "react";
 import { updateUserInfo, updateUserStatus } from "../../Service/UserInfo";
+import UpdateProfileButton from "./UpdateProfileButton";
 import { storageRead, storageSave } from "../../Utils/Storage";
 import { useUser } from "../../Context/UserContext";
+
 const ProfileHeader = ({ user }) => {
   const { keycloak } = useKeycloak();
   const [hidden, setHidden] = useState(user.isPrivate);
@@ -70,18 +72,9 @@ const ProfileHeader = ({ user }) => {
                 <Typography sx={{ fontWeight: "bold" }}> Email: {user?.email}</Typography>
                 <Typography sx={{ fontWeight: "bold" }}> Portfolio: {user?.portfolio == null ? "Add Portfolio" : user.portfolio}</Typography>
               </CardContent>
-              <Button
-                LinkComponent={Link}
-                to="/profile/update-profile"
-                variant="contained"
-                color="darkViolet"
-                sx={{
-                  borderRadius: "12px",
-                  margin: "1rem"
-                }}
-              >
-                Update profile
-              </Button>
+
+              <UpdateProfileButton/>
+
             </Card>
           </div>
         </div>

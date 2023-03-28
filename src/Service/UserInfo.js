@@ -144,9 +144,11 @@ export const GetAllUsers = async () => {
   }
 };
 
-export const updateUserInfo = async (userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills, photoUrl) => {
+
+export const updateUserInfo = async (userId, newCareerTitle, newPortfolio, newDescription, newSkills) => {
+
   try {
-    console.log(userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills);
+    console.log(userId, newCareerTitle, newPortfolio, newDescription, newSkills);
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/Update`, {
       method: "PUT",
       headers: {
@@ -154,9 +156,7 @@ export const updateUserInfo = async (userId, username, newCareerTitle, newEmail,
         id: userId
       },
       body: JSON.stringify({
-        username: username,
         careerTitle: newCareerTitle,
-        email: newEmail,
         portfolio: newPortfolio,
         description: newDescription,
         skills: newSkills,
