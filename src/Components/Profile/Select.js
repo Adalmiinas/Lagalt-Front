@@ -3,8 +3,7 @@ import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { useState } from "react";
 
 function SelectHeader({ handleProjectList }) {
-
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState("My Projects");
 
   return (
     <BottomNavigation

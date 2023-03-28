@@ -20,15 +20,13 @@ const Profile = () => {
       .then(function (refreshed) {
         if (refreshed) {
           alert("Token was successfully refreshed");
-        } else {
-          alert("Token is still valid");
         }
       })
       .catch(function () {
         alert("Failed to refresh the token, or the session has expired");
       });
   }
-  const [render, setRender] = useState(0);
+  const [render, setRender] = useState(1);
   const handleProjectList = value => {
     setRender(value);
   };
@@ -38,7 +36,6 @@ const Profile = () => {
       <div className="container">
         <ProfileHeader className="profile" style={{}} user={user} keycloak={keycloak} />
         <div className="project">
-          {render === 0 && <StartingFillerPage />}
           {render === 1 && <AdminProjects id={user.id} />}
           {render === 2 && <UserProjects id={user.id} />}
           {render === 3 && <HistoryView id={user.id} />}

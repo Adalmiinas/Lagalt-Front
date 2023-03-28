@@ -124,7 +124,6 @@ export const userById = async userId => {
       throw new Error("Could not complete request!");
     }
     const data = await response.json();
-    storageSave("logged-user", data);
     return [null, data];
   } catch (error) {
     return [error.message, []];
@@ -144,7 +143,7 @@ export const GetAllUsers = async () => {
   }
 };
 
-export const updateUserInfo = async (userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills) => {
+export const updateUserInfo = async (userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills, photoUrl) => {
   try {
     console.log(userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills);
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/Update`, {
@@ -159,7 +158,8 @@ export const updateUserInfo = async (userId, username, newCareerTitle, newEmail,
         email: newEmail,
         portfolio: newPortfolio,
         description: newDescription,
-        skills: newSkills
+        skills: newSkills,
+        photoUrl: photoUrl
       })
     });
     if (response.ok) {
@@ -171,7 +171,6 @@ export const updateUserInfo = async (userId, username, newCareerTitle, newEmail,
 
 export const updateUserStatus = async (userId, status) => {
   try {
-    
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}`, {
       method: "PATCH",
       headers: {
@@ -183,13 +182,16 @@ export const updateUserStatus = async (userId, status) => {
     });
     if (!response.ok) {
       throw new Error("Could not complete request!");
-    }
-    else {
+    } else {
       const [error, data] = await userById(userId);
+
       return [null, data];
     }
-
   } catch (error) {
     return [error.message, []];
   }
 };
+// const data = await response.json();
+// console.log(data);
+
+// return data;

@@ -1,13 +1,9 @@
-import {
-  Button,
-  Card,
-  CardActions,
-} from "@mui/material";
+import { Button, Card, CardActions } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAdminProjects } from "../../Service/ProjectInfos";
 
-const AdminProjects = (props) => {
+const AdminProjects = props => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
@@ -25,7 +21,7 @@ const AdminProjects = (props) => {
   };
 
   return projects.map(({ project }, index) => (
-    <div key={project.id} style={{ display: "flex", justifyContent: "center", textAlign: "center", padding: "2px", marginRight: "10%", width: "70%" }}>
+    <div key={project.id} style={{ display: "flex", justifyContent: "center", textAlign: "center", padding: "2px", marginRight: "10%", width: "70%"}}>
       <div
         className="message-container"
         style={{
@@ -45,7 +41,7 @@ const AdminProjects = (props) => {
               color="darkViolet"
               sx={{
                 borderRadius: "12px",
-                margin: "10px",
+                margin: "10px"
               }}
             >
               View more
