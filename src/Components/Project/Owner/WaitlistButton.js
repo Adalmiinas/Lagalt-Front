@@ -18,12 +18,13 @@ const WaitlistButton = (props) => {
           onClick={handleOpen}
           variant="contained"
           color="darkViolet"
+    
           sx={{
-            position: "absolute",
+            position: "relative",
             bottom: "0px",
             left: "0px",
             borderRadius: "12px",
-            margin: "1rem",
+           marginBottom: "1rem"
           }}
         >
           Waitlist

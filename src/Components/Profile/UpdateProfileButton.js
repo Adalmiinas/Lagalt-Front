@@ -47,7 +47,7 @@ const UpdateProfileButton = (props) => {
               maxHeight: "70%",
               zIndex: "modal"
             }}>
-            <UpdateForm/>              
+            <UpdateForm close={setOpen}/>              
           </Box>
         </Modal>
       </div>

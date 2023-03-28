@@ -6,7 +6,7 @@ import { updateUserInfo, userById } from "../../Service/UserInfo";
 import { storageRead, storageSave } from "../../Utils/Storage";
 import SkillsInput, { emptySkillList, returnedListSkills } from "../Project/Input/SkillsInput";
 
-const UpdateForm = () => {
+const UpdateForm = (props) => {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
   const [apiError, setApiError] = useState();
@@ -15,14 +15,14 @@ const UpdateForm = () => {
   const [portfolio, setPortfolio] = useState(null)
   const [description, setDescription] = useState(null)
   const [avatarSrc, setAvatarSrc] = useState(null);
+  const [photoUrl, setPhotoUrl] = useState(null);
 
   const checkKeyDown = e => {
     if (e.key === "Enter") e.preventDefault();
   };
 
   const handleCancelButtonOnClick = () => {
-    console.log("Tuleeko")
-    navigate("/profile");
+    props.close(false);
   };
 
   const profileSuccessfullyUpdatedAlert = () => {
