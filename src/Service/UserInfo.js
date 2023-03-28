@@ -144,7 +144,6 @@ export const GetAllUsers = async () => {
   }
 };
 
-
 export const updateUserInfo = async (userId, newCareerTitle, newPortfolio, newDescription, newSkills, photoUrl) => {
 
   try {
@@ -193,7 +192,6 @@ export const updateUserStatus = async (userId, status) => {
   }
 };
 export const updateViewHistory = async (userId, projectId) => {
-  
   try {
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/viewHistory`, {
       method: "PATCH",
@@ -210,9 +208,8 @@ export const updateViewHistory = async (userId, projectId) => {
     } else {
       const [error, data] = await userById(userId);
       console.log(data);
-      if(data){
-        storageSave("logged-user", data)
-         
+      if (data) {
+        storageSave("logged-user", data);
       }
       // return [null, data];
     }

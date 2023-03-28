@@ -9,13 +9,12 @@ import SkillsInput, { emptySkillList, returnedListSkills } from "../Project/Inpu
 const UpdateForm = () => {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
-  const [apiError, setApiError] = useState(null);
+  const [apiError, setApiError] = useState();
 
   const [careerTitle, setCareerTitle] = useState(null)
   const [portfolio, setPortfolio] = useState(null)
   const [description, setDescription] = useState(null)
   const [avatarSrc, setAvatarSrc] = useState(null);
-  const [photoUrl, setPhotoUrl] = useState(null)
 
   const checkKeyDown = e => {
     if (e.key === "Enter") e.preventDefault();
@@ -34,7 +33,7 @@ const UpdateForm = () => {
     const skills = await returnedListSkills();
     await emptySkillList();
 
-    const [error, userResponse] = await updateUserInfo(user.id, careerTitle, portfolio, description, skills, photoUrl);    
+    const [error, userResponse] = await updateUserInfo(user.id, careerTitle, portfolio, description, skills, avatarSrc);
 
     if (userResponse) {
       console.log(userResponse);

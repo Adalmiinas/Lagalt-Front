@@ -8,7 +8,7 @@ export const returnedListSkills = async () => {
 };
 
 export const emptySkillList = async () => {
-    newSkillList = []
+  newSkillList = [];
 };
 
 const SkillsInput = () => {
@@ -43,4 +43,4 @@ const SkillsInput = () => {
     )
 }
 
-export default SkillsInput
+export default SkillsInput;
