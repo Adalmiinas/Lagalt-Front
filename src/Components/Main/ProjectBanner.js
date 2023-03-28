@@ -5,8 +5,8 @@ import "./styles/style.css";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import Tags from "./Tags";
 import FactoryIcon from "@mui/icons-material/Factory";
-import Skills from "./Skills";
 import { useKeycloak } from "@react-keycloak/web";
+import SkillsInMain from "./SkillsInMain";
 import { updateViewHistory } from "../../Service/UserInfo";
 import { storageRead } from "../../Utils/Storage";
 
@@ -18,11 +18,11 @@ export const ProjectBanner = props => {
 
   const ongoingProjects = props.array.filter(el => {
     if (el.status != null) {
-      if (el.status !== "Ongoing") {
+      if (el.status === "Ongoing") {
         return el;
       }
     }
-    return el;
+    return "";
   });
 
   const categorizedData = ongoingProjects.filter(el => {
@@ -81,7 +81,7 @@ export const ProjectBanner = props => {
             </div>
 
             <div key={"skills" + index} style={{ paddingLeft: "2rem" }}>
-              <Skills project={project} />
+              <SkillsInMain project={project} user= {user} />
             </div>
           </div>
 

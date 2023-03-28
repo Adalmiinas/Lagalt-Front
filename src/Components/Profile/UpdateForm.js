@@ -32,7 +32,6 @@ const UpdateForm = () => {
   const handleSubmitClick = async () => {
     const skills = await returnedListSkills();
     await emptySkillList();
-
     const [error, userResponse] = await updateUserInfo(user.id, careerTitle, portfolio, description, skills, avatarSrc);
 
     if (userResponse) {
@@ -51,6 +50,7 @@ const UpdateForm = () => {
     navigate("/profile");
     profileSuccessfullyUpdatedAlert();
   };
+
 
     return (
         <>
@@ -101,6 +101,7 @@ const UpdateForm = () => {
           </div>
       </>
     );
+
 
 };
 

@@ -67,10 +67,9 @@ const ProfileHeader = ({ user }) => {
                     )}
                   </span>
                 </div>
-                <Typography sx={{ fontWeight: "bold" }}> Career: {user?.careerTitle == null ? "Add career to stand Out!" : user?.careerTitle}</Typography>
-                <Typography sx={{ fontWeight: "bold" }}> Description: {user?.description == null ? "No Description added" : user?.description}</Typography>
-                <Typography sx={{ fontWeight: "bold" }}> Email: {user?.email}</Typography>
-                <Typography sx={{ fontWeight: "bold" }}> Portfolio: {user?.portfolio == null ? "Add Portfolio" : user.portfolio}</Typography>
+                <Typography sx={{  }}> {user?.description == null ? "No Description added" : user?.description}</Typography>
+                {" "}
+                <Typography sx={{  }}> Portfolio: {user?.portfolio == null ? "Add Portfolio" : user.portfolio}</Typography>
               </CardContent>
 
               <UpdateProfileButton/>
