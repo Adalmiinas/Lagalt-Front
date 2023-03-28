@@ -9,14 +9,14 @@ import SkillsInput, { emptySkillList, clearSkillsList, returnedListSkills } from
 const UpdateForm = () => {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
-  const [apiError, setApiError] = useState(null);
+  const [apiError, setApiError] = useState();
 
-  const [usernameToUpdate, setUsernameToUpdate] = useState(null);
+  // const [usernameToUpdate, setUsernameToUpdate] = useState(null);
   const [careerTitle, setCareerTitle] = useState(null);
   const [email, setEmail] = useState(null);
   const [portfolio, setPortfolio] = useState(null);
   const [description, setDescription] = useState(null);
-  const [skills, setSkills] = useState([]);
+  // const [skills, setSkills] = useState([null]);
   const [avatarSrc, setAvatarSrc] = useState(null);
 
   const checkKeyDown = e => {
@@ -30,7 +30,7 @@ const UpdateForm = () => {
   const handleSubmitClick = async () => {
     const skills = await returnedListSkills();
     await emptySkillList();
-    const [error, userResponse] = await updateUserInfo(user.id, usernameToUpdate, careerTitle, email, portfolio, description, skills, avatarSrc);
+    const [error, userResponse] = await updateUserInfo(user.id, careerTitle, portfolio, description, skills, avatarSrc);
     if (userResponse) {
       console.log(userResponse);
     }

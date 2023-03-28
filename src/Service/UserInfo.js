@@ -144,9 +144,9 @@ export const GetAllUsers = async () => {
   }
 };
 
-export const updateUserInfo = async (userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills, photoUrl) => {
+export const updateUserInfo = async (userId, newCareerTitle, newPortfolio, newDescription, newSkills, photoUrl) => {
   try {
-    console.log(userId, username, newCareerTitle, newEmail, newPortfolio, newDescription, newSkills);
+    console.log(userId, newCareerTitle, newPortfolio, newDescription, newSkills);
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/Update`, {
       method: "PUT",
       headers: {
@@ -154,9 +154,7 @@ export const updateUserInfo = async (userId, username, newCareerTitle, newEmail,
         id: userId
       },
       body: JSON.stringify({
-        username: username,
         careerTitle: newCareerTitle,
-        email: newEmail,
         portfolio: newPortfolio,
         description: newDescription,
         skills: newSkills,
@@ -193,7 +191,6 @@ export const updateUserStatus = async (userId, status) => {
   }
 };
 export const updateViewHistory = async (userId, projectId) => {
-  
   try {
     const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/viewHistory`, {
       method: "PATCH",
@@ -210,9 +207,8 @@ export const updateViewHistory = async (userId, projectId) => {
     } else {
       const [error, data] = await userById(userId);
       console.log(data);
-      if(data){
-        storageSave("logged-user", data)
-         
+      if (data) {
+        storageSave("logged-user", data);
       }
       // return [null, data];
     }
