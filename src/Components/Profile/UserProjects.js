@@ -44,10 +44,7 @@ const UserProjects = ({ id }) => {
                   return (
                     <TableRow key={key} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                       <TableCell component="th" scope="row">
-                        <Typography>Title : {item.project.title}</Typography>
-                        <Typography>Status: {item.project.status}</Typography>
-              
-
+                        <h4>{item.project.title}</h4> <Typography>Status: {item.project.status}</Typography>
                         <Button
                           LinkComponent={Link}
                           to={`/project/${item.projectId}`}

@@ -51,11 +51,14 @@ function App() {
     const fetchdata = async () => {
       // await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
       const data = await loginUser(userId(), keycloak.token);
-      console.log(data);
-      await storageSave("logged-user", data[1].value);
-      setUser(storageRead("logged-user"));
+      if (!data) {
+      } else {
+        console.log(data);
+        await storageSave("logged-user", data[1].value);
+        setUser(storageRead("logged-user"));
 
-      console.log(user);
+        console.log(user);
+      }
     };
     const debouncedFetchData = debounce(fetchdata, 500); // debounce fetchdata
     if (user === null) {
@@ -86,15 +89,12 @@ function App() {
           <Navbar handleLoad={handleLoad} />
           <Routes>
             <Route path="/" element={<MainPage />} />
-            {keycloak.authenticated && user && (
-              <>
-                <Route path="/profile/" element={<Profile />} />
-                <Route path="/profile/update-profile" element={<UpdateForm />} />
-                <Route path="/project/:id" element={<Project />} />
-                <Route path="/project/add-project" element={<AddProject />} />
-                <Route path="/project/update-project/:id" element={<UpdateProjectPage />} />
-              </>
-            )}
+
+            <Route path="/profile/" element={<Profile />} />
+            <Route path="/profile/update-profile" element={<UpdateForm />} />
+            <Route path="/project/:id" element={<Project />} />
+            <Route path="/project/add-project" element={<AddProject />} />
+            <Route path="/project/update-project/:id" element={<UpdateProjectPage />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -7,19 +7,18 @@ import { userById } from "../../Service/UserInfo";
 import Skills from "../Main/Skills";
 import { AccountCircle } from "@mui/icons-material";
 import { storageRead } from "../../Utils/Storage";
+import { userId } from "../../keycloak";
 
 const WaitList = ({ key, project, projectUser, loading }) => {
   const { user, setUser } = useUser();
   const [userListUser, setUserlistUser] = useState([""]);
-
   useEffect(() => {
     getUserInfo();
-    setUser(storageRead("logged-user"));
   }, []);
 
   const getUserInfo = async () => {
     const [error, fetchedUser] = await userById(projectUser.userId);
-    console.log(fetchedUser);
+    // console.log(fetchedUser);
     console.log(error);
     setUserlistUser(fetchedUser);
   };
@@ -92,7 +91,6 @@ const WaitList = ({ key, project, projectUser, loading }) => {
             />
           )}
         </CardContent>
-
         {projectUser.isOwner === false && (
           <CardActions sx={{ justifyContent: "center" }}>
             <Button

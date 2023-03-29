@@ -25,7 +25,7 @@ const ProfileHeader = ({ user }) => {
 
   return (
     <>
-      {user && keycloak.authenticated && (
+      {user && (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "right", padding: "10px" }}>
           <div
             style={{
@@ -59,7 +59,7 @@ const ProfileHeader = ({ user }) => {
                     {!user?.skills.length ? (
                       "No skills yet added."
                     ) : (
-                      <div key={"skills"} style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
+                      <div key={100} style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
                         <Skills project={user} />
                       </div>
                     )}

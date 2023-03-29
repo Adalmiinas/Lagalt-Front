@@ -1,10 +1,5 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { border } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useUser } from "../../../Context/UserContext";
 import { acceptUserToProject } from "../../../Service/ProjectInfos";
@@ -32,11 +27,10 @@ const WaitList = ({ projectUsers, projectId, loading }) => {
     const [error, response] = await acceptUserToProject(user.id, projectId, userId, pending);
     loading(true);
 
-    if(error !== null){
-      window.alert("Error, while trying add user to the project.")
-    }
-    else {
-      window.alert("User added successfully.")
+    if (error !== null) {
+      window.alert("Error, while trying add user to the project.");
+    } else {
+      window.alert("User added successfully.");
     }
   };
 
@@ -48,15 +42,17 @@ const WaitList = ({ projectUsers, projectId, loading }) => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "10px",
+          padding: "8px"
         }}
       >
         <Card
           sx={{
             minWidth: "100%",
-            backgroundColor: "violet",
+            backgroundColor: "white",
             display: "flex",
             justifyContent: "space-between",
+            padding: "4px",
+            border: "3px solid black"
           }}
         >
           <CardContent sx={{ display: "flex", flexDirection: "column" }}>
@@ -65,52 +61,36 @@ const WaitList = ({ projectUsers, projectId, loading }) => {
               {projectUsers.username}
             </Typography>
 
-            <Typography variant="h8">
-              {" "}
-              Career: {waitlistUser.careerTitle}
-            </Typography>
+            <Typography variant="h8"> Career: {waitlistUser.careerTitle}</Typography>
 
             <Typography variant="h8"> Email: {waitlistUser.email}</Typography>
 
-            <Typography variant="h8">
-              {" "}
-              Portfolio: {waitlistUser.portfolio}
-            </Typography>
+            <Typography variant="h8"> Portfolio: {waitlistUser.portfolio}</Typography>
 
-            <Typography variant="h8">
-              {" "}
-              Description: {waitlistUser.description}
-            </Typography>
+            <Typography variant="h8"> Description: {waitlistUser.description}</Typography>
 
-            {waitlistUser.Skills > 0 &&
-              <div
-                key={"skills"}
-                style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
-              >
+            {waitlistUser.Skills > 0 && (
+              <div key={"skills"} style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
                 <Skills project={waitlistUser} />
               </div>
-            }
-            <Typography>Motivation: {projectUsers.motivationLetter}</Typography>
+            )}
+            <Typography> Motivation: {projectUsers.motivationLetter}</Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: "end" }}>
             <Button
               color="darkViolet"
               sx={{
-                borderRadius: "10rem",
+                borderRadius: "10rem"
               }}
-              onClick={() =>
-                addUserToProject(projectId, projectUsers.userId, false)
-              }
+              onClick={() => addUserToProject(projectId, projectUsers.userId, false)}
             >
               Accept
             </Button>
             <Button
               color="darkViolet"
-              onClick={() =>
-                addUserToProject(projectId, projectUsers.userId, null)
-              }
+              onClick={() => addUserToProject(projectId, projectUsers.userId, null)}
               sx={{
-                borderRadius: "10rem",
+                borderRadius: "10rem"
               }}
             >
               decline

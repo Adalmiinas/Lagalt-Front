@@ -9,22 +9,17 @@ import UserProjects from "../Components/Profile/UserProjects";
 import { useUser } from "../Context/UserContext";
 import withAuth from "../Guards/WithAuth";
 import "../../src/index.css";
+import { Navigate } from "react-router";
 
 const Profile = () => {
   const { user } = useUser();
   const { keycloak } = useKeycloak();
 
-  if (keycloak) {
-    keycloak.onReady(function () {
-      if (keycloak.authenticated) {
-        // Perform authenticated actions here
-      } else {
-        keycloak.login();
-      }
-    });
+  if (!keycloak) {
+    Navigate("/");
   }
-  if (!keycloak.authenticated) {
-    keycloak.updateToken(5);
+  if (!user) {
+    Navigate("/");
   }
   const [render, setRender] = useState(1);
   const handleProjectList = value => {
@@ -34,7 +29,7 @@ const Profile = () => {
     <>
       <SelectHeader handleProjectList={handleProjectList} />
       <div className="container">
-        <ProfileHeader className="profile" style={{}} user={user} keycloak={keycloak} />
+        <ProfileHeader className="profile" style={{}} user={user} />
         <div className="project">
           {render === 1 && <AdminProjects id={user.id} />}
           {render === 2 && <UserProjects id={user.id} />}

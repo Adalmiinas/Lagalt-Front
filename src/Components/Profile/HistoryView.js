@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,7 +13,6 @@ import { useUser } from "../../Context/UserContext";
 import { display, style } from "@mui/system";
 function HistoryView() {
   const { user } = useUser();
-
 
   // Filter the clickedProjectHistories array to remove duplicate objects with the same projectId
   const clickedProjects = user.clickedProjectHistories.filter((item, index, self) => index === self.findIndex(project => project.projectId === item.projectId));
@@ -38,9 +37,13 @@ function HistoryView() {
                   return (
                     <TableRow key={key} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                       <TableCell component="th" scope="row">
-                        <p>{item.project.title}</p>
-                        <p>Status: {item.project.status}</p>
-                        <span>Description: {item.project.description}</span>
+                        <Typography>
+                          {" "}
+                          <h4>{item.project.title}</h4>{" "}
+                        </Typography>
+
+                        <Typography>Status: {item.project.status}</Typography>
+
                         <Button
                           LinkComponent={Link}
                           to={`/project/${item.projectId}`}

@@ -21,7 +21,12 @@ const ProjectPage = ({ id }) => {
 
   useEffect(() => {
     getProjectInfo(id);
+    
   }, [id]);
+  useEffect(() => {
+    // console.log(project)
+    
+  }, []);
 
   useEffect(() => {
     setLoad(false);

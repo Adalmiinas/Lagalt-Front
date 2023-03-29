@@ -73,7 +73,7 @@ const Navbar = props => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {keycloak.authenticated && user ? (
+      {user ? (
         <div>
           <MenuItem onClick={handleMenuClose} component={Link} to="profile/">
             Profile
@@ -117,13 +117,13 @@ const Navbar = props => {
             PROJECTS
 
       </MenuItem>
-      {!keycloak.authenticated && (
+      {!user && (
         <MenuItem onClick={() => handleLoad(1)}>
           <Typography textAlign="center">Login</Typography>
         </MenuItem>
       )}
 
-      {keycloak.authenticated && user ? (
+      {user  ? (
         <div>
           <MenuItem onClick={handleMenuClose} component={Link} to="profile/">
             Profile
@@ -163,7 +163,7 @@ const Navbar = props => {
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {!keycloak.authenticated && (
+            {!user && (
               <MenuItem onClick={() => handleLoad(1)}>
                 <Typography textAlign="center">LOGIN</Typography>
               </MenuItem>
