@@ -2,6 +2,12 @@ import { AddModerator, Favorite, Restore } from "@mui/icons-material";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { useState } from "react";
 
+
+/**
+ * Renders bottom navigation to profile page
+ * @param {Array} List of projects
+ * @returns {JSX.Element}
+ */
 function SelectHeader({ handleProjectList }) {
   const [value, setValue] = useState("My Projects");
 

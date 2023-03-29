@@ -14,6 +14,11 @@ import { storageRead, storageSave } from "../../Utils/Storage";
 import { ProjectBanner } from "./ProjectBanner.js";
 import SearchIcon from "@mui/icons-material/Search";
 
+
+/**
+ * This component renders mainview of website 
+ * @returns {JSX.Element}
+ */
 const MainView = () => {
   const [projects, setProjects] = useState([]);
   const [inputText, setInputText] = useState("");
@@ -25,15 +30,27 @@ const MainView = () => {
     }
   }, [projects]);
 
+  /**
+   * Handles user input to search field
+   * @param {Event} Data from input 
+   */
   let inputHandler = (e) => {
     var lowerCase = e.target.value.toLowerCase();
     setInputText(lowerCase);
   };
 
+  /**
+   * Handles industry change in select tag
+   * @param {Event} Data from select tag
+   */
   const handleChange = (e) => {
     setIndustry(e.target.value);
   };
 
+  /**
+   * This function fetches all projects from database
+   * @returns {Array}
+   */
   const getProjects = async () => {
     const sessionProjects = storageRead(STORAGE_KEY_PROJECTS);
 

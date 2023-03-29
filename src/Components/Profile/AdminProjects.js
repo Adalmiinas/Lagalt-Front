@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAdminProjects } from "../../Service/ProjectInfos";
 
+/**
+ * Renders admin projects
+ * @param {id} User's id
+ * @returns {JSX.Element}
+ */
 const AdminProjects = ({ id }) => {
   const [projects, setProjects] = useState([]);
 
@@ -12,6 +17,10 @@ const AdminProjects = ({ id }) => {
     console.log(id);
   }, []);
 
+  /**
+   * Returns projects from API
+   * @returns {Array}
+   */
   const getProjects = async () => {
     const [error, userProject] = await getAdminProjects(id);
 

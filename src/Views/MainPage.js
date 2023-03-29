@@ -1,12 +1,12 @@
 import MainView from "../Components/Main/MainView";
+
+/**
+ * Renders mainpage of website
+ * @returns {JSX.Element}
+ */
 const MainPage = () => {
-
-
   return (
     <>
-      {/* <h1>Main</h1>
-      {keycloak.authenticated && <LoggedIn />} */}
-
       <MainView />
     </>
   );

@@ -10,12 +10,20 @@ import SkillsInMain from "./SkillsInMain";
 import { updateViewHistory } from "../../Service/UserInfo";
 import { storageRead } from "../../Utils/Storage";
 
+/**
+ * Renders projects to mainview
+ * @param {*} props 
+ * @returns {JSX.Element}
+ */
 export const ProjectBanner = props => {
   const { user, setUser } = useUser();
   const { keycloak } = useKeycloak();
   let tags = "";
   let skills = "";
 
+  /**
+   * Checks project status
+   */
   const ongoingProjects = props.array.filter(el => {
     if (el.status != null) {
       if (el.status === "Ongoing") {
@@ -25,6 +33,9 @@ export const ProjectBanner = props => {
     return "";
   });
 
+  /**
+   * Checks projects industry from dropdown search
+   */
   const categorizedData = ongoingProjects.filter(el => {
     if (props.category === null) {
       return el;
@@ -36,6 +47,9 @@ export const ProjectBanner = props => {
     }
   });
 
+  /**
+   * Returns filtered data
+   */
   const filteredData = categorizedData.filter(el => {
     tags = "";
     skills = "";
