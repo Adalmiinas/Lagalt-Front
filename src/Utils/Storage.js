@@ -1,19 +1,17 @@
-export const storageSave = async (key,value) => {
-    sessionStorage.setItem(key,JSON.stringify(value));
-}
+export const storageSave = async (key, value) => {
+  sessionStorage.setItem(key, JSON.stringify(value));
+};
 
-export const storageRead = key => {
-    const data = sessionStorage.getItem(key);
+export const storageRead = (key) => {
+  const data = sessionStorage.getItem(key);
 
-    if(data){
-        return JSON.parse(data);
-    }
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    return null;
+  }
+};
 
-    else{
-        return null;
-    }
-}
-
-export const storageDelete = key => {
-    sessionStorage.removeItem(key)
-}
+export const storageDelete = (key) => {
+  sessionStorage.removeItem(key);
+};

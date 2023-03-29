@@ -3,6 +3,10 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import WaitList from "./WaitList";
 
+/**
+ * Waitlist button that opens up a modal.
+ * @param {*} props
+ */
 const WaitlistButton = (props) => {
   const [open, setOpen] = useState(false);
 

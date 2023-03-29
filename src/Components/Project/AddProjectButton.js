@@ -3,6 +3,10 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import AddProjectPage from "./AddProjectPage";
 
+/**
+ * Button that opens a modal for updating project.
+ * @param {*} props
+ */
 const AddProjectButton = (props) => {
   const [open, setOpen] = useState(false);
 
@@ -18,10 +22,10 @@ const AddProjectButton = (props) => {
           onClick={handleOpen}
           variant="text"
           sx={{
-            color:"black",
+            color: "black",
             textTransform: "none",
             justifyContent: "normal",
-            alignItems: "normal"
+            alignItems: "normal",
           }}
         >
           Create project
@@ -43,10 +47,10 @@ const AddProjectButton = (props) => {
               overflow: "auto",
               maxWidth: "20%",
               maxHeight: "70%",
-              zIndex: "modal"
+              zIndex: "modal",
             }}
-          >            
-              <AddProjectPage/>
+          >
+            <AddProjectPage open={setOpen} />
           </Box>
         </Modal>
       </div>
