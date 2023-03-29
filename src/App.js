@@ -3,11 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./Views/MainPage";
 import Profile from "./Views/Profile";
 import Project from "./Views/Project";
-import AddProject from "./Views/AddProject";
 import Navbar from "./Components/Navbar/Navbar";
-import UpdateProject from "./Components/Project/UpdateProject";
 import { useEffect, useState } from "react";
-
 import { useKeycloak } from "@react-keycloak/web";
 import { storageDelete, storageRead, storageSave } from "./Utils/Storage";
 import { loginUser, registerUser } from "./Service/UserInfo";
@@ -16,7 +13,7 @@ import { useUser } from "./Context/UserContext";
 import { debounce } from "lodash";
 import UpdateForm from "./Components/Profile/UpdateForm";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import UpdateProjectPage from "./Views/UpdateProjectPage";
+
 function App() {
   const { keycloak } = useKeycloak();
   const [load, setLoad] = useState(0);
@@ -94,8 +91,6 @@ function App() {
                 <Route path="/profile/" element={<Profile />} />
                 <Route path="/profile/update-profile" element={<UpdateForm />} />
                 <Route path="/project/:id" element={<Project />} />
-                <Route path="/project/add-project" element={<AddProject />} />
-                <Route path="/project/update-project/:id" element={<UpdateProjectPage />} />
               </>
             )}
           </Routes>

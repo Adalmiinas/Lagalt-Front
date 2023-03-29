@@ -9,19 +9,25 @@ import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useUser } from "../../Context/UserContext";
 import { useKeycloak } from "@react-keycloak/web";
 import AddProjectButton from "../Project/AddProjectButton";
-import { BorderStyle } from "@mui/icons-material";
 
+/**
+ * Renders navigation bar to website
+ * @returns {JSX.Element}
+ */
 const Navbar = props => {
   const { handleLoad } = props;
   const history = useNavigate();
 
   const { keycloak } = useKeycloak();
   const { user } = useUser();
+
+  /**
+   * Handles user's logout
+   */
   const handleRedirect = () => {
     history("/");
     handleLoad(2);
@@ -35,28 +41,40 @@ const Navbar = props => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleLogout = () => {
-    storageDelete("logged-user");
-  };
-
+  /**
+   * Handles click to profile menu icon
+   */
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
 
+  /**
+   * Handles mobile menus closing
+   */
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
+  /**
+   * Handles menu closing
+   */
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
 
+  /**
+   * Handles mobile menu opening
+   */
   const handleMobileMenuOpen = event => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
+
+  /**
+   * Renders default menu
+   */
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -96,6 +114,10 @@ const Navbar = props => {
   );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
+
+  /**
+   * Renders mobile menu
+   */
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}

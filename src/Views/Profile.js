@@ -3,13 +3,17 @@ import { useState } from "react";
 import AdminProjects from "../Components/Profile/AdminProjects";
 import HistoryView from "../Components/Profile/HistoryView";
 import ProfileHeader from "../Components/Profile/ProfileHeader";
-
 import SelectHeader from "../Components/Profile/Select";
 import UserProjects from "../Components/Profile/UserProjects";
 import { useUser } from "../Context/UserContext";
 import withAuth from "../Guards/WithAuth";
 import "../../src/index.css";
 
+
+/**
+ * Renders profile page 
+ * @returns {JSX.Element}
+ */
 const Profile = () => {
   const { user } = useUser();
   const { keycloak } = useKeycloak();

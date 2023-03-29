@@ -9,10 +9,19 @@ import UpdateProfileButton from "./UpdateProfileButton";
 import { storageRead, storageSave } from "../../Utils/Storage";
 import { useUser } from "../../Context/UserContext";
 
+/**
+ * Renders profile page
+ * @returns {JSX.Element}
+ */
 const ProfileHeader = ({ user }) => {
   const { keycloak } = useKeycloak();
   const [hidden, setHidden] = useState(user.isPrivate);
   const { setUser } = useUser();
+
+  /**
+   * Handles event, if user switch to hide user information
+   * @param {*} event 
+   */
   const handleHidden = async event => {
     console.log(event.target.checked);
     setHidden(event.target.checked);
