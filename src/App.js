@@ -40,6 +40,8 @@ function App() {
     }
     setLoad(0);
   }, [load, keycloak]);
+
+  //Keycloak login and registeration
   if (keycloak.authenticated) {
     const handleRegistration = async () => {
       const data = await registerUser(username(), firstName(), lastName(), email(), userId(), keycloak.token);
@@ -64,6 +66,7 @@ function App() {
     }
   }
 
+  //universal themes
   const theme = createTheme({
     palette: {
       darkViolet: {
