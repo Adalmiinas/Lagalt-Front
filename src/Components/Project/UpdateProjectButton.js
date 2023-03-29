@@ -52,7 +52,7 @@ const UpdateProjectButton = (props) => {
               zIndex: "modal",
             }}
           >
-            <UpdateProject open={setOpen} />
+            <UpdateProject open={setOpen} projectId={props.projectId}/>
           </Box>
         </Modal>
       </div>

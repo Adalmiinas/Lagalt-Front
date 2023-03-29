@@ -179,7 +179,7 @@ const ProjectPage = ({ id }) => {
                         style={{ display: "inline", flexDirection: "column" }}
                       >
                         <WaitlistButton project={project} loading={setLoad} />
-                        <UpdateProjectButton />
+                        <UpdateProjectButton projectId={project.id}/>
                       </div>
                     </>
                   )}
