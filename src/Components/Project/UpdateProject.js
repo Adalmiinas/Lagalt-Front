@@ -27,7 +27,7 @@ import { STORAGE_KEY_PROJECTS } from "../../Const/storageKeys";
 const UpdateProject = (props) => {
   const navigate = useNavigate();
   const { user } = useUser();
-
+  const projectId = props.projectId
   const [apiError, setApiError] = useState(null);
 
   const [title, setTitle] = useState(null);
@@ -73,14 +73,14 @@ const UpdateProject = (props) => {
    * Handles the submit of the update form.
    */
   const handleSubmitClick = async () => {
-    console.log(projectGitUrl);
+    console.log(projectId);
 
     const tags = await returnedList();
     const skills = await returnedListSkills();
 
     const [error, userResponse] = await updateProject(
       user.id,
-      7,
+      projectId,
       title,
       description,
       projectGitUrl,
