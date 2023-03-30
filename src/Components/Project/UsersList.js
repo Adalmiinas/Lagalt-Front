@@ -9,6 +9,11 @@ import { AccountCircle } from "@mui/icons-material";
 import { storageRead } from "../../Utils/Storage";
 import { userId } from "../../keycloak";
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 const WaitList = ({ key, project, projectUser, loading }) => {
   const { user, setUser } = useUser();
   const [userListUser, setUserlistUser] = useState([""]);
@@ -22,7 +27,11 @@ const WaitList = ({ key, project, projectUser, loading }) => {
     console.log(error);
     setUserlistUser(fetchedUser);
   };
-
+    /**
+     * 
+     * @param {*} projectId 
+     * @param {*} userId 
+     */
   const deleteUser = async (projectId, userId) => {
     window.confirm("Are you sure you want to remove user from project ?");
     const [error, response] = await deleteUserFromProject(user.id, projectId, userId);
@@ -103,7 +112,7 @@ const WaitList = ({ key, project, projectUser, loading }) => {
             >
               Delete
             </Button>
-            {projectUser.userId === user.id && projectUser.isOwner === true && (
+            {projectUser.userId !== user.id && projectUser.isOwner === true && (
               <Button
                 onClick={() => deleteUser(project.id, projectUser.userId)}
                 variant="contained"

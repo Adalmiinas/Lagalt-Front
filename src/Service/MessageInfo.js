@@ -1,6 +1,7 @@
+const apiUrl = process.env.REACT_APP_API_URL;
 export const addMessageToProject = async (projId, userId, message, title) => {
   try {
-    const response = await fetch("http://localhost:5128/api/MessageBoard/Create", {
+    const response = await fetch(`${apiUrl}/MessageBoard/Create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +25,7 @@ export const addMessageToProject = async (projId, userId, message, title) => {
 
 export const getAllMessagesFromProject = async projId => {
   try {
-    const response = await fetch("http://localhost:5128/api/MessageBoard", {
+    const response = await fetch(`${apiUrl}/MessageBoard`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +44,7 @@ export const getAllMessagesFromProject = async projId => {
 
 export const deleteMessageFromProject = async (messageId, userId) => {
   try {
-    const response = await fetch("http://localhost:5128/api/MessageBoard", {
+    const response = await fetch(`${apiUrl}/MessageBoard`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

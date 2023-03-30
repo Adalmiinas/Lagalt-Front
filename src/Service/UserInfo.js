@@ -116,7 +116,7 @@ export const submitUser = async (username, password) => {
 
 export const userById = async userId => {
   try {
-    const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}`, {
+    const response = await fetch(`${apiUrl}/AppUser/User/${userId}`, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -148,7 +148,7 @@ export const updateUserInfo = async (userId, newCareerTitle, newPortfolio, newDe
 
   try {
     console.log(userId, newCareerTitle, newPortfolio, newDescription, newSkills);
-    const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/Update`, {
+    const response = await fetch(`${apiUrl}/AppUser/User/${userId}/Update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -171,7 +171,7 @@ export const updateUserInfo = async (userId, newCareerTitle, newPortfolio, newDe
 
 export const updateUserStatus = async (userId, status) => {
   try {
-    const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}`, {
+    const response = await fetch(`${apiUrl}/AppUser/User/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
@@ -193,7 +193,7 @@ export const updateUserStatus = async (userId, status) => {
 };
 export const updateViewHistory = async (userId, projectId) => {
   try {
-    const response = await fetch(`http://localhost:5128/api/AppUser/User/${userId}/viewHistory`, {
+    const response = await fetch(`${apiUrl}/AppUser/User/${userId}/viewHistory`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

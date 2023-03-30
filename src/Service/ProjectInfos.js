@@ -1,9 +1,9 @@
 import { storageSave } from "../Utils/Storage";
 import { STORAGE_KEY_PROJECTS } from "../Const/storageKeys";
-
+const apiUrl = process.env.REACT_APP_API_URL;
 export const fetchProjects = async () => {
   try {
-    const response = await fetch(`http://localhost:5128/api/Project/List`);
+    const response = await fetch(`${apiUrl}/Project/List`);
     if (!response.ok) {
       throw new Error("Could not complete request.");
     }
@@ -17,7 +17,7 @@ export const fetchProjects = async () => {
 
 export const fetchProjectById = async id => {
   try {
-    const response = await fetch(`http://localhost:5128/api/Project/${id}`, {
+    const response = await fetch(`${apiUrl}/Project/${id}`, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -35,7 +35,7 @@ export const fetchProjectById = async id => {
 
 export const getUsersProjects = async id => {
   try {
-    const response = await fetch(`http://localhost:5128/api/AppUser/User/${id}/Projects`, {
+    const response = await fetch(`${apiUrl}/AppUser/User/${id}/Projects`, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -53,7 +53,7 @@ export const getUsersProjects = async id => {
 
 export const getAdminProjects = async id => {
   try {
-    const response = await fetch(`http://localhost:5128/api/AppUser/User/${id}/AdminProjects`, {
+    const response = await fetch(`${apiUrl}/AppUser/User/${id}/AdminProjects`, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -71,11 +71,11 @@ export const getAdminProjects = async id => {
 
 export const addUserToProject = async (projId, userId, motivation) => {
   try {
-    const response = await fetch("http://localhost:5128/api/ProjectUser/User/WaitList", {
+    const response = await fetch(`${apiUrl}/ProjectUser/User/WaitList`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": "http://localhost:5128/api/ProjectUser",
+        // "X-API-Key": "http://localhost:5128/api/ProjectUser",
         userId: userId
       },
       body: JSON.stringify({
@@ -95,11 +95,11 @@ export const addUserToProject = async (projId, userId, motivation) => {
 
 export const acceptUserToProject = async (ownerId, projId, userId, pending) => {
   try {
-    const response = await fetch("http://localhost:5128/api/ProjectUser/owner/waitlist/users", {
+    const response = await fetch(`${apiUrl}/ProjectUser/owner/waitlist/users`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": "http://localhost:5128/api/ProjectUser",
+        // "X-API-Key": "http://localhost:5128/api/ProjectUser",
         ownerId: ownerId
       },
       body: JSON.stringify({
@@ -120,11 +120,11 @@ export const acceptUserToProject = async (ownerId, projId, userId, pending) => {
 
 export const deleteUserFromProject = async (userId, projId, actingId) => {
   try {
-    const response = await fetch("http://localhost:5128/project", {
+    const response = await fetch(`${apiUrl}/ProjectUser`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": "http://localhost:5128/api/ProjectUser",
+        // "X-API-Key": "http://localhost:5128/api/ProjectUser",
         userId: userId
       },
       body: JSON.stringify({
@@ -145,7 +145,7 @@ export const deleteUserFromProject = async (userId, projId, actingId) => {
 export const addProject = async (id, title, description, gitRepositoryUrl, industryName, tagNames, skillNames) => {
   try {
     console.log(id, title, description, gitRepositoryUrl, industryName, tagNames, skillNames);
-    const response = await fetch(`http://localhost:5128/api/Project/create`, {
+    const response = await fetch(`${apiUrl}/Project/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -175,7 +175,7 @@ export const addProject = async (id, title, description, gitRepositoryUrl, indus
 export const updateProject = async (userId, projectId, title, description, gitUrl, projectImageUrl, industryName, newTagNames, newSkillNames) => {
   try {
     console.log(userId, projectId, title, description, gitUrl, projectImageUrl, industryName, newTagNames, newSkillNames);
-    const response = await fetch(`http://localhost:5128/api/Project/update`, {
+    const response = await fetch(`${apiUrl}/Project/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -206,7 +206,7 @@ export const updateProject = async (userId, projectId, title, description, gitUr
 
 export const updateProjectStatus = async (userId, projectId, newStatus) => {
   try {
-    const response = await fetch(`http://localhost:5128/api/Project/patch`, {
+    const response = await fetch(`${apiUrl}/Project/patch`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
