@@ -3,9 +3,15 @@ import { Button } from "@mui/material";
 import { useUser } from "../../../Context/UserContext";
 import { deleteMessageFromProject } from "../../../Service/MessageInfo";
 
+/**
+ * Individual message
+ */
 const Message = ({ id, title, body, author, authorId, date, load }) => {
   const { user } = useUser();
 
+  /**
+   * Deletes message from the project.
+   */
   const deleteMessage = async () => {
     console.log(id);
     await deleteMessageFromProject(id, user.id);
@@ -16,7 +22,7 @@ const Message = ({ id, title, body, author, authorId, date, load }) => {
     <div
       className="message-container"
       style={{
-        boxShadow: " 12px 12px 2px 1px rgba(0, 0, 255, .2)"
+        boxShadow: " 12px 12px 2px 1px rgba(0, 0, 255, .2)",
       }}
     >
       <div className="message-row">
@@ -32,7 +38,7 @@ const Message = ({ id, title, body, author, authorId, date, load }) => {
             color="darkViolet"
             sx={{
               borderRadius: "12px",
-              marginTop: "1rem"
+              marginTop: "1rem",
             }}
             onClick={deleteMessage}
           >

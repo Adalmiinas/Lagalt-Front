@@ -3,6 +3,10 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import UpdateForm from "./UpdateForm";
 
+/**
+ * Renders Update button for profile page
+ * @returns 
+ */
 const UpdateProfileButton = (props) => {
   const [open, setOpen] = useState(false);
 
@@ -47,7 +51,7 @@ const UpdateProfileButton = (props) => {
               maxHeight: "70%",
               zIndex: "modal"
             }}>
-            <UpdateForm/>              
+            <UpdateForm close={setOpen}/>              
           </Box>
         </Modal>
       </div>

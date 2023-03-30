@@ -4,6 +4,11 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { getUsersProjects } from "../../Service/ProjectInfos";
 
+/**
+ * Renders users projects
+ * @param {id} User's id
+ * @returns 
+ */
 const UserProjects = ({ id }) => {
   const navigation = useNavigate();
 
@@ -13,6 +18,10 @@ const UserProjects = ({ id }) => {
     getProjects();
   }, []);
 
+  /**
+   * Fetches projects from API
+   * @returns {Array}
+   */
   const getProjects = async () => {
     const [error, userProject] = await getUsersProjects(id);
     if (error != null) {

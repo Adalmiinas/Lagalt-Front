@@ -6,25 +6,41 @@ import { acceptUserToProject } from "../../../Service/ProjectInfos";
 import { userById } from "../../../Service/UserInfo";
 import Skills from "../../Main/Skills";
 
+/**
+ * Shows all the users in the projects waitinglist.
+ * @param {*} projectUsers, projectId, loading
+ *
+ */
 const WaitList = ({ projectUsers, projectId, loading }) => {
   const { user } = useUser();
-
   const [waitlistUser, setWaitlistUser] = useState([]);
 
   useEffect(() => {
     getUserInfo();
   }, []);
 
+  /**
+   * Gets waitlist users info.
+   */
   const getUserInfo = async () => {
     const [error, fetchedUser] = await userById(projectUsers.userId);
-    console.log(fetchedUser);
-    console.log(error);
     setWaitlistUser(fetchedUser);
   };
 
+  /**
+   *
+   * @param {*} projectId project id
+   * @param {*} userId project owners id
+   * @param {*} pending wether user is declined or accepted
+   */
   const addUserToProject = async (projectId, userId, pending) => {
-    window.confirm("Are you sure you want to add user to project?");
-    const [error, response] = await acceptUserToProject(user.id, projectId, userId, pending);
+    window.confirm("Are you sure ?");
+    const [error, response] = await acceptUserToProject(
+      user.id,
+      projectId,
+      userId,
+      pending
+    );
     loading(true);
 
     if (error !== null) {
@@ -70,11 +86,14 @@ const WaitList = ({ projectUsers, projectId, loading }) => {
             <Typography variant="h8"> Description: {waitlistUser.description}</Typography>
 
             {waitlistUser.Skills > 0 && (
-              <div key={"skills"} style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
+              <div
+                key={"skills"}
+                style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
+              >
                 <Skills project={waitlistUser} />
               </div>
             )}
-            <Typography> Motivation: {projectUsers.motivationLetter}</Typography>
+            <Typography>Motivation: {projectUsers.motivationLetter}</Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: "end" }}>
             <Button

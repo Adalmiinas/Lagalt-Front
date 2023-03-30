@@ -6,7 +6,12 @@ import { updateUserInfo, userById } from "../../Service/UserInfo";
 import { storageRead, storageSave } from "../../Utils/Storage";
 import SkillsInput, { emptySkillList, returnedListSkills } from "../Project/Input/SkillsInput";
 
-const UpdateForm = () => {
+/**
+ * Renders Update component for profile
+ * @param {props} Handles modal close
+ * @returns 
+ */
+const UpdateForm = (props) => {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
   const [apiError, setApiError] = useState();
@@ -15,20 +20,33 @@ const UpdateForm = () => {
   const [portfolio, setPortfolio] = useState(null)
   const [description, setDescription] = useState(null)
   const [avatarSrc, setAvatarSrc] = useState(null);
+  const [photoUrl, setPhotoUrl] = useState(null);
 
+  /**
+   * Prevents enter key press for submit button
+   * @param {Event} e Users key press
+   */
   const checkKeyDown = e => {
     if (e.key === "Enter") e.preventDefault();
   };
 
+  /**
+   * Handles cancel button's onClick event
+   */
   const handleCancelButtonOnClick = () => {
-
-    navigate("/profile");
+    props.close(false);
   };
 
+  /**
+   * Informs user if profile was successfully updated
+   */
   const profileSuccessfullyUpdatedAlert = () => {
     alert("Profile successfully updated!");
   };
 
+  /**
+   * Handles submit buttons onClick event
+   */
   const handleSubmitClick = async () => {
     const skills = await returnedListSkills();
     await emptySkillList();

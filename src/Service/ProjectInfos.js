@@ -1,6 +1,11 @@
 import { storageSave } from "../Utils/Storage";
 import { STORAGE_KEY_PROJECTS } from "../Const/storageKeys";
 const apiUrl = process.env.REACT_APP_API_URL;
+
+/**
+ * Fetches all the projects
+ * @returns [null, data] if ok, else [error.message, []]
+ */
 export const fetchProjects = async () => {
   try {
     const response = await fetch(`${apiUrl}/Project/List`);
@@ -15,12 +20,17 @@ export const fetchProjects = async () => {
   }
 };
 
-export const fetchProjectById = async id => {
+/**
+ * fetched a single project whit the id
+ * @param {*} id project id
+ * @returns [null, data] if ok, else [error.message, []]
+ */
+export const fetchProjectById = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/Project/${id}`, {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
     if (!response.ok) {
       throw new Error("Could not complete request.");
@@ -33,13 +43,18 @@ export const fetchProjectById = async id => {
   }
 };
 
-export const getUsersProjects = async id => {
+/**
+ * get all the users in the project
+ * @param {*} id project
+ * @returns [null, data] if ok, else [error.message, []]
+ */
+export const getUsersProjects = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/AppUser/User/${id}/Projects`, {
       headers: {
         "Content-Type": "application/json"
       }
-    });
+  });
     if (!response.ok) {
       throw new Error("Could not complete request.");
     }
@@ -51,13 +66,18 @@ export const getUsersProjects = async id => {
   }
 };
 
-export const getAdminProjects = async id => {
+/**
+ * get all the projects where the user is admin
+ * @param {*} id user id
+ * @returns[null, data] if ok, else [error.message, []]
+ */
+export const getAdminProjects = async (id) => {
   try {
     const response = await fetch(`${apiUrl}/AppUser/User/${id}/AdminProjects`, {
       headers: {
         "Content-Type": "application/json"
       }
-    });
+  });
     if (!response.ok) {
       throw new Error("Could not complete request.");
     }
@@ -69,6 +89,13 @@ export const getAdminProjects = async id => {
   }
 };
 
+/**
+ * Adds user to the waiting list
+ * @param {*} projId project id
+ * @param {*} userId user id
+ * @param {*} motivation motivation letter
+ * @returns [null, response] if ok, else [error.message, []]
+ */
 export const addUserToProject = async (projId, userId, motivation) => {
   try {
     const response = await fetch(`${apiUrl}/ProjectUser/User/WaitList`, {
@@ -93,6 +120,14 @@ export const addUserToProject = async (projId, userId, motivation) => {
   }
 };
 
+/**
+ * changes the status of the user in the waiting, when the owner has declined or accepted.
+ * @param {*} ownerId owner id
+ * @param {*} projId project id
+ * @param {*} userId user id
+ * @param {*} pending waitinglist status
+ * @returns [null, response] if ok, else [error.message, []]
+ */
 export const acceptUserToProject = async (ownerId, projId, userId, pending) => {
   try {
     const response = await fetch(`${apiUrl}/ProjectUser/owner/waitlist/users`, {
@@ -118,6 +153,13 @@ export const acceptUserToProject = async (ownerId, projId, userId, pending) => {
   }
 };
 
+/**
+ * Delete user from project.
+ * @param {*} userId owner id
+ * @param {*} projId project id
+ * @param {*} actingId user to be deleted
+ * @returns [null, response] if ok, else [error.message, []]
+ */
 export const deleteUserFromProject = async (userId, projId, actingId) => {
   try {
     const response = await fetch(`${apiUrl}/ProjectUser`, {
@@ -129,8 +171,8 @@ export const deleteUserFromProject = async (userId, projId, actingId) => {
       },
       body: JSON.stringify({
         userId: actingId,
-        projectId: projId
-      })
+        projectId: projId,
+      }),
     });
     if (!response.ok) {
       throw new Error("Could not complete request!");
@@ -142,14 +184,33 @@ export const deleteUserFromProject = async (userId, projId, actingId) => {
   }
 };
 
-export const addProject = async (id, title, description, gitRepositoryUrl, industryName, tagNames, skillNames) => {
+/**
+ * Add project
+ * @param {*} id user id
+ * @param {*} title
+ * @param {*} description
+ * @param {*} gitRepositoryUrl
+ * @param {*} industryName
+ * @param {*} tagNames
+ * @param {*} skillNames
+ * @returns [null, data] if ok, else [error.message, []]
+ */
+export const addProject = async (
+  id,
+  title,
+  description,
+  gitRepositoryUrl,
+  industryName,
+  tagNames,
+  skillNames
+) => {
   try {
     console.log(id, title, description, gitRepositoryUrl, industryName, tagNames, skillNames);
     const response = await fetch(`${apiUrl}/Project/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        id: id
+        id: id,
       },
       body: JSON.stringify({
         title: title,
@@ -157,14 +218,14 @@ export const addProject = async (id, title, description, gitRepositoryUrl, indus
         gitRepositoryUrl: gitRepositoryUrl,
         industryName: { industryName: industryName },
         tagNames,
-        skillNames
-      })
+        skillNames,
+      }),
     });
     if (!response.ok) {
       throw new Error("Could not complete request.");
     }
     const data = await response.json();
-    console.log(data);
+
     fetchProjects();
     return [null, data];
   } catch (error) {
@@ -172,14 +233,37 @@ export const addProject = async (id, title, description, gitRepositoryUrl, indus
   }
 };
 
-export const updateProject = async (userId, projectId, title, description, gitUrl, projectImageUrl, industryName, newTagNames, newSkillNames) => {
+/**
+ * Updates project.
+ * @param {*} userId
+ * @param {*} projectId
+ * @param {*} title
+ * @param {*} description
+ * @param {*} gitUrl
+ * @param {*} projectImageUrl
+ * @param {*} industryName
+ * @param {*} newTagNames
+ * @param {*} newSkillNames
+ * @returns [null, data] if ok, else [error.message, []]
+ */
+export const updateProject = async (
+  userId,
+  projectId,
+  title,
+  description,
+  gitUrl,
+  projectImageUrl,
+  industryName,
+  newTagNames,
+  newSkillNames
+) => {
   try {
     console.log(userId, projectId, title, description, gitUrl, projectImageUrl, industryName, newTagNames, newSkillNames);
     const response = await fetch(`${apiUrl}/Project/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        id: userId
+        id: userId,
       },
       body: JSON.stringify({
         id: projectId,
@@ -189,14 +273,14 @@ export const updateProject = async (userId, projectId, title, description, gitUr
         projectImage: { url: projectImageUrl },
         industryName: { industryName: industryName },
         tagNames: newTagNames,
-        skillNames: newSkillNames
-      })
+        skillNames: newSkillNames,
+      }),
     });
     if (!response.ok) {
       throw new Error("Could not complete request.");
     }
     const data = await response.json();
-    console.log(data);
+
     fetchProjects();
     return [null, data];
   } catch (error) {
@@ -204,18 +288,25 @@ export const updateProject = async (userId, projectId, title, description, gitUr
   }
 };
 
+/**
+ * Updates the project status.
+ * @param {*} userId owner id
+ * @param {*} projectId project id
+ * @param {*} newStatus status of the project
+ * @returns [null, response] if ok, else [error.message, []]
+ */
 export const updateProjectStatus = async (userId, projectId, newStatus) => {
   try {
     const response = await fetch(`${apiUrl}/Project/patch`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        id: userId
+        id: userId,
       },
       body: JSON.stringify({
         id: projectId,
-        status: newStatus
-      })
+        status: newStatus,
+      }),
     });
     if (!response.ok) {
       throw new Error("Could not complete request.");

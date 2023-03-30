@@ -1,4 +1,12 @@
 const apiUrl = process.env.REACT_APP_API_URL;
+/**
+ * Adds individual message to the project.
+ * @param {*} projId project id
+ * @param {*} userId sender --> user id
+ * @param {*} message
+ * @param {*} title
+ * @returns [null, response] if ok, else [error.message, []]
+ */
 export const addMessageToProject = async (projId, userId, message, title) => {
   try {
     const response = await fetch(`${apiUrl}/MessageBoard/Create`, {
@@ -23,6 +31,11 @@ export const addMessageToProject = async (projId, userId, message, title) => {
   }
 };
 
+/**
+ * Fetches all the messages from the project.
+ * @param {*} projId project id
+ * @returns [null, data] if ok, else [error.message, []]
+ */
 export const getAllMessagesFromProject = async projId => {
   try {
     const response = await fetch(`${apiUrl}/MessageBoard`, {
@@ -42,6 +55,12 @@ export const getAllMessagesFromProject = async projId => {
   }
 };
 
+/**
+ * Delete an individual message.
+ * @param {*} messageId
+ * @param {*} userId
+ * @returns [null, response] if ok, else [error.message, []]
+ */
 export const deleteMessageFromProject = async (messageId, userId) => {
   try {
     const response = await fetch(`${apiUrl}/MessageBoard`, {

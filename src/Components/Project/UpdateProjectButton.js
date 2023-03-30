@@ -3,6 +3,10 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import UpdateProject from "./UpdateProject";
 
+/**
+ * Update project button that opens a modal with the form.
+ * @param {*} props
+ */
 const UpdateProjectButton = (props) => {
   const [open, setOpen] = useState(false);
 
@@ -45,10 +49,10 @@ const UpdateProjectButton = (props) => {
               overflow: "auto",
               maxWidth: "20%",
               maxHeight: "70%",
-              zIndex: "modal"
+              zIndex: "modal",
             }}
           >
-            <UpdateProject/>              
+            <UpdateProject open={setOpen} projectId={props.projectId}/>
           </Box>
         </Modal>
       </div>

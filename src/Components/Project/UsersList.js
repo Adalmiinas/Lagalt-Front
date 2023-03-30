@@ -1,4 +1,11 @@
-import { Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Chip,
+  Typography,
+} from "@mui/material";
 import { deleteUserFromProject } from "../../Service/ProjectInfos";
 import { useUser } from "../../Context/UserContext";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
@@ -10,11 +17,10 @@ import { storageRead } from "../../Utils/Storage";
 import { userId } from "../../keycloak";
 
 /**
- * 
- * @param {*} param0 
- * @returns 
+ * The participant list of the project.
+ * @param {*} key, project, projectUser, loading
  */
-const WaitList = ({ key, project, projectUser, loading }) => {
+const UsersList = ({ key, project, projectUser, loading }) => {
   const { user, setUser } = useUser();
   const [userListUser, setUserlistUser] = useState([""]);
   useEffect(() => {
@@ -23,8 +29,6 @@ const WaitList = ({ key, project, projectUser, loading }) => {
 
   const getUserInfo = async () => {
     const [error, fetchedUser] = await userById(projectUser.userId);
-    // console.log(fetchedUser);
-    console.log(error);
     setUserlistUser(fetchedUser);
   };
     /**
@@ -34,7 +38,11 @@ const WaitList = ({ key, project, projectUser, loading }) => {
      */
   const deleteUser = async (projectId, userId) => {
     window.confirm("Are you sure you want to remove user from project ?");
-    const [error, response] = await deleteUserFromProject(user.id, projectId, userId);
+    const [error, response] = await deleteUserFromProject(
+      user.id,
+      projectId,
+      userId
+    );
 
     loading(true);
 
@@ -53,7 +61,7 @@ const WaitList = ({ key, project, projectUser, loading }) => {
         display: "flex",
         justifyContent: "center",
         padding: "10px",
-        maxWidth: "90%"
+        maxWidth: "90%",
       }}
     >
       <Card
@@ -61,30 +69,61 @@ const WaitList = ({ key, project, projectUser, loading }) => {
           minWidth: "100%",
           backgroundColor: "violet",
           display: "flex",
-          justifyContent: "space-between"
+          justifyContent: "space-between",
         }}
       >
         <CardContent sx={{ display: "flex", flexDirection: "column" }}>
-          {!userListUser?.photoUrl ? <AccountCircle /> : <img src={userListUser?.photoUrl} alt="user avatar" style={{ verticalAlign: "middle", width: "60px", height: "60px", borderRadius: "40%", border: "3px solid black" }} />}
+          {!userListUser?.photoUrl ? (
+            <AccountCircle />
+          ) : (
+            <img
+              src={userListUser?.photoUrl}
+              alt="user avatar"
+              style={{
+                verticalAlign: "middle",
+                width: "60px",
+                height: "60px",
+                borderRadius: "40%",
+                border: "3px solid black",
+              }}
+            />
+          )}
           <Typography variant="h5"> {projectUser.userName}</Typography>
 
-          {(userListUser.isPrivate === false || projectUser.isOwner === true) && project.projectUsers.filter(x => x.userId === user.id).length === 1 && (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <Typography variant="h8"> Career: {userListUser.careerTitle}</Typography>
+          {(userListUser.isPrivate === false || projectUser.isOwner === true) &&
+            project.projectUsers.filter((x) => x.userId === user.id).length ===
+              1 && (
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <Typography variant="h8">
+                  {" "}
+                  Career: {userListUser.careerTitle}
+                </Typography>
 
-              <Typography variant="h8"> Email: {userListUser.email}</Typography>
+                <Typography variant="h8">
+                  {" "}
+                  Email: {userListUser.email}
+                </Typography>
 
-              <Typography variant="h8"> Portfolio: {userListUser.portfolio}</Typography>
+                <Typography variant="h8">
+                  {" "}
+                  Portfolio: {userListUser.portfolio}
+                </Typography>
 
-              <Typography variant="h8"> Description: {userListUser.description}</Typography>
+                <Typography variant="h8">
+                  {" "}
+                  Description: {userListUser.description}
+                </Typography>
 
-              {userListUser.Skills > 0 && (
-                <div key={"skills"} style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
-                  <Skills project={userListUser} />
-                </div>
-              )}
-            </div>
-          )}
+                {userListUser.Skills > 0 && (
+                  <div
+                    key={"skills"}
+                    style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
+                  >
+                    <Skills project={userListUser} />
+                  </div>
+                )}
+              </div>
+            )}
 
           {projectUser != null && projectUser.isOwner === true && (
             <Chip
@@ -95,7 +134,7 @@ const WaitList = ({ key, project, projectUser, loading }) => {
               icon={<AdminPanelSettingsIcon />}
               sx={{
                 marginLeft: "5px",
-                marginTop: "5px"
+                marginTop: "5px",
               }}
             />
           )}
@@ -107,7 +146,7 @@ const WaitList = ({ key, project, projectUser, loading }) => {
               variant="contained"
               color="darkViolet"
               sx={{
-                borderRadius: "12px"
+                borderRadius: "12px",
               }}
             >
               Delete
@@ -118,7 +157,7 @@ const WaitList = ({ key, project, projectUser, loading }) => {
                 variant="contained"
                 color="darkViolet"
                 sx={{
-                  borderRadius: "12px"
+                  borderRadius: "12px",
                 }}
               >
                 Leave
@@ -131,4 +170,4 @@ const WaitList = ({ key, project, projectUser, loading }) => {
   );
 };
 
-export default WaitList;
+export default UsersList;
