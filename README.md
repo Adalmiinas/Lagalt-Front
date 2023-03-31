@@ -11,6 +11,7 @@
 ## 1. Introduction 
 The purpose of this project was to develop a website which will be used to facilitate connecting individuals in creative fields with project that need their specific skill sets. Frontend, backend and SQL-databasse must interact with each other including authentication. This repository is frontend part of the Lagalt project.
 
+App is deployd at: [Lagalt App](https://lagalt-projects.netlify.app)
 Link to backend repository: [Lagalt-Backend](https://github.com/Adalmiinas/Lagalt-Back)
 
 <a name="tech"></a>
